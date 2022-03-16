@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 // uuidv4();
@@ -31,7 +31,7 @@ const user = new User({
   roll: 'Parent',
   familyMembers: ['Fredrik', 'Johannes']
 });
-user.save().then(() => { console.log('One entry added'); })
+// user.save().then(() => { console.log('One entry added'); })
 
 app.get('/', (req, res) => {
   User.find({}, (found, err) => {
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
       res.send(found);
     }
     console.log('this is the err', err);
-    res.send("Some error occured!")
+    res.send("Some error occured! Is this something new?")
   })
 });
 
