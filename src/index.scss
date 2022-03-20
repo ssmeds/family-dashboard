@@ -9,6 +9,11 @@ body {
   flex-wrap: wrap;
 }
 
+.upper-container,
+.lower-container {
+  display: flex;
+}
+
 .card {
   width: 350px;
   height: 400px;

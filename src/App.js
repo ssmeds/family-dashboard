@@ -9,6 +9,7 @@ import Remember from './components/Remember/Remember'
 import Chatt from './components/Chatt/Chatt'
 import Savings from './components/Savings/Savings'
 import Calendar from './components/Calendar/Calendar'
+import Todo from './components/Todo/Todo'
 
 
 
@@ -255,13 +256,18 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <GroceryList />
-      <Menu />
-      <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
-      <Savings />
-      <Chatt />
-      <Calendar />
-      <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
+      <div className="upper-container">
+        <Todo />
+        <Calendar />
+        <GroceryList />
+      </div>
+      <div className="lower-container">
+        <Chatt />
+        <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
+        <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
+        <Menu />
+        <Savings />
+      </div>
       <Footer />
     </div>
   );
