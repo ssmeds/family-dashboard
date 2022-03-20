@@ -2,8 +2,8 @@ import './groceryList.css'
 
 const GroceryList = () => {
   return (
-    <div className="groceryList-container">
-      <div>groceryList</div>
+    <div className="groceryList-container card">
+      <h1>groceryList</h1>
     </div>
   )
 }

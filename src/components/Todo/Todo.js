@@ -2,8 +2,8 @@ import './todo.css'
 
 const Todo = () => {
   return (
-    <div className="todo-container">
-      <div>todo</div>
+    <div className="todo-container card">
+      <h1>todo</h1>
     </div>
   )
 }

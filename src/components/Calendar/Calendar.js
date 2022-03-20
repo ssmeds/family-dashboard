@@ -2,8 +2,8 @@ import './calendar.css'
 
 const Calendar = () => {
   return (
-    <div className="calendar-container">
-      <div>calendar</div>
+    <div className="calendar-container card">
+      <h1>calendar</h1>
     </div>
   )
 }
