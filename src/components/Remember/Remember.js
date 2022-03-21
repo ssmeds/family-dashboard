@@ -13,15 +13,15 @@ const options = [
 ]
 
 const Remember = ({ remembers, addRemember, deleteRemember }) => {
-  console.log('remembers from App.js', remembers);
+  // console.log('remembers from App.js', remembers);
   const [task, setTask] = useState('');
   const [familyMember, setFamilyMember] = useState('');
 
   const handleSaveClick = (e) => {
     e.preventDefault();
     console.log('Nu har nån klickat på sparaknappen!');
-    console.log('Ämne', task);
-    console.log('Familjemedlem', familyMember);
+    // console.log('Ämne', task);
+    // console.log('Familjemedlem', familyMember);
     addRemember({ task, familyMember })
 
     setTask('')

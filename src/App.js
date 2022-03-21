@@ -18,6 +18,7 @@ function App() {
   // console.log(data);
   const [homework, setHomework] = useState([]);
   const [remember, setRemember] = useState([]);
+  const [todo, setTodo] = useState([]);
 
   useEffect(() => {
 
@@ -50,6 +51,16 @@ function App() {
     }
 
     getRemembers()
+  }, [])
+
+  useEffect(() => {
+
+    const getTodos = async () => {
+      const todosFromServer = await fetchTodos()
+      setTodo(todosFromServer)
+    }
+
+    getTodos()
   }, [])
 
   //Fetch homeworks
@@ -253,11 +264,69 @@ function App() {
 
   }
 
+  //Fetch todos
+  const fetchTodos = async () => {
+    const res = await fetch('http://localhost:5000/api/todos')
+    const data = await res.json()
+
+    return data
+  }
+
+  //Fetch todo
+  const fetchTodo = async (id) => {
+    const res = await fetch(`http://localhost:5000/api/todos/${id}`)
+    const data = await res.json()
+
+    return data
+  }
+
+  //Add Todo
+  const addTodo = (newTodo) => {
+    const newTodoToPost = {
+      task: newTodo.task,
+      date: newTodo.date,
+      complete: false
+    }
+
+    fetch('http://localhost:5000/api/todos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newTodoToPost)
+    })
+      .then(() => { console.log('new todo added'); })
+    console.log('todo', todo);
+    setTodo([...todo, newTodoToPost])
+
+  }
+
+  //Delete Homework
+  const deleteTodo = (id) => {
+    console.log(id);
+
+    fetch(`http://localhost:5000/api/todos/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(res => {
+        if (res.ok) {
+          console.log(('Delete successful!'));
+        }
+        else {
+          console.log('Delete unsuccessful!');
+        }
+        return res
+      })
+      .then(() => { console.log('Todo deleted'); })
+    const newTodoList = todo.filter(item => item._id !== id);
+    setTodo(newTodoList)
+
+  }
+
   return (
     <div className="App">
       <Header />
       <div className="upper-container">
-        <Todo />
+        <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
         <Calendar />
         <GroceryList />
       </div>
