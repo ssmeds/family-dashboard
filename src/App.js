@@ -270,7 +270,7 @@ function App() {
 
   //Fetch todos
   const fetchTodos = async () => {
-    const res = await fetch('http://localhost:5000/api/todos')
+    const res = await fetch(`${process.env.BACKEND_URL}/api/todos`)
     const data = await res.json()
 
     return data
@@ -278,7 +278,7 @@ function App() {
 
   //Fetch todo
   const fetchTodo = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/todos/${id}`)
+    const res = await fetch(`${process.env.BACKEND_URL}/api/todos/${id}`)
     const data = await res.json()
 
     return data
