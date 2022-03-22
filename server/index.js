@@ -35,9 +35,10 @@ mongoose
     // app.get('*', (req, res) => {
     //   res.sendFile(path.join(publicPath, 'index.html'));
     // });
-    app.use(express.static(path.join(__dirname, '..', '/public'), {
-      index: false
-    }));
+    // app.use(express.static(path.join(__dirname, '..', '/public'), {
+    //   index: false
+    // }));
+    app.use(express.static(path.join(__dirname, '../client/build')));
     app.listen(port, () => {
       console.log('server has started!');
     })
