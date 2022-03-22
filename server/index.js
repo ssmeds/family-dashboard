@@ -1,5 +1,6 @@
-require('dotenv').config();
+
 const express = require('express')
+require('dotenv').config({ path: 'server/.env' });
 const cors = require('cors')
 const port = process.env.PORT || 8080;
 const mongoose = require('mongoose');
@@ -26,8 +27,13 @@ mongoose
     app.use('/api', todoRouter)
     app.use(cors())
 
-    const publicPath = path.join(__dirname, '..', 'public')
+    const publicPath = path.join(__dirname, '..', '/build')
     app.use(express.static(publicPath))
+
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(publicPath, 'index.html'));
+    });
+
     app.listen(port, () => {
       console.log('server has started!');
     })
