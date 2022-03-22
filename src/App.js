@@ -13,9 +13,10 @@ import Todo from './components/Todo/Todo'
 
 import moment from 'moment/min/moment-with-locales'
 
-
+require('dotenv').config({ path: 'src/.env' })
 
 function App() {
+
   const [data, setData] = useState([]);
   // console.log(data);
   const [homework, setHomework] = useState([]);
