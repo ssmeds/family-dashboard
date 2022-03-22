@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import Homework from './components/Homework/Homework'
@@ -28,7 +27,7 @@ function App() {
   useEffect(() => {
 
     const fetchData = async () => {
-      await fetch('http://localhost:5000/api/users')
+      await fetch(`${process.env.BACKEND_URL}/api/users`)
         .then((response) => response.json())
         .then((data) => {
           setData(data)
@@ -70,7 +69,7 @@ function App() {
 
   //Fetch homeworks
   const fetchHomeworks = async () => {
-    const res = await fetch('http://localhost:5000/api/homeworks')
+    const res = await fetch(`${process.env.BACKEND_URL}/api/homeworks`)
     const data = await res.json()
 
     return data
@@ -78,7 +77,7 @@ function App() {
 
   //Fetch homework
   const fetchHomework = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/homeworks/${id}`)
+    const res = await fetch(`${process.env.BACKEND_URL}/api/homeworks/${id}`)
     const data = await res.json()
 
     return data
@@ -94,7 +93,7 @@ function App() {
       complete: false
     }
 
-    fetch('http://localhost:5000/api/homeworks', {
+    fetch(`${process.env.BACKEND_URL}/api/homeworks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newHomeworkToPost)
@@ -109,7 +108,7 @@ function App() {
   const deleteHomework = (id) => {
     console.log(id);
 
-    fetch(`http://localhost:5000/api/homeworks/${id}`, {
+    fetch(`${process.env.BACKEND_URL}/api/homeworks/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -148,7 +147,7 @@ function App() {
   //     complete = false;
   //   }
   //   console.log('complete', complete);
-  //   fetch(`http://localhost:5000/api/homeworks/${id}`, {
+  //   fetch(`${process.env.BACKEND_URL}/api/homeworks/${id}`, {
   //     method: 'PATCH',
   //     headers: { 'Content-Type': 'application/json' },
   //     body: JSON.stringify({ complete: !complete })
@@ -172,7 +171,7 @@ function App() {
     const homeworkToToggle = await fetchHomework(id);
     const toggleHomework = { ...homeworkToToggle, complete: !homeworkToToggle.complete }
 
-    const res = await fetch(`http://localhost:5000/api/homeworks/${id}`, {
+    const res = await fetch(`${process.env.BACKEND_URL}/api/homeworks/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(toggleHomework)
@@ -188,7 +187,7 @@ function App() {
 
   //Fetch remembers
   const fetchRemembers = async () => {
-    const res = await fetch('http://localhost:5000/api/remembers')
+    const res = await fetch(`${process.env.BACKEND_URL}/api/remembers`)
     const data = await res.json()
 
     return data
@@ -196,7 +195,7 @@ function App() {
 
   //Fetch remember
   const fetchRemember = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/remembers/${id}`)
+    const res = await fetch(`${process.env.BACKEND_URL}/api/remembers/${id}`)
     const data = await res.json()
 
     return data
@@ -236,7 +235,7 @@ function App() {
       color: color
     }
 
-    fetch('http://localhost:5000/api/remembers', {
+    fetch(`${process.env.BACKEND_URL}/api/remembers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newRememberToPost)
@@ -250,7 +249,7 @@ function App() {
   const deleteRemember = (id) => {
     console.log(id);
 
-    fetch(`http://localhost:5000/api/remembers/${id}`, {
+    fetch(`${process.env.BACKEND_URL}/api/remembers/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -294,7 +293,7 @@ function App() {
       complete: false
     }
 
-    fetch('http://localhost:5000/api/todos', {
+    fetch(`${process.env.BACKEND_URL}/api/todos`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newTodoToPost)
@@ -309,7 +308,7 @@ function App() {
   const deleteTodo = (id) => {
     console.log(id);
 
-    fetch(`http://localhost:5000/api/todos/${id}`, {
+    fetch(`${process.env.BACKEND_URL}/api/todos/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
