@@ -12,10 +12,10 @@ import Todo from './components/Todo/Todo'
 
 import moment from 'moment/min/moment-with-locales'
 
-require('dotenv').config({ path: 'src/.env' })
+
 
 function App() {
-
+  const BACKEND_URL = 'https://familydashboard.herokuapp.com'
   const [data, setData] = useState([]);
   // console.log(data);
   const [homework, setHomework] = useState([]);
@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
 
     const fetchData = async () => {
-      await fetch(`${process.env.BACKEND_URL}/api/users`)
+      await fetch(`${BACKEND_URL}/api/users`)
         .then((response) => response.json())
         .then((data) => {
           setData(data)
@@ -69,7 +69,7 @@ function App() {
 
   //Fetch homeworks
   const fetchHomeworks = async () => {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/homeworks`)
+    const res = await fetch(`${BACKEND_URL}/api/homeworks`)
     const data = await res.json()
 
     return data
@@ -77,7 +77,7 @@ function App() {
 
   //Fetch homework
   const fetchHomework = async (id) => {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/homeworks/${id}`)
+    const res = await fetch(`${BACKEND_URL}/api/homeworks/${id}`)
     const data = await res.json()
 
     return data
@@ -93,7 +93,7 @@ function App() {
       complete: false
     }
 
-    fetch(`${process.env.BACKEND_URL}/api/homeworks`, {
+    fetch(`${BACKEND_URL}/api/homeworks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newHomeworkToPost)
@@ -108,7 +108,7 @@ function App() {
   const deleteHomework = (id) => {
     console.log(id);
 
-    fetch(`${process.env.BACKEND_URL}/api/homeworks/${id}`, {
+    fetch(`${BACKEND_URL}/api/homeworks/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -147,7 +147,7 @@ function App() {
   //     complete = false;
   //   }
   //   console.log('complete', complete);
-  //   fetch(`${process.env.BACKEND_URL}/api/homeworks/${id}`, {
+  //   fetch(`${BACKEND_URL}/api/homeworks/${id}`, {
   //     method: 'PATCH',
   //     headers: { 'Content-Type': 'application/json' },
   //     body: JSON.stringify({ complete: !complete })
@@ -171,7 +171,7 @@ function App() {
     const homeworkToToggle = await fetchHomework(id);
     const toggleHomework = { ...homeworkToToggle, complete: !homeworkToToggle.complete }
 
-    const res = await fetch(`${process.env.BACKEND_URL}/api/homeworks/${id}`, {
+    const res = await fetch(`${BACKEND_URL}/api/homeworks/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(toggleHomework)
@@ -187,7 +187,7 @@ function App() {
 
   //Fetch remembers
   const fetchRemembers = async () => {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/remembers`)
+    const res = await fetch(`${BACKEND_URL}/api/remembers`)
     const data = await res.json()
 
     return data
@@ -195,7 +195,7 @@ function App() {
 
   //Fetch remember
   const fetchRemember = async (id) => {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/remembers/${id}`)
+    const res = await fetch(`${BACKEND_URL}/api/remembers/${id}`)
     const data = await res.json()
 
     return data
@@ -235,7 +235,7 @@ function App() {
       color: color
     }
 
-    fetch(`${process.env.BACKEND_URL}/api/remembers`, {
+    fetch(`${BACKEND_URL}/api/remembers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newRememberToPost)
@@ -249,7 +249,7 @@ function App() {
   const deleteRemember = (id) => {
     console.log(id);
 
-    fetch(`${process.env.BACKEND_URL}/api/remembers/${id}`, {
+    fetch(`${BACKEND_URL}/api/remembers/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -270,7 +270,7 @@ function App() {
 
   //Fetch todos
   const fetchTodos = async () => {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/todos`)
+    const res = await fetch(`${BACKEND_URL}/api/todos`)
     const data = await res.json()
 
     return data
@@ -278,7 +278,7 @@ function App() {
 
   //Fetch todo
   const fetchTodo = async (id) => {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/todos/${id}`)
+    const res = await fetch(`${BACKEND_URL}/api/todos/${id}`)
     const data = await res.json()
 
     return data
@@ -293,7 +293,7 @@ function App() {
       complete: false
     }
 
-    fetch(`${process.env.BACKEND_URL}/api/todos`, {
+    fetch(`${BACKEND_URL}/api/todos`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newTodoToPost)
@@ -308,7 +308,7 @@ function App() {
   const deleteTodo = (id) => {
     console.log(id);
 
-    fetch(`${process.env.BACKEND_URL}/api/todos/${id}`, {
+    fetch(`${BACKEND_URL}/api/todos/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     })
