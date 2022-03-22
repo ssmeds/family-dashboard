@@ -1,12 +1,13 @@
 .todo-container {
-  height: fit-content;
+  height: 598px;
+  margin-bottom: 2rem;
 
   .todo-list {
     display: flex;
     flex-direction: column;
     text-align: left;
     overflow-y: scroll;
-    height: 200px;
+    height: 400px;
     // height: fit-content;
 
 

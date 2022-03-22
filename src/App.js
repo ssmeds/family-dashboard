@@ -8,8 +8,10 @@ import Menu from './components/Menu/Menu'
 import Remember from './components/Remember/Remember'
 import Chatt from './components/Chatt/Chatt'
 import Savings from './components/Savings/Savings'
-import Calendar from './components/Calendar/Calendar'
+import CalendarView from './components/Calendar/CalendarView'
 import Todo from './components/Todo/Todo'
+
+import moment from 'moment/min/moment-with-locales'
 
 
 
@@ -19,6 +21,8 @@ function App() {
   const [homework, setHomework] = useState([]);
   const [remember, setRemember] = useState([]);
   const [todo, setTodo] = useState([]);
+  const [value, setValue] = useState(moment())
+  // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
 
@@ -282,6 +286,7 @@ function App() {
 
   //Add Todo
   const addTodo = (newTodo) => {
+    console.log('newTodo: ', newTodo);
     const newTodoToPost = {
       task: newTodo.task,
       date: newTodo.date,
@@ -327,7 +332,7 @@ function App() {
       <Header />
       <div className="upper-container">
         <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
-        <Calendar />
+        <CalendarView value={value} onChange={setValue} onAdd={addTodo} todos={todo} />
         <GroceryList />
       </div>
       <div className="lower-container">
