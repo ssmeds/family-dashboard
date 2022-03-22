@@ -9,6 +9,8 @@ const homeworkRouter = require('./Routes/homeworkRouter')
 const rememberRouter = require('./Routes/rememberRouter')
 const todoRouter = require('./Routes/todoRouter')
 
+// mongodb + srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
 mongoose
   .connect(
     process.env.MONGODB_URI,
@@ -27,13 +29,15 @@ mongoose
     app.use('/api', todoRouter)
     app.use(cors())
 
-    const publicPath = path.join(__dirname, '..', '/build')
-    app.use(express.static(publicPath))
+    // const publicPath = path.join(__dirname, '..', '/build')
+    // app.use(express.static(publicPath))
 
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(publicPath, 'index.html'));
-    });
-
+    // app.get('*', (req, res) => {
+    //   res.sendFile(path.join(publicPath, 'index.html'));
+    // });
+    app.use(express.static(path.join(__dirname, 'public'), {
+      index: false
+    }));
     app.listen(port, () => {
       console.log('server has started!');
     })
