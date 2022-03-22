@@ -4,19 +4,25 @@ import CalendarHeader from './CalendarHeader'
 import { dayStyles } from './calendarStyles'
 import CalendarPopup from './CalendarPopup'
 import './calendar.css'
-
+import { format } from 'date-fns'
 
 
 
 const CalendarView = ({ value, onChange, onAdd, todos }) => {
-  console.log('todos', todos);
+  // console.log('todos.date', todos[0].date);
+  let formattedDatesTodos = todos.map(item => {
+    // console.log('nytt datum', item.date);
+    return { ...item, date: item.date.slice(0, 10) }
+  })
+  // console.log('new todos after slice', formattedDates)
+  // console.log('value', value);
   const [calendar, setCalendar] = useState([])
   const [buttonPopup, setButtonPopup] = useState(false)
   const [date, setDate] = useState('')
   useEffect(() => {
-
-    setCalendar(buildCalender(value, todos))
-  }, [value, todos])
+    // console.log('inuti useeffect med value');
+    setCalendar(buildCalender(value))
+  }, [value])
 
 
 
@@ -45,7 +51,8 @@ const CalendarView = ({ value, onChange, onAdd, todos }) => {
                     {day.format('D')}
 
                   </div>
-                  {todos.map((todo) => {
+                  {formattedDatesTodos.map((todo) => {
+                    // console.log('todo i todos.map', todo);
                     return (
                       todo.date === day.format('L') ? <li key={Math.floor(Math.random() * 10000) + 1} className='todos'>{todo.task}</li> : ''
                     )

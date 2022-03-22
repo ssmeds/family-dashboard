@@ -7,6 +7,10 @@ import TodoItem from './TodoItem'
 const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete }) => {
   const todo = todos;
   // console.log('todo', todo);
+  let formattedDatesTodos = todo.map(item => {
+    // console.log('nytt datum', item.date);
+    return { ...item, date: item.date.slice(0, 10) }
+  })
   // console.log(props);
   todo.sort((a, b) => {
     let da = new Date(a.date),
@@ -20,8 +24,9 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete }) => {
 
   const handleSaveClick = (e) => {
     e.preventDefault();
-    console.log('Nu har nån klickat på sparaknappen!');
-    console.log('Ämne', task);
+    // console.log('Nu har nån klickat på sparaknappen!');
+    // console.log('Ämne', task);
+    // console.log('Datum', date);
     addTodo({ task, date })
 
     setDate('')
@@ -35,7 +40,7 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete }) => {
       <Week />
       <div className='todo-list'>
         <>
-          {todo.map((todo, i) => (
+          {formattedDatesTodos.map((todo, i) => (
             <TodoItem
               key={todo._id ? todo._id : i}
               todo={todo}

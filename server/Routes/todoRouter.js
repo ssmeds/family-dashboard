@@ -13,6 +13,8 @@ router.get('/todos', async (req, res) => {
 
 //Post a new todo
 router.post('/todos', async (req, res) => {
+  console.log('req.body.date', req.body.date);
+  console.log('req.body.date', req.body.task);
   const todo = new Todo({
     task: req.body.task,
     date: req.body.date,

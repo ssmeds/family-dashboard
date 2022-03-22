@@ -17,7 +17,7 @@ import moment from 'moment/min/moment-with-locales'
 function App() {
   const BACKEND_URL = 'https://familydashboard.herokuapp.com'
   const [data, setData] = useState([]);
-  // console.log(data);
+  // ////console.log(data);
   const [homework, setHomework] = useState([]);
   const [remember, setRemember] = useState([]);
   const [todo, setTodo] = useState([]);
@@ -31,7 +31,7 @@ function App() {
         .then((response) => response.json())
         .then((data) => {
           setData(data)
-          console.log(data);
+          ////console.log(data);
         })
     }
     fetchData()
@@ -86,7 +86,7 @@ function App() {
 
   //Add Homework
   const addHomework = (newHomework) => {
-    // console.log(homework);
+    // ////console.log(homework);
     const newHomeworkToPost = {
       subject: newHomework.subject,
       assignment: newHomework.assignment,
@@ -99,14 +99,14 @@ function App() {
       body: JSON.stringify(newHomeworkToPost)
     })
       .then(() => { console.log('new homework added'); })
-    console.log('homework', homework);
+    ////console.log('homework', homework);
     setHomework([...homework, newHomeworkToPost])
 
   }
 
   //Delete Homework
   const deleteHomework = (id) => {
-    console.log(id);
+    ////console.log(id);
 
     fetch(`${BACKEND_URL}/api/homeworks/${id}`, {
       method: 'DELETE',
@@ -114,10 +114,10 @@ function App() {
     })
       .then(res => {
         if (res.ok) {
-          console.log(('Delete successful!'));
+          ////console.log(('Delete successful!'));
         }
         else {
-          console.log('Delete unsuccessful!');
+          ////console.log('Delete unsuccessful!');
         }
         return res
       })
@@ -129,24 +129,24 @@ function App() {
 
   // //Update Homework
   // const updateHomework = (id) => {
-  //   console.log("id", id);
+  //   ////console.log("id", id);
 
-  //   // console.log("completed", completed);
+  //   // ////console.log("completed", completed);
 
   //   // const updHomework = {
   //   //   complete: completed
   //   // }
-  //   // console.log('updateHomework', updHomework);
+  //   // ////console.log('updateHomework', updHomework);
 
   //   const found = homework.find(item => item._id === id)
-  //   console.log('found', found);
+  //   ////console.log('found', found);
   //   let complete;
   //   if (found.complete) {
   //     complete = true;
   //   } else {
   //     complete = false;
   //   }
-  //   console.log('complete', complete);
+  //   ////console.log('complete', complete);
   //   fetch(`${BACKEND_URL}/api/homeworks/${id}`, {
   //     method: 'PATCH',
   //     headers: { 'Content-Type': 'application/json' },
@@ -154,14 +154,14 @@ function App() {
   //   })
   //     .then(res => {
   //       if (res.ok) {
-  //         console.log(('Update successful!'));
+  //         ////console.log(('Update successful!'));
   //       }
   //       else {
-  //         console.log('Update unsuccessful!');
+  //         ////console.log('Update unsuccessful!');
   //       }
   //       return res
   //     })
-  //     .then(() => { console.log('Homework updated'); })
+  //     .then(() => { ////console.log('Homework updated'); })
   //   setHomework(homework.map(homework => homework._id === id ? { ...homework, complete: !homework.complete } : homework))
 
   // }
@@ -203,7 +203,7 @@ function App() {
 
   //Add Remember
   const addRemember = (newRemember) => {
-    // console.log(newRemember);
+    // ////console.log(newRemember);
     let color;
     switch (newRemember.familyMember) {
       case 'Fredrik':
@@ -241,13 +241,13 @@ function App() {
       body: JSON.stringify(newRememberToPost)
     })
       .then(() => { console.log('new remember added'); })
-    console.log('remember', remember);
+    ////console.log('remember', remember);
     setRemember([...remember, newRememberToPost])
   }
 
   //Delete Remember
   const deleteRemember = (id) => {
-    console.log(id);
+    ////console.log(id);
 
     fetch(`${BACKEND_URL}/api/remembers/${id}`, {
       method: 'DELETE',
@@ -255,10 +255,10 @@ function App() {
     })
       .then(res => {
         if (res.ok) {
-          console.log(('Delete successful!'));
+          ////console.log(('Delete successful!'));
         }
         else {
-          console.log('Delete unsuccessful!');
+          ////console.log('Delete unsuccessful!');
         }
         return res
       })
@@ -272,7 +272,7 @@ function App() {
   const fetchTodos = async () => {
     const res = await fetch(`${BACKEND_URL}/api/todos`)
     const data = await res.json()
-
+    ////console.log('data from fetchTodos', data);
     return data
   }
 
@@ -286,7 +286,7 @@ function App() {
 
   //Add Todo
   const addTodo = (newTodo) => {
-    console.log('newTodo: ', newTodo);
+    ////console.log('newTodo: ', newTodo);
     const newTodoToPost = {
       task: newTodo.task,
       date: newTodo.date,
@@ -299,14 +299,14 @@ function App() {
       body: JSON.stringify(newTodoToPost)
     })
       .then(() => { console.log('new todo added'); })
-    console.log('todo', todo);
+    ////console.log('todo', todo);
     setTodo([...todo, newTodoToPost])
 
   }
 
   //Delete Homework
   const deleteTodo = (id) => {
-    console.log(id);
+    ////console.log(id);
 
     fetch(`${BACKEND_URL}/api/todos/${id}`, {
       method: 'DELETE',
@@ -314,10 +314,10 @@ function App() {
     })
       .then(res => {
         if (res.ok) {
-          console.log(('Delete successful!'));
+          ////console.log(('Delete successful!'));
         }
         else {
-          console.log('Delete unsuccessful!');
+          ////console.log('Delete unsuccessful!');
         }
         return res
       })

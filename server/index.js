@@ -13,7 +13,7 @@ const todoRouter = require('./Routes/todoRouter')
 
 mongoose
   .connect(
-    process.env.MONGODB_URI,
+    process.env.MONGODB_URI || 'mongodb+srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
       useUnifiedTopology: true
