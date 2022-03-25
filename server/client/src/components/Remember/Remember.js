@@ -32,8 +32,10 @@ const Remember = ({ remembers, addRemember, deleteRemember }) => {
 
   return (
     <div className="remember-container card">
-      <h1>Kom-ihåg</h1>
-      <RememberItem remembers={remembers} deleteRemember={deleteRemember} />
+      <div className="remember-header card-header"><h1>Kom-ihåg</h1></div>
+      <div className="card-list remember-list">
+        <RememberItem remembers={remembers} deleteRemember={deleteRemember} />
+      </div>
       <form onSubmit={handleSaveClick} id='form-select'>
         <input
           type="text"

@@ -36,9 +36,10 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete }) => {
 
   return (
     <div className="todo-container card">
-      <h1>Todos</h1>
-      <Week />
-      <div className='todo-list'>
+      <div className="card-header todo-header"><h1>Todos</h1>
+        <Week /></div>
+
+      <div className='card-list todo-list'>
         <>
           {formattedDatesTodos.map((todo, i) => (
             <TodoItem

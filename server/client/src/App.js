@@ -225,7 +225,7 @@ function App() {
         color = '#F2FF40';
         break;
       default:
-        color = '#000';
+        color = '#5593e4';
 
     }
     const newRememberToPost = {

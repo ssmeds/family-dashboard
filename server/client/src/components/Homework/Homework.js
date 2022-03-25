@@ -34,9 +34,10 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
 
   return (
     <div className="homework-container card">
-      <h1>Läxor</h1>
-      <Week />
-      <div className='homework-list'>
+      <div className="homework-header card-header"><h1>Läxor</h1>
+        <Week /></div>
+
+      <div className='card-list homework-list'>
         <>
           {homework.map((homework, i) => (
             <HomeworkItem
