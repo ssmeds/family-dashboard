@@ -12,6 +12,13 @@ const options = [
   { value: 'Samhällskunskap', label: "Samhällskunskap" }
 ]
 
+const familyMembersOptions = [
+  { value: '', label: 'Välj familjemedlem', disabled: true },
+  { value: 'Johannes', label: "Johannes" },
+  { value: 'Samuel', label: "Samuel" },
+  { value: 'Sebastian', label: "Sebastian" }
+]
+
 const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, toggleComplete }) => {
   const homework = homeworks;
   // console.log(homework);
@@ -19,6 +26,7 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
 
   const [subject, setSubject] = useState('');
   const [assignment, setAssignment] = useState('');
+  const [familyMember, setFamilyMember] = useState('');
   // const [complete, setComplete] = useState(false);
 
   const handleSaveClick = (e) => {
@@ -67,6 +75,19 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
           value={subject}
         >
           {options.map((item, i) => (
+            <option disabled={item.disabled} key={i} value={item.value}>{item.label}</option>
+          ))}
+
+
+        </select>
+        <select
+          name="homework-form-select"
+          id="homework-familyMember-select"
+          onChange={e => { setFamilyMember(e.target.value) }}
+          placeholder="Välj familjemedlem"
+          value={familyMember}
+        >
+          {familyMembersOptions.map((item, i) => (
             <option disabled={item.disabled} key={i} value={item.value}>{item.label}</option>
           ))}
 
