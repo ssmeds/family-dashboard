@@ -332,21 +332,23 @@ function App() {
 
   const addNewUser = (newUser) => {
     console.log('new user', newUser);
-    // const newTodoToPost = {
-    //   task: newTodo.task,
-    //   date: newTodo.date,
-    //   complete: false
-    // }
+    const newUserToPost = {
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
+      role: newUser.role,
+      password: newUser.password,
+    }
 
     fetch(`${BACKEND_URL}/api/users`, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newUser)
+      body: JSON.stringify(newUserToPost)
     })
       .then(() => { console.log('new user added'); })
     ////console.log('todo', todo);
-    setUser([...user, newUser])
+    setUser([...user, newUserToPost])
   }
 
   return (
