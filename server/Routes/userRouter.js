@@ -13,11 +13,13 @@ router.get('/users', async (req, res) => {
 
 //Post a new user
 router.post('/users', async (req, res) => {
+  console.log('req.body', req.body);
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     role: req.body.role,
-    familyMembers: req.body.familyMembers
+    email: req.body.email,
+    password: req.body.password
   })
   await user.save()
   res.send(user)
@@ -48,8 +50,11 @@ router.patch('/users/:id', async (req, res) => {
     if (req.body.role) {
       user.role = req.body.role
     }
-    if (req.body.familyMembers) {
-      user.familyMembers = req.body.familyMembers
+    if (req.body.email) {
+      user.email = req.body.email
+    }
+    if (req.body.password) {
+      user.password = req.body.password
     }
     await user.save()
     res.send(user)

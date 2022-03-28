@@ -6,7 +6,7 @@ const RememberItem = ({ remembers, deleteRemember }) => {
   return (
     <>
       {remembers.map((item, i) => {
-        console.log('item.color', item.color);
+        // console.log('item.color', item.color);
         let color = hex_is_light(item.color)
         return (
           <div key={i} className="remember-item" style={color ? { backgroundColor: item.color } : { backgroundColor: item.color, color: '#fff' }}>

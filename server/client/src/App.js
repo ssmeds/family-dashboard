@@ -9,6 +9,7 @@ import Chatt from './components/Chatt/Chatt'
 import Savings from './components/Savings/Savings'
 import CalendarView from './components/Calendar/CalendarView'
 import Todo from './components/Todo/Todo'
+import Register from './components/Register/Register'
 
 import moment from 'moment/min/moment-with-locales'
 
@@ -22,6 +23,8 @@ function App() {
   const [remember, setRemember] = useState([]);
   const [todo, setTodo] = useState([]);
   const [value, setValue] = useState(moment())
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState('');
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -327,22 +330,48 @@ function App() {
 
   }
 
+  const addNewUser = (newUser) => {
+    console.log('new user', newUser);
+    // const newTodoToPost = {
+    //   task: newTodo.task,
+    //   date: newTodo.date,
+    //   complete: false
+    // }
+
+    fetch(`${BACKEND_URL}/api/users`, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newUser)
+    })
+      .then(() => { console.log('new user added'); })
+    ////console.log('todo', todo);
+    setUser([...user, newUser])
+  }
+
   return (
     <div className="App">
-      <Header />
-      <div className="upper-container">
-        <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
-        <CalendarView value={value} onChange={setValue} onAdd={addTodo} todos={todo} />
-        <GroceryList />
-      </div>
-      <div className="lower-container">
-        <Chatt />
-        <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
-        <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
-        <Menu />
-        <Savings />
-      </div>
-      <Footer />
+      <Register addNewUser={addNewUser} />
+      {isLoggedIn ? (
+        <>
+          <Header />
+          <div className="upper-container">
+            <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
+            <CalendarView value={value} onChange={setValue} onAdd={addTodo} todos={todo} />
+            <GroceryList />
+          </div>
+          <div className="lower-container">
+            <Chatt />
+            <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
+            <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
+            <Menu />
+            <Savings />
+          </div>
+
+          <Footer />
+        </>
+      ) : ''}
+
     </div>
   );
 }

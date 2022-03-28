@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   role: String,
-  familyMembers: [String]
+  email: String,
+  password: String
 })
 
 const User = mongoose.model('User', userSchema)
@@ -16,7 +17,8 @@ const user = new User({
   firstName: 'Stintan',
   lastName: 'Smedsan',
   role: 'Parent',
-  familyMembers: ['Fredrik', 'Johannes']
+  email: 'stina@stina.se',
+  password: '123'
 });
-// user.save().then(() => { console.log('One entry added'); })
+// user.save().then(() => { console.log('One user added'); })
 module.exports = mongoose.model('Users', userSchema)

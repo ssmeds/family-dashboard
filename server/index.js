@@ -11,6 +11,13 @@ const todoRouter = require('./Routes/todoRouter')
 
 // mongodb + srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
+
+const corsOptions = {
+  origin: '*',
+  credentials: true,            //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+}
+
 mongoose
   .connect(
     process.env.MONGODB_URI || 'mongodb+srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -21,13 +28,15 @@ mongoose
   )
   .then(() => {
     const app = express()
+    // app.use(cors())
+    app.use(cors(corsOptions))
     const path = require('path')
     app.use(express.json())
     app.use('/api', userRouter)
     app.use('/api', homeworkRouter)
     app.use('/api', rememberRouter)
     app.use('/api', todoRouter)
-    app.use(cors())
+
 
     // const publicPath = path.join(__dirname, '..', '/build')
     // app.use(express.static(publicPath))
@@ -51,7 +60,7 @@ mongoose
     }
 
 
-    app.listen(port, () => {
+    app.listen(process.env.PORT || port, () => {
       console.log('server has started!');
     })
 

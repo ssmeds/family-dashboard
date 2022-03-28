@@ -1,0 +1,26 @@
+.register-container {
+  background: rebeccapurple;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  padding: 1rem;
+  margin: 0 auto;
+
+  h2 {
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+
+    // button {
+    //   // width: 90%;
+    //   margin: 0 auto;
+    // }
+  }
+
+
+}
