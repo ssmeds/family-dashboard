@@ -1,7 +1,7 @@
 import './firstSetup.css'
 import { useState } from 'react'
 
-const FirstSetup = React.createClass({ addNewUser }) => {
+const FirstSetup = ({ addNewUser }) => {
   const [newUser, setNewUser] = useState('')
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,4 +45,4 @@ const FirstSetup = React.createClass({ addNewUser }) => {
     </div>
   )
 }
-export default FirstSetup = React.createClass({
+export default FirstSetup
