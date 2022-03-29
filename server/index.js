@@ -12,11 +12,11 @@ const todoRouter = require('./Routes/todoRouter')
 // mongodb + srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 
-const corsOptions = {
-  origin: '*',
-  credentials: true,            //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-}
+// const corsOptions = {
+//   origin: 'https://familydashboard.herokuapp.com/',
+//   credentials: true,            //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// }
 
 mongoose
   .connect(
@@ -29,7 +29,11 @@ mongoose
   .then(() => {
     const app = express()
     // app.use(cors())
-    app.use(cors(corsOptions))
+    app.use(cors({
+      origin: "*",
+      methods: ['POST', 'PUT', 'DELETE', 'GET'],
+      credentials: true
+    }))
     const path = require('path')
     app.use(express.json())
     app.use('/api', userRouter)
@@ -60,7 +64,7 @@ mongoose
     }
 
 
-    app.listen(process.env.PORT || port, () => {
+    app.listen(port, () => {
       console.log('server has started!');
     })
 

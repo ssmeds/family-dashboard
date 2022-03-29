@@ -5,11 +5,7 @@ const Register = ({ addNewUser }) => {
   const [newUser, setNewUser] = useState('')
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log('Registrera any användare');
-    // console.log(e.target.firstName.value);
-    // console.log(e.target.lastName.value);
-    // console.log(e.target.email.value);
-    // console.log(e.target.select);
+
     let select = document.querySelector("#select-role")
     // console.log(select.options[select.selectedIndex].value)
     const newUser = {

@@ -23,22 +23,22 @@ function App() {
   const [remember, setRemember] = useState([]);
   const [todo, setTodo] = useState([]);
   const [value, setValue] = useState(moment())
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState('');
   // const [tasks, setTasks] = useState([])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const fetchData = async () => {
-      await fetch(`${BACKEND_URL}/api/users`)
-        .then((response) => response.json())
-        .then((data) => {
-          setData(data)
-          ////console.log(data);
-        })
-    }
-    fetchData()
-  }, [])
+  //   const fetchData = async () => {
+  //     await fetch(`${BACKEND_URL}/api/users`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setData(data)
+  //         ////console.log(data);
+  //       })
+  //   }
+  //   fetchData()
+  // }, [])
 
   useEffect(() => {
 
@@ -332,6 +332,7 @@ function App() {
 
   const addNewUser = (newUser) => {
     console.log('new user', newUser);
+    console.log('newuser.firstname:', newUser.firstName);
     const newUserToPost = {
       firstName: newUser.firstName,
       lastName: newUser.lastName,
@@ -339,11 +340,15 @@ function App() {
       role: newUser.role,
       password: newUser.password,
     }
-
+    console.log('newUserToPost', newUserToPost);
     fetch(`${BACKEND_URL}/api/users`, {
       method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      // credentials: 'include',
+      // mode: 'no-cors',
+      headers: {
+        // 'Access-Control-Allow-Origin': true,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(newUserToPost)
     })
       .then(() => { console.log('new user added'); })

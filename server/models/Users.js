@@ -12,13 +12,13 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema)
 
-const user = new User({
-  // userId: uuidv4(),
-  firstName: 'Stintan',
-  lastName: 'Smedsan',
-  role: 'Parent',
-  email: 'stina@stina.se',
-  password: '123'
-});
+// const user = new User({
+//   // userId: uuidv4(),
+//   firstName: 'Stintan',
+//   lastName: 'Smedsan',
+//   role: 'Parent',
+//   email: 'stina@stina.se',
+//   password: '123'
+// });
 // user.save().then(() => { console.log('One user added'); })
-module.exports = mongoose.model('Users', userSchema)
+module.exports = mongoose.model('Users', userSchema);

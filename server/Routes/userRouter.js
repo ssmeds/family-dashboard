@@ -1,13 +1,18 @@
 const express = require('express');
-const Users = require('../models/Users');
+const User = require('../models/Users');
 const router = express.Router()
 const cors = require('cors')
 
 router.use(cors());
+// router.use(cors({
+//   origin: "*",
+//   methods: ['POST', 'PUT', 'DELETE', 'GET'],
+//   credentials: true
+// }));
 
 //Get all Users
 router.get('/users', async (req, res) => {
-  const users = await Users.find()
+  const users = await User.find()
   res.send(users)
 })
 
@@ -28,7 +33,7 @@ router.post('/users', async (req, res) => {
 //Get individual user
 router.get('/users/:id', async (req, res) => {
   try {
-    const user = await Users.findOne({ _id: req.params.id })
+    const user = await User.findOne({ _id: req.params.id })
     res.send(user)
   } catch {
     res.status(404)
