@@ -1,21 +1,36 @@
-.register-container {
-  background: rebeccapurple;
+.firstSetup-container {
+  background: pink;
   display: flex;
   flex-direction: column;
   width: 250px;
   padding: 1rem;
   margin: 0 auto;
 
-  form {
+  h2 {
+    text-align: center;
+    color: #fff;
+  }
+
+  #firstSetup-form-numberOfFamilyMembers {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     width: 90%;
     margin: 0 auto;
 
-    // button {
-    //   // width: 90%;
-    //   margin: 0 auto;
-    // }
+    label {
+      font-size: 0.8rem;
+    }
+
+    input {
+      width: 60%;
+      margin: 0 1rem;
+      text-align: center;
+    }
+
+    button {
+      width: 80%;
+      // margin: 0 auto;
+    }
   }
 
 
