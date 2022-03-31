@@ -18,16 +18,32 @@ router.get('/users', async (req, res) => {
 
 //Post a new user
 router.post('/users', async (req, res) => {
-  console.log('req.body-testar:', req.body);
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    role: req.body.role,
-    email: req.body.email,
-    password: req.body.password
-  })
-  await user.save()
-  res.send(user)
+  console.log('req.body.familyMembers:', req.body.familyMembers);
+  try {
+    console.log('connected to mongodb');
+
+    await new userSchema({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+      familyMembers: [{
+        childFirstName: req.body.familyMembers.childFirstName,
+        personalNumber: req.body.familyMembers.personalNumber
+      }],
+    }).save()
+  } catch (err) {
+    console.log(err)
+  }
+//   const user = new User({
+//     firstName: req.body.firstName,
+//     lastName: req.body.lastName,
+//     role: req.body.role,
+//     email: req.body.email,
+//     password: req.body.password
+//   })
+//   await user.save()
+//   res.send(user)
 })
 
 //Get individual user
