@@ -18,7 +18,7 @@ router.get('/users', async (req, res) => {
 
 //Post a new user
 router.post('/users', async (req, res) => {
-  console.log('req.body', req.body);
+  console.log('req.body-testar:', req.body);
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
