@@ -27,9 +27,9 @@ router.post('/users', async (req, res) => {
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
-      familyMembers: [
+      familyMembers: 
         req.body.familyMembers
-      ],
+      ,
     }).save()
   } catch (err) {
     console.log(err)
