@@ -27,22 +27,23 @@ router.post('/users', async (req, res) => {
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
-      familyMembers: [
+      color: req.body.color,
+      familyMembers:
         req.body.familyMembers
-      ],
+      ,
     }).save()
   } catch (err) {
     console.log(err)
   }
-//   const user = new User({
-//     firstName: req.body.firstName,
-//     lastName: req.body.lastName,
-//     role: req.body.role,
-//     email: req.body.email,
-//     password: req.body.password
-//   })
-//   await user.save()
-//   res.send(user)
+  //   const user = new User({
+  //     firstName: req.body.firstName,
+  //     lastName: req.body.lastName,
+  //     role: req.body.role,
+  //     email: req.body.email,
+  //     password: req.body.password
+  //   })
+  //   await user.save()
+  //   res.send(user)
 })
 
 //Get individual user

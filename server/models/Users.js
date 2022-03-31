@@ -6,7 +6,8 @@ const { Schema } = mongoose;
 const familyMembersSchema = new Schema(
   {
     childFirstName: String,
-    personalNumber: Number
+    personalNumber: Number,
+    color: String
   }
 )
 
@@ -15,6 +16,7 @@ const userSchema = new Schema({
   lastName: String,
   email: String,
   password: String,
+  color: String,
   familyMembers: [familyMembersSchema],
 });
 

@@ -13,6 +13,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { makeStyles } from 'tss-react/mui';
 
+
 const useStyles = makeStyles()((theme) => {
   return {
     root: {
@@ -29,33 +30,38 @@ const useStyles = makeStyles()((theme) => {
       button: {
         margin: theme.spacing(1),
         background: 'linear-gradient(45deg, #e6385e 30%, #ff53c6 90%)',
-      }
+      },
+
     },
+    colorInput: {
+      input: {
+        width: '50px'
+      }
+    }
   }
 })
-
 
 
 
 const Register = ({ regNewFamily }) => {
 
   const [regInputFields, setRegInputFields] = useState([
-    { firstName: '', lastName: '', email: '', password: '', showPassword: false },
+    { firstName: '', lastName: '', email: '', password: '', showPassword: false, color: '' },
   ]);
   const [setupInputFields, setSetupInputFields] = useState([
-    { childFirstName: '', personalNumber: '' },
+    { childFirstName: '', personalNumber: '', color: '' },
   ]);
   const { classes } = useStyles()
 
   const handleRegChangeInput = (e, i) => {
-    console.log(e.target.value, i);
+    // console.log(e.target.value, i);
     const values = [...regInputFields]
     values[i][e.target.name] = e.target.value;
     setRegInputFields(values)
   }
 
   const handleSetupChangeInput = (e, i) => {
-    console.log(e.target.value, i);
+    // console.log(e.target.value, i);
     const values = [...setupInputFields]
     values[i][e.target.name] = e.target.value;
     setSetupInputFields(values)
@@ -64,29 +70,16 @@ const Register = ({ regNewFamily }) => {
     e.preventDefault()
     console.log('reginputFields:', regInputFields[0])
     console.log('setupinputFields:', setupInputFields)
-    // let familyMembers = [];
-    // setupInputFields.map(person => {
-    //   console.log('person', person);
-    //   let member = {
-    //     childFirstName: person.firstName,
-    //     personalNumber: person.personalNumber,
-    //   }
-    //   familyMembers.push(member)
-    //   return familyMembers
-    // })
-    // console.log('members', familyMembers);
+
     const newFamily = {
       firstName: regInputFields[0].firstName,
       lastName: regInputFields[0].lastName,
       email: regInputFields[0].email,
       password: regInputFields[0].password,
+      color: regInputFields[0].color,
       familyMembers: setupInputFields
     }
 
-    // const addFamilyMembers = (obj, propName, propValue) => {
-    //   obj[propName] = propValue
-    // }
-    // addFamilyMembers(newFamily, 'familyMembers', familyMembers)
     console.log('newFamily', newFamily);
     regNewFamily(newFamily)
   }
@@ -104,7 +97,7 @@ const Register = ({ regNewFamily }) => {
 
   const handleAddFields = () => {
     console.log('add a field');
-    setSetupInputFields([...setupInputFields, { childFirstName: '', personalNumber: '' }])
+    setSetupInputFields([...setupInputFields, { childFirstName: '', personalNumber: '', color: '' }])
   }
 
   const handleRemoveFields = (i) => {
@@ -161,6 +154,15 @@ const Register = ({ regNewFamily }) => {
                   </InputAdornment>
                 }
               />
+              <TextField
+                className={classes.colorInput}
+                type='color'
+                name='color'
+                label='Färg'
+                variant='filled'
+                value={regInputField.color}
+                onChange={(e) => handleSetupChangeInput(e, i)}
+              />
             </div>
           ))}
 
@@ -183,7 +185,15 @@ const Register = ({ regNewFamily }) => {
                 value={setupInputField.personalNumber}
                 onChange={(e) => handleSetupChangeInput(e, i)}
               />
-
+              <TextField
+                className={classes.colorInput}
+                type='color'
+                name='color'
+                label='Färg'
+                variant='filled'
+                value={setupInputField.color}
+                onChange={(e) => handleSetupChangeInput(e, i)}
+              />
 
               <IconButton
                 onClick={() => handleRemoveFields(i)}>
