@@ -1,16 +1,24 @@
 const mongoose = require('mongoose')
 // const { v4: uuidv4 } = require('uuid');
 
-const userSchema = new mongoose.Schema({
-  // userId: String,
+const { Schema } = mongoose;
+
+const familyMembersSchema = new Schema(
+  {
+    childFirstName: String,
+    personalNumber: Number
+  }
+)
+
+const userSchema = new Schema({
   firstName: String,
   lastName: String,
-  role: String,
   email: String,
-  password: String
-})
+  password: String,
+  familyMembers: [familyMembersSchema],
+});
 
-const User = mongoose.model('User', userSchema)
+// const User = mongoose.model('User', userSchema)
 
 // const user = new User({
 //   // userId: uuidv4(),
@@ -21,4 +29,4 @@ const User = mongoose.model('User', userSchema)
 //   password: '123'
 // });
 // user.save().then(() => { console.log('One user added'); })
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model('users', userSchema);
