@@ -1,48 +1,108 @@
 import './firstSetup.css'
 import { useState } from 'react'
+import Container from '@mui/material/Container'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import RemoveIcon from '@mui/icons-material/Remove'
+import AddIcon from '@mui/icons-material/Add'
+import Icon from '@mui/material/Icon'
+import { makeStyles } from 'tss-react/mui';
 
-const FirstSetup = ({ addNewUser }) => {
-  const [newUser, setNewUser] = useState('')
+const useStyles = makeStyles()((theme) => {
+  return {
+    root: {
+      '& .MuiTextField-root': {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        color: 'white',
+        height: 48,
+        margin: theme.spacing(1),
+      },
+      button: {
+        margin: theme.spacing(1),
+        background: 'linear-gradient(45deg, #c2bf27 30%, #ff5378 90%)',
+      }
+    },
+  }
+})
+
+
+const FirstSetup = () => {
+  const [setupInputFields, setSetupInputFields] = useState([
+    { firstName: '', personalNumber: '' },
+  ]);
+  const { classes } = useStyles()
+
+  const handleChangeInput = (e, i) => {
+    console.log(e.target.value, i);
+    const values = [...setupInputFields]
+    values[i][e.target.name] = e.target.value;
+    setSetupInputFields(values)
+  }
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log('Registrera any användare');
-    // console.log(e.target.firstName.value);
-    // console.log(e.target.lastName.value);
-    // console.log(e.target.email.value);
-    // console.log(e.target.select);
-    let select = document.querySelector("#select-role")
-    // console.log(select.options[select.selectedIndex].value)
-    const newUser = {
-      firstName: e.target.firstName.value,
-      lastName: e.target.lastName.value,
-      email: e.target.email.value,
-      role: select.options[select.selectedIndex].value,
-      password: e.target.password.value,
-    }
-    console.log('Ny användare', newUser);
+    e.preventDefault()
+    console.log('inputFields:', setupInputFields)
+  }
 
-    setNewUser(newUser);
-    addNewUser(newUser);
+  const handleAddFields = () => {
+    console.log('add a field');
+    setSetupInputFields([...setupInputFields, { firstName: '', personalNumber: '' }])
+  }
 
-    document.querySelector('#register-form').reset();
-
+  const handleRemoveFields = (i) => {
+    console.log('remove a field');
+    const values = [...setupInputFields]
+    values.splice(i, 1)
+    setSetupInputFields(values)
   }
   return (
-    <div className="register-container">
-      <form id="register-form" onSubmit={(e) => handleSubmit(e)}>
-        <input type="text" name="firstName" placeholder="Förnamn" />
-        <input type="text" name="lastName" placeholder="Efternamn" />
-        <input type="email" name="email" id="" placeholder="E-mail" />
-        <select name="select" id="select-role">
-          <option value="Roll">Roll</option>
-          <option value="Förälder">Förälder</option>
-          <option value="Anhörig">Anhörig</option>
-        </select>
-        <input type="password" name="password" id="" placeholder="Lösenord" />
-        <button>Registrera dig</button>
-      </form>
+    <Container >
+      <h1>Lägg till familjemedlemmar</h1>
+      <form className={classes.root} onSubmit={handleSubmit}>
+        {setupInputFields.map((regInputField, i) => (
+          <div key={i}>
+            <TextField
 
-    </div>
+              name='firstName'
+              label='Förnamn'
+              variant='filled'
+              value={regInputField.firstName}
+              onChange={(e) => handleChangeInput(e, i)}
+            />
+            <TextField
+
+              name='personalNumber'
+              label='Personnummer (6 siffror)'
+              variant='filled'
+              value={regInputField.personalNumber}
+              onChange={(e) => handleChangeInput(e, i)}
+            />
+
+
+            <IconButton
+              onClick={() => handleRemoveFields(i)}>
+              <RemoveIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => handleAddFields()}>
+              <AddIcon />
+            </IconButton>
+          </div>
+        ))}
+        <Button
+          className={classes.button}
+          variant='contained'
+          color='primary'
+          type='submit'
+          endIcon={<Icon>send</Icon>}
+          onClick={handleSubmit}
+        >Send
+        </Button>
+      </form>
+    </Container>
   )
 }
 export default FirstSetup

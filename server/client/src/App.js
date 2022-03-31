@@ -10,6 +10,7 @@ import Savings from './components/Savings/Savings'
 import CalendarView from './components/Calendar/CalendarView'
 import Todo from './components/Todo/Todo'
 import Register from './components/Register/Register'
+// import FirstSetup from './components/FirstSetup/FirstSetup'
 
 import moment from 'moment/min/moment-with-locales'
 
@@ -17,7 +18,7 @@ import moment from 'moment/min/moment-with-locales'
 
 function App() {
   const BACKEND_URL = 'https://familydashboard.herokuapp.com'
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   // ////console.log(data);
   const [homework, setHomework] = useState([]);
   const [remember, setRemember] = useState([]);
@@ -330,35 +331,37 @@ function App() {
 
   }
 
-  const addNewUser = (newUser) => {
-    console.log('new user', newUser);
-    console.log('newuser.firstname:', newUser.firstName);
-    const newUserToPost = {
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      email: newUser.email,
-      role: newUser.role,
-      password: newUser.password,
-    }
-    console.log('newUserToPost', newUserToPost);
+  const addNewUser = (newUsersToPost) => {
+    console.log('newUsers from Register', newUsersToPost);
+    // console.log('newuser.firstname:', newUser.firstName);
+
+    // const newUsersToPost = {
+    //   firstName: newUsers.firstName,
+    //   lastName: newUsers.lastName,
+    //   email: newUsers.email,
+    //   role: newUsers.role,
+    //   password: newUsers.password,
+    //   familyMembers: [{
+    //     firstName: newUsers.familymembers.firstName,
+    //     personalNumber: newUsers.familymembers.personalNumber
+    //   }]
+    // }
+    console.log('newUsersToPost', newUsersToPost);
     fetch(`${BACKEND_URL}/api/users`, {
       method: 'POST',
-      // credentials: 'include',
-      // mode: 'no-cors',
       headers: {
-        // 'Access-Control-Allow-Origin': true,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newUserToPost)
+      body: JSON.stringify(newUsersToPost)
     })
-      .then(() => { console.log('new user added'); })
-    ////console.log('todo', todo);
-    setUser([...user, newUserToPost])
+      .then(() => { console.log('new users added'); })
+    setUser([...user, newUsersToPost])
   }
 
   return (
     <div className="App">
-      <Register addNewUser={addNewUser} />
+      <Register regNewFamily={addNewUser} />
+      {/* <FirstSetup /> */}
       {isLoggedIn ? (
         <>
           <Header />
