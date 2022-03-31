@@ -7,7 +7,7 @@ const familyMembersSchema = new Schema(
   {
     childFirstName: String,
     personalNumber: Number,
-    color: String
+    childColor: String
   }
 )
 

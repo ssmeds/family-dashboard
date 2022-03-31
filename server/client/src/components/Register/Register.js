@@ -49,7 +49,7 @@ const Register = ({ regNewFamily }) => {
     { firstName: '', lastName: '', email: '', password: '', showPassword: false, color: '' },
   ]);
   const [setupInputFields, setSetupInputFields] = useState([
-    { childFirstName: '', personalNumber: '', color: '' },
+    { childFirstName: '', personalNumber: '', childColor: '' },
   ]);
   const { classes } = useStyles()
 
@@ -97,7 +97,7 @@ const Register = ({ regNewFamily }) => {
 
   const handleAddFields = () => {
     console.log('add a field');
-    setSetupInputFields([...setupInputFields, { childFirstName: '', personalNumber: '', color: '' }])
+    setSetupInputFields([...setupInputFields, { childFirstName: '', personalNumber: '', childColor: '' }])
   }
 
   const handleRemoveFields = (i) => {
@@ -161,7 +161,7 @@ const Register = ({ regNewFamily }) => {
                 label='Färg'
                 variant='filled'
                 value={regInputField.color}
-                onChange={(e) => handleSetupChangeInput(e, i)}
+                onChange={(e) => handleRegChangeInput(e, i)}
               />
             </div>
           ))}
@@ -188,10 +188,10 @@ const Register = ({ regNewFamily }) => {
               <TextField
                 className={classes.colorInput}
                 type='color'
-                name='color'
+                name='childColor'
                 label='Färg'
                 variant='filled'
-                value={setupInputField.color}
+                value={setupInputField.childColor}
                 onChange={(e) => handleSetupChangeInput(e, i)}
               />
 
