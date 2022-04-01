@@ -1,6 +1,21 @@
 .header-container {
-  h1 {
-    font-size: 3rem;
-    color: palevioletred;
+  display: flex;
+  justify-content: space-between;
+
+  .menu-icons {
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    justify-content: center;
+    padding: 0 1rem;
+
+    .css-e53awj-MuiStack-root {
+      align-items: center;
+    }
+
+
+    .MuiAvatar-root {
+      cursor: pointer;
+    }
   }
 }
