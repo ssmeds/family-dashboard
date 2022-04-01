@@ -20,7 +20,7 @@ const userSchema = new Schema({
   familyMembers: [familyMembersSchema],
 });
 
-// const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema)
 
 // const user = new User({
 //   // userId: uuidv4(),
@@ -31,4 +31,5 @@ const userSchema = new Schema({
 //   password: '123'
 // });
 // user.save().then(() => { console.log('One user added'); })
-module.exports = mongoose.model('users', userSchema);
+// module.exports = mongoose.model('User', userSchema);
+module.exports = User

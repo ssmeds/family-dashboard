@@ -1,18 +1,20 @@
 const express = require('express');
-const userSchema = require('../models/Users');
+// const userSchema = require('../models/Users');
+const User = require('../models/Users');
 const router = express.Router()
 const cors = require('cors')
 
-router.use(cors());
-// router.use(cors({
-//   origin: "*",
-//   methods: ['POST', 'PUT', 'DELETE', 'GET'],
-//   credentials: true
-// }));
+// router.use(cors());
+router.use(cors({
+  origin: "*",
+  methods: ['POST', 'PUT', 'DELETE', 'GET'],
+  credentials: true
+}));
 
 //Get all Users
 router.get('/users', async (req, res) => {
   const users = await User.find()
+  console.log('users from get-fetch', users);
   res.send(users)
 })
 
@@ -22,7 +24,7 @@ router.post('/users', async (req, res) => {
   try {
     console.log('connected to mongodb');
 
-    await new userSchema({
+    await new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
