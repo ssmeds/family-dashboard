@@ -30,6 +30,7 @@ router.post('/users', async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       color: req.body.color,
+      isLoggedIn: req.body.isLoggedIn,
       familyMembers:
         req.body.familyMembers
       ,

@@ -333,7 +333,9 @@ function App() {
   }
 
   const addNewUser = (newUsersToPost) => {
-    console.log('newUsers from Register', newUsersToPost);
+    console.log('newUsers from Register before isloggedin', newUsersToPost);
+    newUsersToPost.isLoggedIn = true;
+    console.log('after loggedin', newUsersToPost);
     // console.log('newuser.firstname:', newUser.firstName);
 
     // const newUsersToPost = {

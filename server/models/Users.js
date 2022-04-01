@@ -17,6 +17,7 @@ const userSchema = new Schema({
   email: String,
   password: String,
   color: String,
+  isLoggedIn: Boolean,
   familyMembers: [familyMembersSchema],
 });
 
