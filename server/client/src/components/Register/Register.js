@@ -1,5 +1,5 @@
 import './register.css'
-import FirstSetup from '../FirstSetup/FirstSetup'
+// import FirstSetup from '../FirstSetup/FirstSetup'
 import React, { useState } from 'react'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
@@ -141,18 +141,18 @@ const Register = ({ regNewFamily }) => {
                 variant='filled'
                 value={regInputField.password}
                 onChange={(e) => handleRegChangeInput(e, i)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {regInputFields.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+              // endAdornment={
+              //   <InputAdornment position="end">
+              //     <IconButton
+              //       aria-label="toggle password visibility"
+              //       onClick={handleClickShowPassword}
+              //       onMouseDown={handleMouseDownPassword}
+              //       edge="end"
+              //     >
+              //       {regInputFields.showPassword ? <VisibilityOff /> : <Visibility />}
+              //     </IconButton>
+              //   </InputAdornment>
+              // }
               />
               <TextField
                 className={classes.colorInput}

@@ -24,8 +24,8 @@ function App() {
   const [remember, setRemember] = useState([]);
   const [todo, setTodo] = useState([]);
   const [value, setValue] = useState(moment())
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [user, setUser] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [users, setUsers] = useState('');
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -35,7 +35,10 @@ function App() {
         .then((response) => response.json())
         .then((data) => {
           console.log('userdata', data);
-          setUserLoggedIn(data)
+          let loggedInUser = data.find(user => user.isLoggedIn === true)
+          console.log('loggedInUser', loggedInUser);
+          setUsers(data)
+          setUserLoggedIn(loggedInUser)
 
         })
     }
@@ -335,21 +338,6 @@ function App() {
   const addNewUser = (newUsersToPost) => {
     console.log('newUsers from Register before isloggedin', newUsersToPost);
     newUsersToPost.isLoggedIn = true;
-    console.log('after loggedin', newUsersToPost);
-    // console.log('newuser.firstname:', newUser.firstName);
-
-    // const newUsersToPost = {
-    //   firstName: newUsers.firstName,
-    //   lastName: newUsers.lastName,
-    //   email: newUsers.email,
-    //   role: newUsers.role,
-    //   password: newUsers.password,
-    //   familyMembers: [{
-    //     firstName: newUsers.familymembers.firstName,
-    //     personalNumber: newUsers.familymembers.personalNumber
-    //   }]
-    // }
-    console.log('newUsersToPost', newUsersToPost);
     fetch(`${BACKEND_URL}/api/users`, {
       method: 'POST',
       headers: {
@@ -358,13 +346,14 @@ function App() {
       body: JSON.stringify(newUsersToPost)
     })
       .then(() => { console.log('new users added'); })
-    setUser([...user, newUsersToPost])
+    setUsers([...users, newUsersToPost])
+    setIsLoggedIn(true)
+    setUserLoggedIn(newUsersToPost)
   }
 
   return (
     <div className="App">
       <Register regNewFamily={addNewUser} />
-      {/* <FirstSetup /> */}
       {isLoggedIn ? (
         <>
           <Header userLoggedIn={userLoggedIn} />
