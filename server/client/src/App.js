@@ -18,7 +18,7 @@ import moment from 'moment/min/moment-with-locales'
 
 function App() {
   const BACKEND_URL = 'https://familydashboard.herokuapp.com'
-  // const [data, setData] = useState([]);
+  const [userLoggedIn, setUserLoggedIn] = useState('');
   // ////console.log(data);
   const [homework, setHomework] = useState([]);
   const [remember, setRemember] = useState([]);
@@ -28,18 +28,19 @@ function App() {
   const [user, setUser] = useState('');
   // const [tasks, setTasks] = useState([])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const fetchData = async () => {
-  //     await fetch(`${BACKEND_URL}/api/users`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setData(data)
-  //         ////console.log(data);
-  //       })
-  //   }
-  //   fetchData()
-  // }, [])
+    const fetchUsers = async () => {
+      await fetch(`${BACKEND_URL}/api/users`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('userdata', data);
+          setUserLoggedIn(data)
+
+        })
+    }
+    fetchUsers()
+  }, [])
 
   useEffect(() => {
 
@@ -364,7 +365,7 @@ function App() {
       {/* <FirstSetup /> */}
       {isLoggedIn ? (
         <>
-          <Header />
+          <Header userLoggedIn={userLoggedIn} />
           <div className="upper-container">
             <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
             <CalendarView value={value} onChange={setValue} onAdd={addTodo} todos={todo} />
