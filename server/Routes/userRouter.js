@@ -7,7 +7,7 @@ const cors = require('cors')
 // router.use(cors());
 router.use(cors({
   origin: "*",
-  methods: ['POST', 'PUT', 'DELETE', 'GET'],
+  methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH'],
   credentials: true
 }));
 
@@ -63,6 +63,8 @@ router.get('/users/:id', async (req, res) => {
 
 //Update user
 router.patch('/users/:id', async (req, res) => {
+  console.log('user to patch up', req.body);
+  console.log('user to patch up params', req.params);
   try {
     const user = await User.findOne({ _id: req.params.id })
     if (req.body.firstName) {
@@ -79,6 +81,9 @@ router.patch('/users/:id', async (req, res) => {
     }
     if (req.body.password) {
       user.password = req.body.password
+    }
+    if (req.body.isLoggedIn) {
+      user.isLoggedIn = req.body.isLoggedIn
     }
     await user.save()
     res.send(user)
