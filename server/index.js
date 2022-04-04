@@ -31,7 +31,7 @@ mongoose
     // app.use(cors())
     app.use(cors({
       origin: "*",
-      methods: ['POST', 'PUT', 'DELETE', 'GET'],
+      methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH'],
       credentials: true
     }))
     const path = require('path')

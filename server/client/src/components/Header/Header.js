@@ -4,16 +4,9 @@ import Stack from '@mui/material/Stack';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const Header = ({ userLoggedIn }) => {
+const Header = ({ userLoggedIn, logOutUser }) => {
   console.log('user logged in', userLoggedIn);
-  let currentUser;
-  if (userLoggedIn) {
-    currentUser = userLoggedIn.filter((user) => user.isLoggedIn === true)
-    console.log('current user', currentUser);
-    console.log('current user.color', currentUser.color);
-  } else {
-    console.log('vänta lite');
-  }
+  let currentUser = userLoggedIn;
 
   function firstAndLast(fname, lname) {
     let fName = fname.charAt(0).toUpperCase();
@@ -24,15 +17,20 @@ const Header = ({ userLoggedIn }) => {
     )
   }
 
+  const handleLogOut = () => {
+    console.log('jag vill logga ut nu');
+    logOutUser(currentUser)
+  }
+
   return (
     <div className="header-container">
       <h1>Family Dashboard</h1>
       <div className="header-container menu-icons">
         <Stack direction='row' spacing={2}>
           <h3>Inloggad:</h3>
-          <Avatar sx={currentUser ? { bgcolor: currentUser[0].color } : { bgcolor: 'black' }}>{currentUser ? firstAndLast(currentUser[0].firstName, currentUser[0].lastName) : 'None'}</Avatar>
+          <Avatar sx={currentUser ? { bgcolor: currentUser.color } : { bgcolor: 'black' }}>{currentUser ? firstAndLast(currentUser.firstName, currentUser.lastName) : 'None'}</Avatar>
           <Avatar sx={{ bgcolor: 'black' }}><SettingsIcon></SettingsIcon></Avatar>
-          <Avatar sx={{ bgcolor: 'red' }}><LogoutIcon></LogoutIcon></Avatar>
+          <Avatar sx={{ bgcolor: 'red' }} ><LogoutIcon onClick={() => handleLogOut()}></LogoutIcon></Avatar>
         </Stack>
       </div>
     </div>

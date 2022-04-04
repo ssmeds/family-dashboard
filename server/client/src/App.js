@@ -10,9 +10,10 @@ import Savings from './components/Savings/Savings'
 import CalendarView from './components/Calendar/CalendarView'
 import Todo from './components/Todo/Todo'
 import Register from './components/Register/Register'
-// import FirstSetup from './components/FirstSetup/FirstSetup'
+import LogIn from './components/LogIn/LogIn'
 
 import moment from 'moment/min/moment-with-locales'
+import FrontPage from './components/FrontPage/FrontPage'
 
 
 
@@ -38,7 +39,7 @@ function App() {
           let loggedInUser = data.find(user => user.isLoggedIn === true)
           console.log('loggedInUser', loggedInUser);
           setUsers(data)
-          setUserLoggedIn(loggedInUser)
+          // setUserLoggedIn(loggedInUser)
 
         })
     }
@@ -351,29 +352,62 @@ function App() {
     setUserLoggedIn(newUsersToPost)
   }
 
+  const logOutUserFromDB = (user) => {
+    console.log('user to logout', user);
+    // user.isLoggedIn = false;
+
+    const foundUser = users.find(person => person.email === user.email && person.password === user.password)
+    foundUser.isLoggedIn = false;
+    console.log('foundUser', foundUser);
+
+
+
+    fetch(`${BACKEND_URL}/api/users/${foundUser._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(() => { console.log('user logged out'); })
+    setUsers([...users, user])
+  }
+
+  const setUserLoggedInAfterLogIn = (user) => {
+    setUserLoggedIn(user)
+    setIsLoggedIn(true)
+  }
+
+  const logOutUser = (user) => {
+    console.log('App.js logga ut usern', user);
+    setUserLoggedIn('')
+    setIsLoggedIn(false)
+    logOutUserFromDB(user)
+  }
+
   return (
     <div className="App">
-      <Register regNewFamily={addNewUser} />
-      {isLoggedIn ? (
-        <>
-          <Header userLoggedIn={userLoggedIn} />
-          <div className="upper-container">
-            <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
-            <CalendarView value={value} onChange={setValue} onAdd={addTodo} todos={todo} />
-            <GroceryList />
-          </div>
-          <div className="lower-container">
-            <Chatt />
-            <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
-            <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
-            <Menu />
-            <Savings />
-          </div>
+      {!isLoggedIn ? (
+        <FrontPage setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} regNewFamily={addNewUser} />) :
+        (
+          <>
+            <Header userLoggedIn={userLoggedIn} logOutUser={logOutUser} />
+            <div className="upper-container">
+              <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
+              <CalendarView value={value} onChange={setValue} onAdd={addTodo} todos={todo} />
+              <GroceryList />
+            </div>
+            <div className="lower-container">
+              <Chatt />
+              <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
+              <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
+              <Menu />
+              <Savings />
+            </div>
 
-          <Footer />
-        </>
-      ) : ''}
-
+            <Footer />
+          </>
+        )}
     </div>
   );
 }

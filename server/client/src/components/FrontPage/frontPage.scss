@@ -1,0 +1,36 @@
+.frontPage-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  .logIn-container {
+    margin: 3rem auto;
+  }
+
+  h1 {
+    text-align: center
+  }
+
+  .menu-icons {
+    display: flex;
+    flex-direction: column;
+    // background-color: aqua;
+    justify-content: center;
+    padding: 0 1rem;
+    margin: 0 auto;
+
+    .MuiButton-root {
+      width: 250px;
+    }
+
+    .css-e53awj-MuiStack-root {
+      align-items: center;
+    }
+
+
+    .MuiAvatar-root {
+      cursor: pointer;
+    }
+  }
+}
