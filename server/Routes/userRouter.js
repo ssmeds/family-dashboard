@@ -67,6 +67,7 @@ router.patch('/users/:id', async (req, res) => {
   console.log('user to patch up params', req.params);
   try {
     const user = await User.findOne({ _id: req.params.id })
+    console.log('found user in userRouter: ', user);
     if (req.body.firstName) {
       user.firstName = req.body.firstName
     }
