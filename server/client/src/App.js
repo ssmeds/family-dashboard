@@ -357,7 +357,7 @@ function App() {
     // user.isLoggedIn = false;
 
     const foundUser = users.find(person => person.email === user.email && person.password === user.password)
-    foundUser.isLoggedIn = false;
+    // foundUser.isLoggedIn = false;
     console.log('foundUser', foundUser);
 
 
@@ -367,7 +367,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ isLoggedIn: foundUser.isLoggedIn })
+      body: JSON.stringify({ isLoggedIn: false })
     })
       .then(() => { console.log('user logged out'); })
     setUsers([...users, user])
