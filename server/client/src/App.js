@@ -367,7 +367,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(foundUser)
+      body: JSON.stringify({ isLoggedIn: foundUser.isLoggedIn })
     })
       .then(() => { console.log('user logged out'); })
     setUsers([...users, user])
