@@ -66,29 +66,16 @@ router.patch('/users/:id', async (req, res) => {
   console.log('user to patch up', req.body);
   console.log('user to patch up params', req.params);
   try {
-    const user = await User.findOne({ _id: req.params.id })
-    console.log('found user in userRouter: ', user);
-    if (req.body.firstName) {
-      user.firstName = req.body.firstName
-    }
-    if (req.body.lastName) {
-      user.lastName = req.body.lastName
-    }
-    if (req.body.role) {
-      user.role = req.body.role
-    }
-    if (req.body.email) {
-      user.email = req.body.email
-    }
-    if (req.body.password) {
-      user.password = req.body.password
-    }
-    if (req.body.isLoggedIn) {
-      console.log('req.body.isLoggedIn:', req.body.isLoggedIn)
-      user.isLoggedIn = req.body.isLoggedIn
-    }
-    await user.save()
-    res.send(user)
+    // const user = await User.findOne({ _id: req.params.id })
+    // console.log('found user in userRouter: ', user);
+    const id = req.params.id
+    const updates = req.body
+    console.log('updates', updates);
+    const result = await User.findByIdAndUpdate(id, updates)
+    console.log('result', result);
+    res.send(result)
+    // await user.save()
+    // res.send(user)
   } catch {
     res.status(404)
     res.send({ error: 'User does not exist!' })
