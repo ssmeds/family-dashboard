@@ -84,6 +84,7 @@ router.patch('/users/:id', async (req, res) => {
       user.password = req.body.password
     }
     if (req.body.isLoggedIn) {
+      console.log('req.body.isLoggedIn:', req.body.isLoggedIn)
       user.isLoggedIn = req.body.isLoggedIn
     }
     await user.save()
