@@ -42,7 +42,7 @@ mongoose
     app.use('/api', homeworkRouter)
     app.use('/api', rememberRouter)
     app.use('/api', todoRouter)
-    app.use('/', invitationRouter)
+    app.use('/invitation', invitationRouter)
 
 
 
