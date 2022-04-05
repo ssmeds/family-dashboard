@@ -12,9 +12,10 @@ router.use(cors({
 }));
 
 //GET invitation
-router.get('/:email', async (req, res) => {
+router.get('/', async (req, res) => {
   console.log('redirect to homepage for login req res', req, res);
-  res.redirect('https://familydashboard.herokuapp.com/')
+  res.send('invitation from email')
+  // res.redirect('https://familydashboard.herokuapp.com/')
 })
 
 module.exports = router
