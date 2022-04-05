@@ -71,7 +71,10 @@ router.patch('/users/:id', async (req, res) => {
     const id = req.params.id
     const updates = req.body
     console.log('updates', updates);
-    const result = await User.findByIdAndUpdate(id, updates)
+    const options = {
+      new: true
+    }
+    const result = await User.findByIdAndUpdate(id, updates, options)
     console.log('result', result);
     res.send(result)
     // await user.save()
