@@ -12,6 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { makeStyles } from 'tss-react/mui';
+import emailjs from 'emailjs-com'
 
 
 const useStyles = makeStyles()((theme) => {
@@ -51,6 +52,9 @@ const Register = ({ regNewFamily }) => {
   const [setupInputFields, setSetupInputFields] = useState([
     { childFirstName: '', personalNumber: '', childColor: '' },
   ]);
+  const [spouceInputFields, setSpouceInputFields] = useState([
+    { spouceFirstName: '', spouceLastName: '', spouceEmail: '' },
+  ]);
   const { classes } = useStyles()
 
   const handleRegChangeInput = (e, i) => {
@@ -58,6 +62,7 @@ const Register = ({ regNewFamily }) => {
     const values = [...regInputFields]
     values[i][e.target.name] = e.target.value;
     setRegInputFields(values)
+    console.log('regInputFields', regInputFields);
   }
 
   const handleSetupChangeInput = (e, i) => {
@@ -65,6 +70,14 @@ const Register = ({ regNewFamily }) => {
     const values = [...setupInputFields]
     values[i][e.target.name] = e.target.value;
     setSetupInputFields(values)
+  }
+
+  const handleSpouceChangeInput = (e, i) => {
+    // console.log(e.target.value, i);
+    const values = [...spouceInputFields]
+    values[i][e.target.name] = e.target.value;
+    setSpouceInputFields(values)
+    console.log('spouceInputFields', spouceInputFields);
   }
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -105,6 +118,35 @@ const Register = ({ regNewFamily }) => {
     const values = [...setupInputFields]
     values.splice(i, 1)
     setSetupInputFields(values)
+  }
+
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    console.log('send email e.target', e.target);
+    console.log('spouceInputFields', spouceInputFields);
+
+    let templateParams = {
+      spouceFirstName: spouceInputFields[0].spouceFirstName,
+      spouceLastName: spouceInputFields[0].spouceLastName,
+      spouceEmail: spouceInputFields[0].spouceEmail,
+      fromParentFirstName: regInputFields[0].firstName,
+      fromParentLastName: regInputFields[0].lastName
+    };
+    console.log('templateParams', templateParams);
+    emailjs.send('gmail', 'invite-email', templateParams, '8lrT3DeEntYvyEf1w')
+      .then(function (response) {
+        console.log('SUCCESS!', response.status, response.text);
+      }, function (error) {
+        console.log('FAILED...', error);
+      });
+    // emailjs.sendForm('gmail', 'invite-email', e.target, '8lrT3DeEntYvyEf1w')
+    //   .then((result) => {
+    //     console.log(result.text);
+    //   }, (error) => {
+    //     console.log(error.text);
+    //   });
+    // e.target.reset();
   }
   return (
     <>
@@ -212,7 +254,42 @@ const Register = ({ regNewFamily }) => {
             type='submit'
             endIcon={<Icon>send</Icon>}
             onClick={handleSubmit}
-          >Send
+          >Spara
+          </Button>
+        </form>
+        <form className={classes.root} onSubmit={sendEmail}>
+          <h1>Lägg till förälder</h1>
+          {spouceInputFields.map((spouceInputField, i) => (
+            <div key={i}>
+              <TextField
+                name='spouceFirstName'
+                label='Förnamn'
+                variant='filled'
+                value={spouceInputField.spouceFirstName}
+                onChange={(e) => handleSpouceChangeInput(e, i)}
+              />
+              <TextField
+                name='spouceLastName'
+                label='Efternamn'
+                variant='filled'
+                value={spouceInputField.spouceLastName}
+                onChange={(e) => handleSpouceChangeInput(e, i)}
+              />
+              <TextField
+                name='spouceEmail'
+                label='E-mail'
+                variant='filled'
+                value={spouceInputField.spouceEmail}
+                onChange={(e) => handleSpouceChangeInput(e, i)}
+              />
+            </div>))}
+          <Button
+            className={classes.button}
+            variant='contained'
+            color='primary'
+            type='submit'
+            endIcon={<Icon>send</Icon>}
+          >Skicka E-mail
           </Button>
         </form>
       </Container>

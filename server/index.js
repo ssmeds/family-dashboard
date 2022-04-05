@@ -8,6 +8,8 @@ const userRouter = require('./Routes/userRouter')
 const homeworkRouter = require('./Routes/homeworkRouter')
 const rememberRouter = require('./Routes/rememberRouter')
 const todoRouter = require('./Routes/todoRouter')
+const invitationRouter = require('./Routes/invitationRouter')
+
 
 // mongodb + srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
@@ -40,6 +42,8 @@ mongoose
     app.use('/api', homeworkRouter)
     app.use('/api', rememberRouter)
     app.use('/api', todoRouter)
+    app.use('/', invitationRouter)
+
 
 
     // const publicPath = path.join(__dirname, '..', '/build')
@@ -54,7 +58,7 @@ mongoose
     // app.use(express.static(path.join(__dirname, '../client/build')));
 
     // Data parsing
-    app.use(express.json());
+    // app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
 
     // Step 3
