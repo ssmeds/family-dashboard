@@ -388,9 +388,18 @@ function App() {
   const addInvitedToDB = (invited) => {
     console.log('invited to save to db', invited);
     let spouce = {
-      spouceEmail: invited.email,
       spoucePassword: invited.password,
       spouceColor: invited.color
+    }
+
+    const getObject = (obj, str) => {
+      let result;
+      if (!obj || typeof obj !== 'object') return;
+      Object.values(obj).some((v) => {
+        if (v === str) return result = obj;
+        return result = getObject(v, str);
+      })
+      return result;
     }
 
     console.log('spouce', spouce);
@@ -399,8 +408,27 @@ function App() {
         .then((response) => response.json())
         .then((data) => {
           console.log('userdata', data);
-          let foundFamily = data.find(family => family.spouce.spouceEmail === invited.email)
-          console.log('foundFamily', foundFamily);
+
+          const findEmail = invited.email;
+
+          const parentObject = Object.keys(data).find(section => data[section].spouce.some(spouceObj => spouceObj.spouceEmail === findEmail))
+
+          const currentParentObject = parentObject != null ? data[parentObject] : null;
+
+          console.log('currentParentObject', currentParentObject);
+          currentParentObject.spouce[0].spoucePassword = invited.password
+          currentParentObject.spouce[0].spouceColor = invited.color
+          console.log('currentParentObject after insertion of info', currentParentObject);
+          fetch(`${BACKEND_URL}/api/users/${currentParentObject._id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(spouce)
+          })
+            .then(() => { console.log('user added spouce info'); })
+          // setUsers([...users, user])
+          // console.log('foundFamily', foundFamily);
           // setUsers(data)
           // setUserLoggedIn(loggedInUser)
 
