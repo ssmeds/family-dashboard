@@ -385,10 +385,37 @@ function App() {
     logOutUserFromDB(user)
   }
 
+  const addInvitedToDB = (invited) => {
+    console.log('invited to save to db', invited);
+    let spouce = {
+      spouceEmail: invited.email,
+      spoucePassword: invited.password,
+      spouceColor: invited.color
+    }
+
+    console.log('spouce', spouce);
+    const fetchUsers = async () => {
+      await fetch(`${BACKEND_URL}/api/users`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('userdata', data);
+          let foundFamily = data.find(family => family.spouce.spouceEmail === invited.email)
+          console.log('foundFamily', foundFamily);
+          // setUsers(data)
+          // setUserLoggedIn(loggedInUser)
+
+        })
+    }
+    fetchUsers()
+    // setUsers([...users, newUsersToPost])
+    // setIsLoggedIn(true)
+    // setUserLoggedIn(newUsersToPost)
+  }
+
   return (
     <div className="App">
       {!isLoggedIn ? (
-        <FrontPage setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} regNewFamily={addNewUser} />) :
+        <FrontPage setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} regNewFamily={addNewUser} addInvitedToDB={addInvitedToDB} />) :
         (
           <>
             <Header userLoggedIn={userLoggedIn} logOutUser={logOutUser} />

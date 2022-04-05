@@ -90,7 +90,8 @@ const Register = ({ regNewFamily }) => {
       email: regInputFields[0].email,
       password: regInputFields[0].password,
       color: regInputFields[0].color,
-      familyMembers: setupInputFields
+      familyMembers: setupInputFields,
+      spouce: spouceInputFields
     }
 
     console.log('newFamily', newFamily);
