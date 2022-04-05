@@ -12,7 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { makeStyles } from 'tss-react/mui';
-import emailjs from 'emailjs-com'
+import emailjs from '@emailjs/browser';
 
 
 const useStyles = makeStyles()((theme) => {
