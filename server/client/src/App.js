@@ -388,6 +388,8 @@ function App() {
   const addInvitedToDB = (invited) => {
     console.log('invited to save to db', invited);
     let spouce = {
+      spouceFirstName: invited.firstName,
+      spouceLastName: invited.lastName,
       spoucePassword: invited.password,
       spouceColor: invited.color
     }
@@ -424,7 +426,7 @@ function App() {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(spouce)
+            body: JSON.stringify({ spouce: spouce })
           })
             .then(() => { console.log('user added spouce info'); })
           // setUsers([...users, user])
