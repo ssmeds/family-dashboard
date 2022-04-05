@@ -11,6 +11,16 @@ const familyMembersSchema = new Schema(
   }
 )
 
+const spouceSchema = new Schema(
+  {
+    spouceFirstName: String,
+    spouceLastName: String,
+    spouceEmail: String,
+    spoucePassword: String,
+    spouceColor: String,
+  }
+)
+
 const userSchema = new Schema({
   firstName: String,
   lastName: String,
@@ -19,6 +29,7 @@ const userSchema = new Schema({
   color: String,
   isLoggedIn: Boolean,
   familyMembers: [familyMembersSchema],
+  spouce: [spouceSchema]
 });
 
 const User = mongoose.model('User', userSchema)
