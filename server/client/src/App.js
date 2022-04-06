@@ -387,29 +387,24 @@ function App() {
 
   const addInvitedToDB = (invited) => {
     console.log('invited to save to db', invited);
+    // const getObject = (obj, str) => {
+    //   let result;
+    //   if (!obj || typeof obj !== 'object') return;
+    //   Object.values(obj).some((v) => {
+    //     if (v === str) return result = obj;
+    //     return result = getObject(v, str);
+    //   })
+    //   return result;
+    // }
 
-
-    const getObject = (obj, str) => {
-      let result;
-      if (!obj || typeof obj !== 'object') return;
-      Object.values(obj).some((v) => {
-        if (v === str) return result = obj;
-        return result = getObject(v, str);
-      })
-      return result;
-    }
-
-    // console.log('spouse', spouse);
     const fetchUsers = async () => {
       await fetch(`${BACKEND_URL}/api/users`)
         .then((response) => response.json())
         .then((data) => {
           console.log('userdata', data);
-
           const findEmail = invited.email;
-          // let foundUser;
           data.map(user => {
-            console.log('user', user.spouse);
+            console.log('user', user);
             let foundSpouses = user.spouse;
             if (foundSpouses !== undefined) {
               foundSpouses.map(info => {
