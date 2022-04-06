@@ -53,7 +53,7 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('inputFields:', inputFields[0])
+    // console.log('inputFields:', inputFields[0])
 
     const userLoggingIn = {
       email: inputFields[0].email,
@@ -61,23 +61,42 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
       color: inputFields[0].color
     }
 
-    console.log('invited user logging in', userLoggingIn);
+    // console.log('invited user logging in', userLoggingIn);
 
     const fetchUsers = async () => {
       await fetch(`${BACKEND_URL}/api/users`)
         .then((response) => response.json())
         .then((data) => {
-          console.log('userdata on invite', data);
-          let invitedUser = data.find(user => userLoggingIn.email === user.spouseEmail)
-          console.log('rightUser', invitedUser);
-          // setUsers(data)
-          setUserLoggedInAfterLogIn(invitedUser)
+          // console.log('userdata on invite', data);
+
+          data.map(user => {
+            // console.log('user in map', user);
+            let foundSpouses = user.spouse;
+            if (foundSpouses !== undefined) {
+              foundSpouses.map(person => {
+                if (person.spouseEmail === userLoggingIn.email) {
+                  // console.log('found it', info);
+                  // console.log('found user', user);
+                  let invitedUser = person;
+                  // console.log('invited user in map', invitedUser);
+                  setUserLoggedInAfterLogIn(invitedUser)
+
+                }
+              })
+            }
+          })
+
+          // let invitedUser = data.find(user => userLoggingIn.email === user.spouse[0].spouseEmail)
+          // console.log('invitedUser', invitedUser);
+          // // setUsers(data)
+          // setUserLoggedInAfterLogIn(invitedUser)
 
         })
     }
     fetchUsers()
 
     addInvitedToDB(userLoggingIn)
+    // setUserLoggedInAfterLogIn(userLoggingIn)
   }
 
 

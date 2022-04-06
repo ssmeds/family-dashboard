@@ -62,7 +62,7 @@ const Register = ({ regNewFamily }) => {
     const values = [...regInputFields]
     values[i][e.target.name] = e.target.value;
     setRegInputFields(values)
-    console.log('regInputFields', regInputFields);
+    // console.log('regInputFields', regInputFields);
   }
 
   const handleSetupChangeInput = (e, i) => {
@@ -77,12 +77,12 @@ const Register = ({ regNewFamily }) => {
     const values = [...spouseInputFields]
     values[i][e.target.name] = e.target.value;
     setSpouseInputFields(values)
-    console.log('spouseInputFields', spouseInputFields);
+    // console.log('spouseInputFields', spouseInputFields);
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('reginputFields:', regInputFields[0])
-    console.log('setupinputFields:', setupInputFields)
+    // console.log('reginputFields:', regInputFields[0])
+    // console.log('setupinputFields:', setupInputFields)
 
     const newFamily = {
       firstName: regInputFields[0].firstName,
@@ -124,8 +124,8 @@ const Register = ({ regNewFamily }) => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log('send email e.target', e.target);
-    console.log('spouseInputFields', spouseInputFields);
+    // console.log('send email e.target', e.target);
+    // console.log('spouseInputFields', spouseInputFields);
 
     let templateParams = {
       spouseFirstName: spouseInputFields[0].spouseFirstName,

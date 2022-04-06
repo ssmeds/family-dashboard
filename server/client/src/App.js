@@ -374,6 +374,16 @@ function App() {
   }
 
   const setUserLoggedInAfterLogIn = (user) => {
+
+    fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ isLoggedIn: true })
+    })
+      .then(() => { console.log('user logged in'); })
+    setUsers([...users, user])
     setUserLoggedIn(user)
     setIsLoggedIn(true)
   }
@@ -401,31 +411,31 @@ function App() {
       await fetch(`${BACKEND_URL}/api/users`)
         .then((response) => response.json())
         .then((data) => {
-          console.log('userdata', data);
+          // console.log('userdata', data);
           const findEmail = invited.email;
           data.map(user => {
-            console.log('user', user);
+            // console.log('user', user);
             let foundSpouses = user.spouse;
             if (foundSpouses !== undefined) {
               foundSpouses.map(info => {
                 if (info.spouseEmail === findEmail) {
-                  console.log('found it', info);
-                  console.log('found user', user);
+                  // console.log('found it', info);
+                  // console.log('found user', user);
                   let foundUser = user
-                  let spouse = {
-                    spouseFirstName: foundUser.spouse.spouseFirstName,
-                    spouseLastName: foundUser.spouse.spouseLastName,
+                  let spousePatch = {
+                    spouseFirstName: foundUser.spouse[0].spouseFirstName,
+                    spouseLastName: foundUser.spouse[0].spouseLastName,
                     spouseEmail: invited.email,
                     spousePassword: invited.password,
                     spouseColor: invited.color
                   }
-
+                  // console.log('spousePatch', spousePatch);
                   fetch(`${BACKEND_URL}/api/users/${user._id}`, {
                     method: 'PATCH',
                     headers: {
                       'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ spouse: spouse })
+                    body: JSON.stringify({ spouse: spousePatch })
                   })
                     .then(() => { console.log('user added spouse info'); })
                 }
