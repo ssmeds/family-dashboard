@@ -29,7 +29,7 @@ const userSchema = new Schema({
   color: String,
   isLoggedIn: Boolean,
   familyMembers: [familyMembersSchema],
-  spouse: spouseSchema
+  spouse: [spouseSchema]
 });
 
 const User = mongoose.model('User', userSchema)
