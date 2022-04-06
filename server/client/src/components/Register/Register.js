@@ -125,7 +125,7 @@ const Register = ({ regNewFamily }) => {
   const sendEmail = (e) => {
     e.preventDefault();
     // console.log('send email e.target', e.target);
-    // console.log('spouseInputFields', spouseInputFields);
+    console.log('spouseInputFields', spouseInputFields);
 
     let templateParams = {
       spouseFirstName: spouseInputFields[0].spouseFirstName,
