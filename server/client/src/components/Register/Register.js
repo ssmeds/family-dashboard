@@ -52,8 +52,8 @@ const Register = ({ regNewFamily }) => {
   const [setupInputFields, setSetupInputFields] = useState([
     { childFirstName: '', personalNumber: '', childColor: '' },
   ]);
-  const [spouceInputFields, setSpouceInputFields] = useState([
-    { spouceFirstName: '', spouceLastName: '', spouceEmail: '' },
+  const [spouseInputFields, setSpouseInputFields] = useState([
+    { spouseFirstName: '', spouseLastName: '', spouseEmail: '' },
   ]);
   const { classes } = useStyles()
 
@@ -72,12 +72,12 @@ const Register = ({ regNewFamily }) => {
     setSetupInputFields(values)
   }
 
-  const handleSpouceChangeInput = (e, i) => {
+  const handleSpouseChangeInput = (e, i) => {
     // console.log(e.target.value, i);
-    const values = [...spouceInputFields]
+    const values = [...spouseInputFields]
     values[i][e.target.name] = e.target.value;
-    setSpouceInputFields(values)
-    console.log('spouceInputFields', spouceInputFields);
+    setSpouseInputFields(values)
+    console.log('spouseInputFields', spouseInputFields);
   }
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -91,7 +91,7 @@ const Register = ({ regNewFamily }) => {
       password: regInputFields[0].password,
       color: regInputFields[0].color,
       familyMembers: setupInputFields,
-      spouce: spouceInputFields
+      spouse: spouseInputFields
     }
 
     console.log('newFamily', newFamily);
@@ -125,12 +125,12 @@ const Register = ({ regNewFamily }) => {
   const sendEmail = (e) => {
     e.preventDefault();
     console.log('send email e.target', e.target);
-    console.log('spouceInputFields', spouceInputFields);
+    console.log('spouseInputFields', spouseInputFields);
 
     let templateParams = {
-      spouceFirstName: spouceInputFields[0].spouceFirstName,
-      spouceLastName: spouceInputFields[0].spouceLastName,
-      spouceEmail: spouceInputFields[0].spouceEmail,
+      spouseFirstName: spouseInputFields[0].spouseFirstName,
+      spouseLastName: spouseInputFields[0].spouseLastName,
+      spouseEmail: spouseInputFields[0].spouseEmail,
       fromParentFirstName: regInputFields[0].firstName,
       fromParentLastName: regInputFields[0].lastName
     };
@@ -260,28 +260,28 @@ const Register = ({ regNewFamily }) => {
         </form>
         <form className={classes.root} onSubmit={sendEmail}>
           <h1>Lägg till förälder</h1>
-          {spouceInputFields.map((spouceInputField, i) => (
+          {spouseInputFields.map((spouseInputField, i) => (
             <div key={i}>
               <TextField
-                name='spouceFirstName'
+                name='spouseFirstName'
                 label='Förnamn'
                 variant='filled'
-                value={spouceInputField.spouceFirstName}
-                onChange={(e) => handleSpouceChangeInput(e, i)}
+                value={spouseInputField.spouseFirstName}
+                onChange={(e) => handleSpouseChangeInput(e, i)}
               />
               <TextField
-                name='spouceLastName'
+                name='spouseLastName'
                 label='Efternamn'
                 variant='filled'
-                value={spouceInputField.spouceLastName}
-                onChange={(e) => handleSpouceChangeInput(e, i)}
+                value={spouseInputField.spouseLastName}
+                onChange={(e) => handleSpouseChangeInput(e, i)}
               />
               <TextField
-                name='spouceEmail'
+                name='spouseEmail'
                 label='E-mail'
                 variant='filled'
-                value={spouceInputField.spouceEmail}
-                onChange={(e) => handleSpouceChangeInput(e, i)}
+                value={spouseInputField.spouseEmail}
+                onChange={(e) => handleSpouseChangeInput(e, i)}
               />
             </div>))}
           <Button

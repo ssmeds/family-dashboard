@@ -20,7 +20,7 @@ router.get('/users', async (req, res) => {
 
 //Post a new user
 router.post('/users', async (req, res) => {
-  console.log('req.body.spouce:', req.body.spouce);
+  console.log('req.body.spouse:', req.body.spouse);
   try {
     console.log('connected to mongodb');
 
@@ -33,7 +33,7 @@ router.post('/users', async (req, res) => {
       isLoggedIn: req.body.isLoggedIn,
       familyMembers:
         req.body.familyMembers,
-      spouce: req.body.spouce
+      spouse: req.body.spouse
     }).save()
   } catch (err) {
     console.log(err)

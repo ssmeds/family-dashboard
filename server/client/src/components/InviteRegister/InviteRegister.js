@@ -68,7 +68,7 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
         .then((response) => response.json())
         .then((data) => {
           console.log('userdata on invite', data);
-          let invitedUser = data.find(user => userLoggingIn.email === user.spouceEmail)
+          let invitedUser = data.find(user => userLoggingIn.email === user.spouseEmail)
           console.log('rightUser', invitedUser);
           // setUsers(data)
           setUserLoggedInAfterLogIn(invitedUser)

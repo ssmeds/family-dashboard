@@ -8,12 +8,16 @@ import LogIn from '../LogIn/LogIn';
 import Register from '../Register/Register';
 import InviteRegister from '../InviteRegister/InviteRegister';
 import { makeStyles } from 'tss-react/mui'
+import HomeIcon from '@mui/icons-material/Home';
 
 const useStyles = makeStyles()((theme) => {
   return {
     button: {
       width: '250px',
-      margin: '0 auto',
+      marginBottom: '1rem',
+
+
+
     }
   }
 })
@@ -48,8 +52,14 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB }) 
     setShowInviteReg(true)
   }
 
+  const handleHomeClick = () => {
+    console.log('klick på hemikonen');
+    setShowLogInAndReg(true)
+  }
+
   return (
     <div className="frontPage-container">
+      <HomeIcon className="home-icon" sx={{ cursor: 'pointer', fontSize: '3rem', alignContent: 'left' }} onClick={() => handleHomeClick()} />
       {showLogInAndReg ? (
         <>
           <h1>Välkommen till Family Dashboard</h1>
@@ -64,7 +74,7 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB }) 
       ) : showLogIn ? (
         <>
           <LogIn setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} />
-          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleReg(e)}>Registrera dig</Button>
+          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleReg(e)}>Registrera en ny familj</Button>
         </>
       ) : showReg ? (
         <>
@@ -74,7 +84,8 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB }) 
       ) : showInviteReg ? (
         <>
           <InviteRegister addInvitedToDB={addInvitedToDB} />
-          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleInvite(e)}>Registrera dig</Button>
+          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleReg(e)}>Registrera en ny familj</Button>
+          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleLogIn(e)}>Logga in</Button>
         </>
       ) : ''}
 
