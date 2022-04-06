@@ -387,12 +387,7 @@ function App() {
 
   const addInvitedToDB = (invited) => {
     console.log('invited to save to db', invited);
-    let spouce = {
-      spouceFirstName: invited.firstName,
-      spouceLastName: invited.lastName,
-      spoucePassword: invited.password,
-      spouceColor: invited.color
-    }
+
 
     const getObject = (obj, str) => {
       let result;
@@ -404,7 +399,7 @@ function App() {
       return result;
     }
 
-    console.log('spouce', spouce);
+    // console.log('spouse', spouse);
     const fetchUsers = async () => {
       await fetch(`${BACKEND_URL}/api/users`)
         .then((response) => response.json())
@@ -412,27 +407,41 @@ function App() {
           console.log('userdata', data);
 
           const findEmail = invited.email;
+          // let foundUser;
+          data.map(user => {
+            console.log('user', user.spouse);
+            let foundSpouses = user.spouse;
+            if (foundSpouses !== undefined) {
+              foundSpouses.map(info => {
+                if (info.spouseEmail === findEmail) {
+                  console.log('found it', info);
+                  console.log('found user', user);
+                  let foundUser = user
+                  let spouse = {
+                    spouseFirstName: foundUser.spouse.spouseFirstName,
+                    spouseLastName: foundUser.spouse.spouseLastName,
+                    spouseEmail: invited.email,
+                    spousePassword: invited.password,
+                    spouseColor: invited.color
+                  }
 
-          const parentObject = Object.keys(data).find(section => data[section].spouce.some(spouceObj => spouceObj.spouceEmail === findEmail))
-
-          const currentParentObject = parentObject != null ? data[parentObject] : null;
-
-          console.log('currentParentObject', currentParentObject);
-          currentParentObject.spouce[0].spoucePassword = invited.password
-          currentParentObject.spouce[0].spouceColor = invited.color
-          console.log('currentParentObject after insertion of info', currentParentObject);
-          fetch(`${BACKEND_URL}/api/users/${currentParentObject._id}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ spouce: spouce })
+                  fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+                    method: 'PATCH',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ spouse: spouse })
+                  })
+                    .then(() => { console.log('user added spouse info'); })
+                }
+              })
+            }
           })
-            .then(() => { console.log('user added spouce info'); })
-          // setUsers([...users, user])
-          // console.log('foundFamily', foundFamily);
-          // setUsers(data)
-          // setUserLoggedIn(loggedInUser)
+
+          //   // setUsers([...users, user])
+          //   // console.log('foundFamily', foundFamily);
+          //   // setUsers(data)
+          //   // setUserLoggedIn(loggedInUser)
 
         })
     }
