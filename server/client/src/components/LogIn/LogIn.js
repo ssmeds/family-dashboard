@@ -113,7 +113,7 @@ const LogIn = ({ setUserLoggedInAfterLogIn }) => {
             type='submit'
             endIcon={<Icon>send</Icon>}
             onClick={handleSubmit}
-          >Send
+          >Logga in
           </Button>
         </form>
       </Container>

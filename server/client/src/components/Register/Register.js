@@ -141,13 +141,7 @@ const Register = ({ regNewFamily }) => {
       }, function (error) {
         console.log('FAILED...', error);
       });
-    // emailjs.sendForm('gmail', 'invite-email', e.target, '8lrT3DeEntYvyEf1w')
-    //   .then((result) => {
-    //     console.log(result.text);
-    //   }, (error) => {
-    //     console.log(error.text);
-    //   });
-    // e.target.reset();
+
   }
   return (
     <>
