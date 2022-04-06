@@ -28,7 +28,7 @@ const Header = ({ userLoggedIn, logOutUser }) => {
       <div className="header-container menu-icons">
         <Stack direction='row' spacing={2}>
           <h3>Inloggad:</h3>
-          <Avatar sx={currentUser ? { bgcolor: currentUser.color } : { bgcolor: 'black' }}>{currentUser ? firstAndLast(currentUser.firstName, currentUser.lastName) : 'None'}</Avatar>
+          <Avatar sx={currentUser ? { bgcolor: currentUser.color } : { bgcolor: 'black' }}>{currentUser ? firstAndLast(currentUser.firstName || currentUser.spouseFirstName, currentUser.lastName || currentUser.spouseLastName) : 'None'}</Avatar>
           <Avatar sx={{ bgcolor: 'black' }}><SettingsIcon></SettingsIcon></Avatar>
           <Avatar sx={{ bgcolor: 'red' }} ><LogoutIcon onClick={() => handleLogOut()}></LogoutIcon></Avatar>
         </Stack>

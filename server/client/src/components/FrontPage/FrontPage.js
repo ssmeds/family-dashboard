@@ -83,7 +83,7 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB }) 
         </>
       ) : showInviteReg ? (
         <>
-          <InviteRegister addInvitedToDB={addInvitedToDB} />
+          <InviteRegister addInvitedToDB={addInvitedToDB} setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} />
           <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleReg(e)}>Registrera en ny familj</Button>
           <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleLogIn(e)}>Logga in</Button>
         </>
