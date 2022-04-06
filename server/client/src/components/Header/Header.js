@@ -5,7 +5,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const Header = ({ userLoggedIn, logOutUser }) => {
-  console.log('user logged in', userLoggedIn);
+  // console.log('user logged in', userLoggedIn);
   let currentUser = userLoggedIn;
 
   function firstAndLast(fname, lname) {
@@ -18,7 +18,7 @@ const Header = ({ userLoggedIn, logOutUser }) => {
   }
 
   const handleLogOut = () => {
-    console.log('jag vill logga ut nu');
+    // console.log('jag vill logga ut nu');
     logOutUser(currentUser)
   }
 

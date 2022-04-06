@@ -374,6 +374,16 @@ function App() {
   }
 
   const setUserLoggedInAfterLogIn = (user) => {
+
+    fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ isLoggedIn: true })
+    })
+      .then(() => { console.log('user logged in'); })
+    setUsers([...users, user])
     setUserLoggedIn(user)
     setIsLoggedIn(true)
   }
