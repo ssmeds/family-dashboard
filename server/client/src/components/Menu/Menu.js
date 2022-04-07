@@ -1,16 +1,16 @@
 import './menu.css'
 import { useState } from 'react'
 import AddMenuPopup from './AddMenuPopup'
-const weekDays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag']
-const weekMenu = {
-  måndag: 'Spenatsoppa',
-  tisdag: 'Pizza',
-}
 
-const Menu = ({ onAddMenuItem, recipes }) => {
+
+const Menu = ({ onAddMenuItem, recipes, weeklyMenu }) => {
   console.log('recipes', recipes);
+  console.log('weeklyMenu in Menu.js', weeklyMenu);
   const [buttonPopup, setButtonPopup] = useState(false)
   const [day, setDay] = useState('')
+
+  const weekDays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag']
+
 
   const handleClickOnDay = (e) => {
     console.log(e.target.previousSibling.innerHTML);
@@ -58,7 +58,8 @@ const Menu = ({ onAddMenuItem, recipes }) => {
           })}
         </tbody>
       </table>
-      <AddMenuPopup trigger={buttonPopup} setTrigger={setButtonPopup} onAddMenuItem={onAddMenuItem} day={day}>
+      <button onClick={handleClickOnDay}>Välj veckans rätter</button>
+      <AddMenuPopup trigger={buttonPopup} setTrigger={setButtonPopup} onAddMenuItem={onAddMenuItem} day={day} weeklyMenu={weeklyMenu} weekDays={weekDays}>
       </AddMenuPopup>
     </div>
   )

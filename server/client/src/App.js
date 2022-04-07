@@ -470,7 +470,7 @@ function App() {
 
   //Fetch MenuItems
   const fetchWeeklyMenu = async () => {
-    const res = await fetch(`${BACKEND_URL}/api/weeklyMenus`)
+    const res = await fetch(`${BACKEND_URL}/api/weeklymenus`)
     const data = await res.json()
     console.log('weekly menus', data);
     return data
@@ -511,7 +511,7 @@ function App() {
               <Chatt />
               <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
               <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
-              <Menu onAddMenuItem={addMenuItem} recipes={recipes} />
+              <Menu onAddMenuItem={addMenuItem} recipes={recipes} weeklyMenu={weeklyMenu} />
               <Savings />
             </div>
 
