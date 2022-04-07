@@ -27,7 +27,8 @@ function App() {
   const [value, setValue] = useState(moment())
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState('');
-  const [menuItems, setMenuItems] = useState('');
+  const [weeklyMenu, setWeeklyMenu] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -75,6 +76,16 @@ function App() {
     }
 
     getTodos()
+  }, [])
+
+  useEffect(() => {
+
+    const getWeeklyMenu = async () => {
+      const weeklyMenuFromServer = await fetchWeeklyMenu()
+      setWeeklyMenu(weeklyMenuFromServer)
+    }
+
+    getWeeklyMenu()
   }, [])
 
   //Fetch homeworks
@@ -457,22 +468,30 @@ function App() {
     // setUserLoggedIn(newUsersToPost)
   }
 
+  //Fetch MenuItems
+  const fetchWeeklyMenu = async () => {
+    const res = await fetch(`${BACKEND_URL}/api/weeklyMenus`)
+    const data = await res.json()
+    console.log('weekly menus', data);
+    return data
+  }
+
   //Add MenuItem
   const addMenuItem = (newMenuItem) => {
-    //console.log('newMenuItem', newMenuItem);
+    console.log('newMenuItem', newMenuItem);
     const newMenuItemToPost = {
-      menuItem: newMenuItem.dish,
+      dish: newMenuItem.dish,
       day: newMenuItem.day,
     }
     console.log('newMenuItemToPost', newMenuItemToPost);
-    fetch(`${BACKEND_URL}/api/menuItems`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newMenuItemToPost)
-    })
-      .then(() => { console.log('new menuItem added'); })
-    ////console.log('todo', todo);
-    setMenuItems([...menuItems, newMenuItemToPost])
+    // fetch(`${BACKEND_URL}/api/menuItems`, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(newMenuItemToPost)
+    // })
+    //   .then(() => { console.log('new menuItem added'); })
+    // ////console.log('todo', todo);
+    // setWeeklyMenu([...weeklyMenu, newMenuItemToPost])
 
   }
 
@@ -492,7 +511,7 @@ function App() {
               <Chatt />
               <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
               <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
-              <Menu onAddMenuItem={addMenuItem} />
+              <Menu onAddMenuItem={addMenuItem} recipes={recipes} />
               <Savings />
             </div>
 

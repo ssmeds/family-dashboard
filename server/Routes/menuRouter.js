@@ -1,69 +1,123 @@
 const express = require('express');
-const MenuItem = require('../models/Menus');
+const { WeeklyMenu, Recipe } = require('../models/Menus');
 const router = express.Router()
 const cors = require('cors')
 
 router.use(cors());
 
-//Get all MenuItems
-router.get('/menuItems', async (req, res) => {
-  const menuItem = await MenuItem.find()
-  res.send(menuItem)
+//Get all WeeklyMenus
+router.get('/weeklyMenus', async (req, res) => {
+  const weeklyMenu = await WeeklyMenu.find()
+  console.log('weeklyMenu in router get', weeklyMenu);
+  res.send(weeklyMenu)
+})
+//Get all Recipes
+router.get('/recipes', async (req, res) => {
+  const recipe = await Recipe.find()
+  res.send(recipe)
 })
 
-//Post a new menuItem
-router.post('/menuItems', async (req, res) => {
+//Post a new weeklyMenu
+router.post('/weeklyMenus', async (req, res) => {
   console.log('req.body.day', req.body.day);
-  console.log('req.body.day', req.body.dish);
-  const menuItem = new MenuItem({
+  console.log('req.body.dish', req.body.dish);
+  const weeklyMenu = new WeeklyMenu({
     dish: req.body.dish,
     day: req.body.day
   })
-  await menuItem.save()
-  res.send(menuItem)
+  await weeklyMenu.save()
+  res.send(weeklyMenu)
 })
 
-//Get individual menuItem
-router.get('/menuItems/:id', async (req, res) => {
+//Post a new recipe
+router.post('/recipes', async (req, res) => {
+  console.log('req.body.dish', req.body.dish);
+  const recipe = new Recipe({
+    dish: req.body.dish
+  })
+  await recipe.save()
+  res.send(recipe)
+})
+
+//Get individual weeklyMenu
+router.get('/weeklyMenus/:id', async (req, res) => {
   try {
-    const menuItem = await MenuItem.findOne({ _id: req.params.id })
-    res.send(menuItem)
+    const weeklyMenu = await WeeklyMenu.findOne({ _id: req.params.id })
+    res.send(weeklyMenu)
   } catch {
     res.status(404)
-    res.send({ error: 'MenuItem does not exist' })
+    res.send({ error: 'WeeklyMenu does not exist' })
   }
 
 })
 
-//Update menuItem
-router.patch('/menuItems/:id', async (req, res) => {
+//Get individual recipe
+router.get('/recipes/:id', async (req, res) => {
   try {
-    const menuItem = await MenuItem.findOne({ _id: req.params.id })
+    const recipe = await Recipe.findOne({ _id: req.params.id })
+    res.send(recipe)
+  } catch {
+    res.status(404)
+    res.send({ error: 'Recipe does not exist' })
+  }
+
+})
+
+//Update weeklyMenu
+router.patch('/weeklyMenus/:id', async (req, res) => {
+  try {
+    const weeklyMenu = await WeeklyMenu.findOne({ _id: req.params.id })
     if (req.body.dish) {
-      menuItem.dish = req.body.dish
+      weeklyMenu.dish = req.body.dish
     }
     if (req.body.day) {
-      menuItem.day = req.body.day
+      weeklyMenu.day = req.body.day
     }
 
-    await menuItem.save()
-    res.send(menuItem)
+    await weeklyMenu.save()
+    res.send(weeklyMenu)
   } catch {
     res.status(404)
-    res.send({ error: 'MenuItem does not exist!' })
+    res.send({ error: 'WeeklyMenu does not exist!' })
   }
 })
 
-//Delete menuItem
-router.delete('/menuItems/:id', async (req, res) => {
+//Update recipe
+router.patch('/recipes/:id', async (req, res) => {
   try {
-    await MenuItem.deleteOne({ _id: req.params.id })
+    const recipe = await Recipe.findOne({ _id: req.params.id })
+    if (req.body.dish) {
+      weeklyMenu.dish = req.body.dish
+    }
+
+    await recipe.save()
+    res.send(recipe)
+  } catch {
+    res.status(404)
+    res.send({ error: 'Recipe does not exist!' })
+  }
+})
+
+//Delete weeklyMenu
+router.delete('/weeklyMenus/:id', async (req, res) => {
+  try {
+    await WeeklyMenu.deleteOne({ _id: req.params.id })
     res.status(204).send()
   } catch {
     res.status(404)
-    res.send({ error: "MenuItem doesn't exist!" })
+    res.send({ error: "WeeklyMenu doesn't exist!" })
   }
 })
 
+//Delete recipe
+router.delete('/recipes/:id', async (req, res) => {
+  try {
+    await Recipe.deleteOne({ _id: req.params.id })
+    res.status(204).send()
+  } catch {
+    res.status(404)
+    res.send({ error: "Recipe doesn't exist!" })
+  }
+})
 
 module.exports = router
