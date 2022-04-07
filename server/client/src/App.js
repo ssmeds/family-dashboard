@@ -27,6 +27,7 @@ function App() {
   const [value, setValue] = useState(moment())
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState('');
+  const [menuItems, setMenuItems] = useState('');
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -456,6 +457,25 @@ function App() {
     // setUserLoggedIn(newUsersToPost)
   }
 
+  //Add MenuItem
+  const addMenuItem = (newMenuItem) => {
+    //console.log('newMenuItem', newMenuItem);
+    const newMenuItemToPost = {
+      menuItem: newMenuItem.dish,
+      day: newMenuItem.day,
+    }
+    console.log('newMenuItemToPost', newMenuItemToPost);
+    fetch(`${BACKEND_URL}/api/menuItems`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newMenuItemToPost)
+    })
+      .then(() => { console.log('new menuItem added'); })
+    ////console.log('todo', todo);
+    setMenuItems([...menuItems, newMenuItemToPost])
+
+  }
+
   return (
     <div className="App">
       {!isLoggedIn ? (
@@ -472,7 +492,7 @@ function App() {
               <Chatt />
               <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
               <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
-              <Menu />
+              <Menu onAddMenuItem={addMenuItem} />
               <Savings />
             </div>
 
