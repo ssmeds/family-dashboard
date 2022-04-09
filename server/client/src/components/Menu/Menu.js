@@ -1,9 +1,10 @@
 import './menu.css'
 import { useState } from 'react'
 import AddMenuPopup from './AddMenuPopup'
+import Week from '.././Week/Week'
 
 
-const Menu = ({ onAddMenuItem, recipes, weeklyMenu }) => {
+const Menu = ({ addWeeklyMenu, recipes, weeklyMenu }) => {
   console.log('recipes', recipes);
   console.log('weeklyMenu in Menu.js', weeklyMenu);
   const [buttonPopup, setButtonPopup] = useState(false)
@@ -39,7 +40,7 @@ const Menu = ({ onAddMenuItem, recipes, weeklyMenu }) => {
 
   return (
     <div className="menu-container card">
-      <div className="menu-header card-header"><h1>Matlista</h1></div>
+      <div className="menu-header card-header"><h1>Matlista</h1><Week /></div>
       <table>
         <tbody>
           {weekDays.map((day, i) => {
@@ -59,7 +60,7 @@ const Menu = ({ onAddMenuItem, recipes, weeklyMenu }) => {
         </tbody>
       </table>
       <button onClick={handleClickOnDay}>Välj veckans rätter</button>
-      <AddMenuPopup trigger={buttonPopup} setTrigger={setButtonPopup} onAddMenuItem={onAddMenuItem} day={day} weeklyMenu={weeklyMenu} weekDays={weekDays}>
+      <AddMenuPopup trigger={buttonPopup} setTrigger={setButtonPopup} addWeeklyMenu={addWeeklyMenu} day={day} weeklyMenu={weeklyMenu} weekDays={weekDays}>
       </AddMenuPopup>
     </div>
   )

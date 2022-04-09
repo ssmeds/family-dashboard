@@ -494,6 +494,10 @@ function App() {
     // setWeeklyMenu([...weeklyMenu, newMenuItemToPost])
 
   }
+  //Add Weekly Menu
+  const addWeeklyMenu = (weekMenu) => {
+    console.log('this weeks menu', weekMenu);
+  }
 
   return (
     <div className="App">
@@ -511,7 +515,7 @@ function App() {
               <Chatt />
               <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
               <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
-              <Menu onAddMenuItem={addMenuItem} recipes={recipes} weeklyMenu={weeklyMenu} />
+              <Menu addWeeklyMenu={addWeeklyMenu} recipes={recipes} weeklyMenu={weeklyMenu} />
               <Savings />
             </div>
 
