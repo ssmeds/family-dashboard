@@ -20,7 +20,7 @@ const Menu = ({ addWeeklyMenu, recipes, weeklyMenu }) => {
   }
   let foundDish;
   recipes.map((item, i) => {
-    console.log(item);
+    // console.log(item);
 
     // weekDays.map(day => {
     //   if (day === item.day) {

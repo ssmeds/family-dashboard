@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Week from '.././Week/Week'
 
 // const initialFormData = Object.freeze({ day: '', dish: '' })
 const AddMenuItem = ({ addWeeklyMenu, setTrigger, day, weeklyMenu, weekDays }) => {
@@ -18,8 +19,10 @@ const AddMenuItem = ({ addWeeklyMenu, setTrigger, day, weeklyMenu, weekDays }) =
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
+    let theWeekNr = document.querySelector('#weekNr').innerHTML
+    console.log('theWeekNr', theWeekNr);
+    addWeeklyMenu(formData, theWeekNr)
     setTrigger(false)
-    addWeeklyMenu(formData)
     // console.log('dishes of inputs', dish);
 
     // if (!dish) {
@@ -53,6 +56,7 @@ const AddMenuItem = ({ addWeeklyMenu, setTrigger, day, weeklyMenu, weekDays }) =
     <form className='addWeeklyMenu-form'>
       <div className='form-control'>
         <h1>Veckans meny</h1>
+        <Week />
         {weekDays.map(day => {
           return (
             <div className='addWeeklyMenu-inputs'>

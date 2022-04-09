@@ -19,11 +19,10 @@ router.get('/recipes', async (req, res) => {
 
 //Post a new weeklyMenu
 router.post('/weeklyMenus', async (req, res) => {
-  console.log('req.body.day', req.body.day);
-  console.log('req.body.dish', req.body.dish);
+  console.log('req.body from menu', req.body);
   const weeklyMenu = new WeeklyMenu({
-    dish: req.body.dish,
-    day: req.body.day
+    weekNr: req.body.weekNr,
+    weekMenu: req.body.weekMenu
   })
   await weeklyMenu.save()
   res.send(weeklyMenu)

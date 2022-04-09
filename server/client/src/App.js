@@ -495,8 +495,21 @@ function App() {
 
   }
   //Add Weekly Menu
-  const addWeeklyMenu = (weekMenu) => {
-    console.log('this weeks menu', weekMenu);
+  const addWeeklyMenu = (weekMenu, weekNr) => {
+    console.log('this weeks menu and weeknr', weekMenu, weekNr);
+    const weekMenuToSaveToDB = {
+      weekNr,
+      weekMenu,
+    }
+    console.log('weekMenuToSaveToDB', weekMenuToSaveToDB);
+    fetch(`${BACKEND_URL}/api/weeklymenus`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(weekMenuToSaveToDB)
+    })
+      .then(() => { console.log('new weeks menu added'); })
+    ////console.log('todo', todo);
+    setWeeklyMenu([...weeklyMenu, weekMenuToSaveToDB])
   }
 
   return (
