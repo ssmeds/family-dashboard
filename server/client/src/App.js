@@ -499,7 +499,9 @@ function App() {
     console.log('this weeks menu and weeknr', weekMenu, weekNr);
     const weekMenuToSaveToDB = {
       weekNr,
-      weekMenu,
+      weekMenu: {
+        day: weekMenu.name
+      },
     }
     console.log('weekMenuToSaveToDB', weekMenuToSaveToDB);
     fetch(`${BACKEND_URL}/api/weeklymenus`, {

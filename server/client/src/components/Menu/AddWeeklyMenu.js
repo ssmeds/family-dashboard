@@ -19,7 +19,7 @@ const AddMenuItem = ({ addWeeklyMenu, setTrigger, day, weeklyMenu, weekDays }) =
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-    let theWeekNr = document.querySelector('#weekNr').innerHTML
+    let theWeekNr = parseInt(document.querySelector('#weekNr').innerHTML)
     console.log('theWeekNr', theWeekNr);
     addWeeklyMenu(formData, theWeekNr)
     setTrigger(false)
