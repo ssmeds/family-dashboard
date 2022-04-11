@@ -10,7 +10,7 @@ let thisWeekNr = moment().weeks();
 
 const Week = () => {
   return (
-    <div>v. <span id='weekNr'>{thisWeekNr}</span></div>
+    <div className="weekDisplay">v. <span id='weekNr'>{thisWeekNr}</span></div>
   )
 }
 export default Week
