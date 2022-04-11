@@ -1,27 +1,54 @@
-import { useState } from 'react'
+import { useState, useReducer } from 'react'
 import Week from '.././Week/Week'
+import formReducer from './menuReducer'
+
+const menuTemplate = {
+  'Måndag': '',
+  'Tisdag': '',
+  'Onsdag': '',
+  'Torsdag': '',
+  'Fredag': '',
+  'Lördag': '',
+  'Söndag': ''
+}
+// const initialFormData = {
+//   weekMenu: [
+//     {
+//       day: '',
+//       dish: ''
+//     }
+//   ]
+
+// }
 
 // const initialFormData = Object.freeze({ day: '', dish: '' })
-const AddMenuItem = ({ addWeeklyMenu, setTrigger, day, weeklyMenu, weekDays }) => {
+const AddWeeklyMenu = ({ addWeeklyMenu, setTrigger, day, foundWeek, weekDays }) => {
   // console.log('day', day);
-  // console.log('weekly menu in addmenuitem', weeklyMenu);
+  // console.log('weekly menu in addmenuitem', foundWeek);
   // console.log('weekdays in addmenuitem', weekDays);
   // const [dish, setDish] = useState('')
   // const [menu, setMenu] = useState([{ day: '', dish: '' }])
-  const [formData, setFormData] = useState({})
+  // const [formData, setFormData] = useState(menuTemplate)
+  const [formState, dispatch] = useReducer(formReducer, menuTemplate)
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value.trim() })
+  const handleTextChange = (e) => {
+    dispatch({
+      type: 'HANDLE INPUT TEXT',
+      field: e.target.name,
+      payload: e.target.value
+    })
+    // setFormData({ ...formData, [e.target.name]: e.target.value.trim() })
     // setFormData({ ...formData, [name]: value })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData);
+    // console.log(formData);
+    console.log('formState', formState);
     let theWeekNr = parseInt(document.querySelector('#weekNr').innerHTML)
     console.log('theWeekNr', theWeekNr);
-    addWeeklyMenu(formData, theWeekNr)
+    addWeeklyMenu(formState, theWeekNr)
     setTrigger(false)
     // console.log('dishes of inputs', dish);
 
@@ -36,41 +63,81 @@ const AddMenuItem = ({ addWeeklyMenu, setTrigger, day, weeklyMenu, weekDays }) =
     // setTrigger(false)
   }
 
-  // const handleChangeInput = (e, i) => {
-  //   // console.log(e.target.value);
-  //   // console.log('e.target.name', e.target.name);
 
-  //   // const values = [...menu]
-  //   // values[i].e.target.value = e.target.value
-  //   // setMenu([...menu], e.target.value)
-  //   setDish([...dish, e.target.value])
-  // }
-
-
-
-  // console.log('menu state', menu);
-  // console.log('dish state', dish);
-  // console.log('form state', formData);
 
   return (
     <form className='addWeeklyMenu-form'>
       <div className='form-control'>
         <h1>Veckans meny</h1>
         <Week />
-        {weekDays.map(day => {
+        {/* {Object.entries(foundWeek.weekMenu[0]).map(([day, dish], i) => {
           return (
             <div className='addWeeklyMenu-inputs'>
               <label>{day}</label>
               <input
+                key={i}
                 name={day}
                 type='dish'
-                placeholder='Lägg till en ny måltid'
+                placeholder={dish ? { dish } : 'Lägg till en ny måltid'}
                 // value={dish}
                 onChange={(e) => handleChange(e)}
               />
             </div>
           )
-        })}
+        }
+          // )<tr key={i}><th>{day}</th><td>{foundWeek.weekMenu[0][day]}</td></tr>)
+        )} */}
+        <div className='addWeeklyMenu-inputs'>
+          <label>Måndag</label>
+          <input
+            type="text"
+            name="Måndag"
+            value={formState.day}
+            onChange={(e) => handleTextChange(e)}
+          />
+        </div>
+        <div className='addWeeklyMenu-inputs'>
+          <label>Tisdag</label>
+          <input type="text"
+            name="Tisdag"
+            value={formState.day}
+            onChange={(e) => handleTextChange(e)} />
+        </div>
+        <div className='addWeeklyMenu-inputs'>
+          <label>Onsdag</label>
+          <input type="text"
+            name="Onsdag"
+            value={formState.day}
+            onChange={(e) => handleTextChange(e)} />
+        </div>
+        <div className='addWeeklyMenu-inputs'>
+          <label>Torsdag</label>
+          <input type="text"
+            name="Torsdag"
+            value={formState.day}
+            onChange={(e) => handleTextChange(e)} />
+        </div>
+        <div className='addWeeklyMenu-inputs'>
+          <label>Fredag</label>
+          <input type="text"
+            name="Fredag"
+            value={formState.day}
+            onChange={(e) => handleTextChange(e)} />
+        </div>
+        <div className='addWeeklyMenu-inputs'>
+          <label>Lördag</label>
+          <input type="text"
+            name="Lördag"
+            value={formState.day}
+            onChange={(e) => handleTextChange(e)} />
+        </div>
+        <div className='addWeeklyMenu-inputs'>
+          <label>Söndag</label>
+          <input type="text"
+            name="Söndag"
+            value={formState.day}
+            onChange={(e) => handleTextChange(e)} />
+        </div>
 
       </div>
 
@@ -79,4 +146,4 @@ const AddMenuItem = ({ addWeeklyMenu, setTrigger, day, weeklyMenu, weekDays }) =
   )
 }
 
-export default AddMenuItem
+export default AddWeeklyMenu

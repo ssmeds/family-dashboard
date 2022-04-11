@@ -6,7 +6,7 @@ const AddMenuPopup = (props) => {
     <div className='popup'>
       <div className='popup-inner'>
         {props.children}
-        <AddWeeklyMenu addWeeklyMenu={props.addWeeklyMenu} setTrigger={props.setTrigger} day={props.day} weeklyMenu={props.weeklyMenu} weekDays={props.weekDays}></AddWeeklyMenu>
+        <AddWeeklyMenu addWeeklyMenu={props.addWeeklyMenu} setTrigger={props.setTrigger} day={props.day} foundWeek={props.foundWeek} weekDays={props.weekDays}></AddWeeklyMenu>
         <CgClose className="close-btn" onClick={() => props.setTrigger(false)} />
       </div>
     </div>

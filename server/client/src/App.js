@@ -476,24 +476,7 @@ function App() {
     return data
   }
 
-  //Add MenuItem
-  const addMenuItem = (newMenuItem) => {
-    console.log('newMenuItem', newMenuItem);
-    const newMenuItemToPost = {
-      dish: newMenuItem.dish,
-      day: newMenuItem.day,
-    }
-    console.log('newMenuItemToPost', newMenuItemToPost);
-    // fetch(`${BACKEND_URL}/api/menuItems`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(newMenuItemToPost)
-    // })
-    //   .then(() => { console.log('new menuItem added'); })
-    // ////console.log('todo', todo);
-    // setWeeklyMenu([...weeklyMenu, newMenuItemToPost])
 
-  }
   //Add Weekly Menu
   const addWeeklyMenu = (weekMenu, weekNr) => {
     console.log('this weeks menu and weeknr', weekMenu, weekNr);
@@ -508,7 +491,6 @@ function App() {
       body: JSON.stringify(weekMenuToSaveToDB)
     })
       .then(() => { console.log('new weeks menu added'); })
-    ////console.log('todo', todo);
     setWeeklyMenu([...weeklyMenu, weekMenuToSaveToDB])
   }
 
