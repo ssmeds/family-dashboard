@@ -24,6 +24,7 @@ function App() {
   const [homework, setHomework] = useState([]);
   const [remember, setRemember] = useState([]);
   const [todo, setTodo] = useState([]);
+  const [note, setNote] = useState([]);
   const [value, setValue] = useState(moment())
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState('');
@@ -76,6 +77,16 @@ function App() {
     }
 
     getTodos()
+  }, [])
+
+  useEffect(() => {
+
+    const getNotes = async () => {
+      const notesFromServer = await fetchNotes()
+      setNote(notesFromServer)
+    }
+
+    getNotes()
   }, [])
 
   useEffect(() => {
@@ -494,6 +505,64 @@ function App() {
     setWeeklyMenu([...weeklyMenu, weekMenuToSaveToDB])
   }
 
+  //Fetch Notes
+  const fetchNotes = async () => {
+    const res = await fetch(`${BACKEND_URL}/api/notes`)
+    const data = await res.json()
+    ////console.log('data from fetchTodos', data);
+    return data
+  }
+
+  //Fetch Note
+  const fetchNote = async (id) => {
+    const res = await fetch(`${BACKEND_URL}/api/notes/${id}`)
+    const data = await res.json()
+
+    return data
+  }
+
+  //Add Calendar Note
+  const addNote = (newNote) => {
+    ////console.log('newNote: ', newNote);
+    const newNoteToPost = {
+      task: newNote.task,
+      date: newNote.date,
+    }
+
+    fetch(`${BACKEND_URL}/api/notes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newNoteToPost)
+    })
+      .then(() => { console.log('new note added'); })
+    ////console.log('todo', todo);
+    setNote([...note, newNoteToPost])
+
+  }
+
+  //Delete Calendar Note
+  const deleteNote = (id) => {
+    ////console.log(id);
+
+    fetch(`${BACKEND_URL}/api/notes/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(res => {
+        if (res.ok) {
+          ////console.log(('Delete successful!'));
+        }
+        else {
+          ////console.log('Delete unsuccessful!');
+        }
+        return res
+      })
+      .then(() => { console.log('Note deleted'); })
+    const newNoteList = note.filter(item => item._id !== id);
+    setNote(newNoteList)
+
+  }
+
   return (
     <div className="App">
       {!isLoggedIn ? (
@@ -503,7 +572,7 @@ function App() {
             <Header userLoggedIn={userLoggedIn} logOutUser={logOutUser} />
             <div className="upper-container">
               <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
-              <CalendarView value={value} onChange={setValue} onAdd={addTodo} todos={todo} />
+              <CalendarView value={value} onChange={setValue} addNote={addNote} notes={note} />
               <GroceryList />
             </div>
             <div className="lower-container">

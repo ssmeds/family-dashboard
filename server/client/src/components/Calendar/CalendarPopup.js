@@ -7,7 +7,7 @@ const CalendarPopup = (props) => {
     <div className='popup'>
       <div className='popup-inner'>
         {props.children}
-        <CalendarAddTask date={props.date} onAdd={props.onAdd} setTrigger={props.setTrigger} />
+        <CalendarAddTask date={props.date} addNote={props.addNote} setTrigger={props.setTrigger} />
         <CgClose className="close-btn" onClick={() => props.setTrigger(false)} />
         {/* <button className="close-btn" onClick={() => props.setTrigger(false)}>X</button> */}
       </div>

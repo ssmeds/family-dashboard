@@ -8,9 +8,9 @@ import { format } from 'date-fns'
 
 
 
-const CalendarView = ({ value, onChange, onAdd, todos }) => {
+const CalendarView = ({ value, onChange, addNote, notes }) => {
   // console.log('todos.date', todos[0].date);
-  let formattedDatesTodos = todos.map(item => {
+  let formattedDatesTodos = notes.map(item => {
     // console.log('nytt datum', item.date);
     return { ...item, date: item.date.slice(0, 10) }
   })
@@ -51,17 +51,17 @@ const CalendarView = ({ value, onChange, onAdd, todos }) => {
                     {day.format('D')}
 
                   </div>
-                  {formattedDatesTodos.map((todo) => {
+                  {formattedDatesTodos.map((note) => {
                     // console.log('todo i todos.map', todo);
                     return (
-                      todo.date === day.format('L') ? <li key={Math.floor(Math.random() * 10000) + 1} className='todos'>{todo.task}</li> : ''
+                      note.date === day.format('L') ? <li key={Math.floor(Math.random() * 10000) + 1} className='todos'>{note.task}</li> : ''
                     )
                   })}
 
                 </div>))}
             </div>))}
         </div>
-        <CalendarPopup trigger={buttonPopup} setTrigger={setButtonPopup} date={date} onAdd={onAdd}>
+        <CalendarPopup trigger={buttonPopup} setTrigger={setButtonPopup} date={date} addNote={addNote}>
           <h3>{date}</h3>
         </CalendarPopup>
       </div>
