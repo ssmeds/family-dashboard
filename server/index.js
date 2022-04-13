@@ -10,6 +10,7 @@ const rememberRouter = require('./Routes/rememberRouter')
 const todoRouter = require('./Routes/todoRouter')
 const invitationRouter = require('./Routes/invitationRouter')
 const menuRouter = require('./Routes/menuRouter')
+const calendarNotesRouter = require('./Routes/calendarNotesRouter')
 
 
 // mongodb + srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -44,6 +45,7 @@ mongoose
     app.use('/api', rememberRouter)
     app.use('/api', todoRouter)
     app.use('/api', menuRouter)
+    app.use('/api', calendarNotesRouter)
     app.use('/invitation', invitationRouter)
 
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 
-const CalendarAddTask = ({ onAdd, date, setTrigger }) => {
+const CalendarAddTask = ({ addNote, date, setTrigger }) => {
   const [task, setTask] = useState('')
 
   const onSubmit = (e) => {
@@ -12,7 +12,7 @@ const CalendarAddTask = ({ onAdd, date, setTrigger }) => {
       return
     }
     console.log('task, date', task, date);
-    onAdd({ task, date })
+    addNote({ task, date })
 
     setTask('')
     setTrigger(false)
