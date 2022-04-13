@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const weeklyMenuSchema = new mongoose.Schema({
   weekNr: Number,
-  weekMenu: []
+  weekMenu: [],
+  owner: {}
 })
 
 const recipeSchema = new mongoose.Schema({

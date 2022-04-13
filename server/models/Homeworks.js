@@ -5,7 +5,8 @@ const homeworkSchema = new mongoose.Schema({
   // userId: String,
   subject: String,
   assignment: String,
-  complete: Boolean
+  complete: Boolean,
+  owner: {}
 })
 
 const Homework = mongoose.model('Homework', homeworkSchema)

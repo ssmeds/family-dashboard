@@ -22,7 +22,8 @@ router.post('/weeklyMenus', async (req, res) => {
   console.log('req.body from menu', req.body);
   const weeklyMenu = new WeeklyMenu({
     weekNr: req.body.weekNr,
-    weekMenu: [req.body.weekMenu]
+    weekMenu: [req.body.weekMenu],
+    owner: req.body.owner
   })
   await weeklyMenu.save()
   res.send(weeklyMenu)

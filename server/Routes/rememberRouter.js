@@ -17,7 +17,9 @@ router.post('/remembers', async (req, res) => {
     task: req.body.task,
     date: req.body.date,
     familyMember: req.body.familyMember,
-    color: req.body.color
+    color: req.body.color,
+    owner: req.body.owner
+
   })
   await remember.save()
   res.send(remember)

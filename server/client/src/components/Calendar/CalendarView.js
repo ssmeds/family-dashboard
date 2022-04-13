@@ -8,12 +8,13 @@ import { format } from 'date-fns'
 
 
 
-const CalendarView = ({ value, onChange, addNote, notes }) => {
+const CalendarView = ({ value, onChange, addNote, notes, userLoggedIn }) => {
   // console.log('todos.date', todos[0].date);
-  let formattedDatesTodos = notes.map(item => {
-    // console.log('nytt datum', item.date);
-    return { ...item, date: item.date.slice(0, 10) }
-  })
+  console.log('logged in user', userLoggedIn);
+  // let formattedDatesTodos = notes.map(item => {
+  //   // console.log('nytt datum', item.date);
+  //   return { ...item, date: item.date.slice(0, 10) }
+  // })
   // console.log('new todos after slice', formattedDates)
   // console.log('value', value);
   const [calendar, setCalendar] = useState([])
@@ -51,7 +52,7 @@ const CalendarView = ({ value, onChange, addNote, notes }) => {
                     {day.format('D')}
 
                   </div>
-                  {formattedDatesTodos.map((note) => {
+                  {notes.map((note) => {
                     // console.log('todo i todos.map', todo);
                     return (
                       note.date === day.format('L') ? <li key={Math.floor(Math.random() * 10000) + 1} className='todos'>{note.task}</li> : ''

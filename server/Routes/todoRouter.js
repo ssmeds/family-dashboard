@@ -19,6 +19,7 @@ router.post('/todos', async (req, res) => {
     task: req.body.task,
     date: req.body.date,
     complete: req.body.complete,
+    owner: req.body.owner
   })
   await todo.save()
   res.send(todo)

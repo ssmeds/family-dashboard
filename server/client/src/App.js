@@ -122,9 +122,10 @@ function App() {
     const newHomeworkToPost = {
       subject: newHomework.subject,
       assignment: newHomework.assignment,
-      complete: false
+      complete: false,
+      owner: userLoggedIn
     }
-
+    console.log('newHomeworkToPost', newHomeworkToPost);
     fetch(`${BACKEND_URL}/api/homeworks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -264,7 +265,8 @@ function App() {
       task: newRemember.task,
       date: newRemember.date,
       familyMember: newRemember.familyMember,
-      color: color
+      color: color,
+      owner: userLoggedIn
     }
 
     fetch(`${BACKEND_URL}/api/remembers`, {
@@ -322,7 +324,8 @@ function App() {
     const newTodoToPost = {
       task: newTodo.task,
       date: newTodo.date,
-      complete: false
+      complete: false,
+      owner: userLoggedIn
     }
 
     fetch(`${BACKEND_URL}/api/todos`, {
@@ -494,6 +497,7 @@ function App() {
     const weekMenuToSaveToDB = {
       weekNr,
       weekMenu,
+      owner: userLoggedIn
     }
     console.log('weekMenuToSaveToDB', weekMenuToSaveToDB);
     fetch(`${BACKEND_URL}/api/weeklymenus`, {
@@ -527,6 +531,7 @@ function App() {
     const newNoteToPost = {
       task: newNote.task,
       date: newNote.date,
+      owner: userLoggedIn
     }
 
     fetch(`${BACKEND_URL}/api/notes`, {
@@ -571,16 +576,16 @@ function App() {
           <>
             <Header userLoggedIn={userLoggedIn} logOutUser={logOutUser} />
             <div className="upper-container">
-              <Todo todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
-              <CalendarView value={value} onChange={setValue} addNote={addNote} notes={note} />
-              <GroceryList />
+              <Todo userLoggedIn={userLoggedIn} todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
+              <CalendarView userLoggedIn={userLoggedIn} value={value} onChange={setValue} addNote={addNote} notes={note} />
+              <GroceryList userLoggedIn={userLoggedIn} />
             </div>
             <div className="lower-container">
-              <Chatt />
-              <Remember remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
-              <Homework homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
-              <Menu addWeeklyMenu={addWeeklyMenu} recipes={recipes} weeklyMenu={weeklyMenu} />
-              <Savings />
+              <Chatt userLoggedIn={userLoggedIn} />
+              <Remember userLoggedIn={userLoggedIn} remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
+              <Homework userLoggedIn={userLoggedIn} homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
+              <Menu userLoggedIn={userLoggedIn} addWeeklyMenu={addWeeklyMenu} recipes={recipes} weeklyMenu={weeklyMenu} />
+              <Savings userLoggedIn={userLoggedIn} />
             </div>
 
             <Footer />

@@ -4,7 +4,8 @@ const rememberSchema = new mongoose.Schema({
   task: String,
   date: Date,
   familyMember: String,
-  color: String
+  color: String,
+  owner: {}
 })
 
 const Remember = mongoose.model('Remember', rememberSchema)

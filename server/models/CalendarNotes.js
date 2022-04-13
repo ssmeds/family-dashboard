@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const notesSchema = new mongoose.Schema({
   task: String,
   date: Date,
+  owner: {}
 })
 
 const Note = mongoose.model('Note', notesSchema)

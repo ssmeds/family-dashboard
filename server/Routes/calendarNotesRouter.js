@@ -18,6 +18,7 @@ router.post('/notes', async (req, res) => {
   const note = new Note({
     task: req.body.task,
     date: req.body.date,
+    owner: req.body.owner
   })
   await note.save()
   res.send(note)
