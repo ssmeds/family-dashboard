@@ -5,18 +5,14 @@ import { faCheckCircle, faCircle, faChevronLeft, faChevronRight, faPlus } from '
 import { useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 
-const GroceryList = ({ addGroceryListItem }) => {
-  const [items, setItems] = useState([]);
+const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem }) => {
+  // console.log('groceryListItems from App', groceryListItems);
+  const [item, setItem] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [totalItemCount, setTotalItemCount] = useState(null);
 
 
-  const handleChange = (e) => {
-    setInputValue(e.target.value)
-  }
-
   const handleKeyDown = (e) => {
-    // console.log(e.key);
     if (e.key === 'Enter') {
       handleAddButtonClick()
     }
@@ -24,53 +20,92 @@ const GroceryList = ({ addGroceryListItem }) => {
 
   const handleAddButtonClick = () => {
     const newItem = {
-      itemName: inputValue,
+      item: item,
       quantity: 1,
-      isSelected: false,
+      complete: false,
     };
-
-    const newItems = [...items, newItem];
-    setItems(newItems);
-    setInputValue('');
-    calculateTotal();
     addGroceryListItem(newItem)
-  };
-  const toggleComplete = (index) => {
-    const newItems = [...items];
-    newItems[index].isSelected = !newItems[index].isSelected;
-    newItems[index].quantity = 0;
-    setItems(newItems);
+    setInputValue('');
+    setItem('');
+
+    setGroceryListItems([...groceryListItems, newItem])
     calculateTotal();
+
+  };
+  const toggleComplete = (id) => {
+    let foundItem = groceryListItems.find(item => item._id === id);
+    foundItem.complete = !foundItem.complete;
+    foundItem.quantity = 0;
+    calculateTotal();
+    toggleCompletedGroceryListItem(id)
+    setGroceryListItems(
+      groceryListItems.map((groceryListItem) =>
+        groceryListItem._id === id ? { ...groceryListItem, complete: foundItem.complete } : groceryListItem))
   };
 
-  const handleQuantityIncrease = (index) => {
-    const newItems = [...items];
-    newItems[index].quantity++;
-    setItems(newItems);
-    calculateTotal();
+  const handleQuantityIncrease = (e, id, name) => {
+    console.log('id in increase', id);
+    if (id === undefined) {
+      console.log('försöker hitta item name', e);
+
+      let foundItem = groceryListItems.find(item => item.item === name);
+      console.log('foundItem', foundItem);
+      foundItem.quantity++;
+      calculateTotal();
+      setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
+    } else {
+      let foundItem = groceryListItems.find(item => item._id === id);
+      console.log('foundItem', foundItem);
+      foundItem.quantity++;
+      calculateTotal();
+      setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
+    }
   };
 
-  const handleQuantityDecrease = (index) => {
-    const newItems = [...items];
-    // console.log('newItems', newItems);
-    newItems[index].quantity--;
-    setItems(newItems);
-    calculateTotal();
+  const handleQuantityDecrease = (e, id, name) => {
+    console.log('id in decrease', id);
+    if (id === undefined) {
+      console.log('försöker hitta item name', e);
+      console.log('name of item decrease', name);
+
+      let foundItem = groceryListItems.find(item => item.item === name);
+      console.log('foundItem', foundItem);
+      foundItem.quantity--;
+      calculateTotal();
+      setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity-- } : item))
+    } else {
+      let foundItem = groceryListItems.find(item => item._id === id);
+      console.log('foundItem', foundItem);
+      foundItem.quantity--;
+      calculateTotal();
+      setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity-- } : item))
+
+    }
   };
 
   const calculateTotal = () => {
-    const totalItemCount = items.reduce((total, item) => {
+    const totalItemCount = groceryListItems.reduce((total, item) => {
       return total + item.quantity;
     }, 0);
 
     setTotalItemCount(totalItemCount);
   };
 
-  const handleRemoveItem = (index) => {
-    // console.log('klick på krysset index', index);
-    let newList = items;
-    newList.splice(index, 1);
-    setItems([...newList])
+  const handleRemoveItem = (e, id) => {
+    console.log('klick på krysset id', id);
+    if (id === undefined) {
+      console.log('försöker hitta item name', e.target);
+      console.log(e.target.parentElement.previousElementSibling.innerText);
+      deleteGroceryListItem(e.target.parentElement.previousElementSibling.innerText)
+      const newGroceryList = groceryListItems.filter(item => item.item !== e.target.parentElement.previousElementSibling.innerText);
+      setGroceryListItems(newGroceryList)
+    } else {
+      deleteGroceryListItem(id)
+      const newGroceryList = groceryListItems.filter(item => item._id !== id);
+      setGroceryListItems(newGroceryList)
+    }
+
+
   }
 
   return (
@@ -80,36 +115,38 @@ const GroceryList = ({ addGroceryListItem }) => {
         <Week />
       </div>
       <div className='add-item-box'>
-        <input value={inputValue} onChange={(event) => handleChange(event)} onKeyDown={(event) => handleKeyDown(event)} className='add-item-input' placeholder='Lägg till en vara...' />
+        <input value={item} onChange={(e) => { setItem(e.target.value) }} onKeyDown={(e) => handleKeyDown(e)} className='add-item-input' placeholder='Lägg till en vara...' />
         <FontAwesomeIcon icon={faPlus} onClick={() => handleAddButtonClick()} />
       </div>
       <div className='item-list'>
-        {items.map((item, index) => (
+        {groceryListItems.map((item, id) => (
+
           <div className='item-container'>
-            <div className='item-name' onClick={() => toggleComplete(index)}>
-              {item.isSelected ? (
+            <div className='item-name' onClick={() => toggleComplete(item._id)}>
+              {item.complete ? (
                 <>
                   <FontAwesomeIcon icon={faCheckCircle} />
-                  <span className='completed'>{item.itemName}</span>
+                  <span className='completed'>{item.item}</span>
                 </>
               ) :
                 (
                   <>
                     <FontAwesomeIcon icon={faCircle} />
-                    <span key={index} >{item.itemName}</span>
+                    <span key={id} >{item.item}</span>
                   </>
                 )
               }
             </div>
             <div className='quantity'>
               <button>
-                <FontAwesomeIcon icon={faChevronLeft} onClick={() => handleQuantityDecrease(index)} />
+                <FontAwesomeIcon icon={faChevronLeft} onClick={(e) => handleQuantityDecrease(e, item._id, item.item)} />
               </button>
               <span> {item.quantity} </span>
               <button>
-                <FontAwesomeIcon icon={faChevronRight} onClick={() => handleQuantityIncrease(index)} />
+                <FontAwesomeIcon icon={faChevronRight} onClick={(e) => handleQuantityIncrease(e, item._id, item.item)} />
               </button>
-              <ClearIcon className='clear-btn' onClick={() => handleRemoveItem(index)} />
+              {/* <ClearIcon className='clear-btn' onClick={(e) => handleRemoveItem(e, item._id)} /> */}
+              <button className='clear-btn' onClick={(e) => handleRemoveItem(e, item._id)}>&#9747;</button>
             </div>
           </div>
 

@@ -31,6 +31,7 @@ function App() {
   const [weeklyMenu, setWeeklyMenu] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [groceryListItem, setGroceryListItem] = useState([]);
+  const [groceryListItems, setGroceryListItems] = useState([]);
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -104,7 +105,7 @@ function App() {
 
     const getGroceryListItems = async () => {
       const itemsFromServer = await fetchGroceryListItems()
-      setGroceryListItem(itemsFromServer)
+      setGroceryListItems(itemsFromServer)
     }
 
     getGroceryListItems()
@@ -653,10 +654,122 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newItemToPost)
     })
-      .then(() => { console.log('new groceryList item added'); setGroceryListItem([...groceryListItem, newItemToPost]) })
+      .then(() => {
+        console.log('new groceryList item added');
+        // setGroceryListItems([...groceryListItem, newItemToPost])
+      })
     ////console.log('todo', todo);
 
+  }
 
+
+  //Toggle completed grocerylistitem
+  const toggleCompletedGroceryListItem = async (id) => {
+    const itemToToggle = await fetchGroceryListItems(id);
+    const toggleItem = { ...itemToToggle, complete: !itemToToggle.complete }
+
+    const res = await fetch(`${BACKEND_URL}/api/grocerylistitems/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(toggleItem)
+    })
+
+    const data = await res.json()
+
+    // setGroceryListItems(
+    //   groceryListItems.map((groceryListItem) =>
+    //     groceryListItem._id === id ? { ...groceryListItem, complete: data.complete } : groceryListItem))
+  }
+
+  //Delete GroceryListItem
+  const deleteGroceryListItem = async (id) => {
+
+    console.log('id of list item to delete:', id);
+
+    if (!id.startsWith('625')) {
+      console.log('groceryListItem', groceryListItems);
+      fetch(`${BACKEND_URL}/api/grocerylistitems`)
+        .then(response => response.json())
+        .then(data => {
+          console.log('data', data);
+          console.log('id', id);
+
+          let foundItem = data.find(listItem => listItem.item === id);
+          console.log('foundItemId:', foundItem);
+          id = foundItem._id
+          fetch(`${BACKEND_URL}/api/grocerylistitems/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+          })
+            .then(res => {
+              if (res.ok) {
+                ////console.log(('Delete successful!'));
+              }
+              else {
+                ////console.log('Delete unsuccessful!');
+              }
+              return res
+            })
+            .then(() => {
+              console.log('grocerylistitem deleted');
+              // const newGroceryList = groceryListItems.filter(item => item._id !== foundItem._id);
+              // setGroceryListItems(newGroceryList)
+            })
+
+        })
+    } else {
+      fetch(`${BACKEND_URL}/api/grocerylistitems/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then(res => {
+          if (res.ok) {
+            ////console.log(('Delete successful!'));
+          }
+          else {
+            ////console.log('Delete unsuccessful!');
+          }
+          return res
+        })
+        .then(() => {
+          console.log('grocerylistitem deleted');
+
+        })
+      // const newGroceryList = groceryListItems.filter(item => item._id !== id);
+      // setGroceryListItems(newGroceryList)
+    }
+  }
+
+  //Update GroceryListItem
+  const updateQuantity = (item, id) => {
+    console.log("id", id);
+
+    const updQuantity = {
+      quantity: item.quantity
+    }
+    console.log('updQuantity', updQuantity);
+
+    const found = groceryListItems.find(item => item._id === id)
+    console.log('found', found);
+
+    fetch(`${BACKEND_URL}/api/grocerylistitems/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updQuantity)
+    })
+      .then(res => {
+        if (res.ok) {
+          ////console.log(('Update successful!'));
+        }
+        else {
+          ////console.log('Update unsuccessful!');
+        }
+        return res
+      })
+      .then(() => { ////console.log('Homework updated'); })
+        // setGroceryListItem(groceryListItems.map(item => item._id === id ? { ...item, complete: !item.complete } : item))
+
+      })
   }
 
 
@@ -670,7 +783,7 @@ function App() {
             <div className="upper-container">
               <Todo userLoggedIn={userLoggedIn} todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
               <CalendarView userLoggedIn={userLoggedIn} value={value} onChange={setValue} addNote={addNote} notes={note} />
-              <GroceryList userLoggedIn={userLoggedIn} addGroceryListItem={addGroceryListItem} />
+              <GroceryList userLoggedIn={userLoggedIn} addGroceryListItem={addGroceryListItem} groceryListItems={groceryListItems} setGroceryListItems={setGroceryListItems} toggleCompletedGroceryListItem={toggleCompletedGroceryListItem} deleteGroceryListItem={deleteGroceryListItem} />
             </div>
             <div className="lower-container">
               <Chatt userLoggedIn={userLoggedIn} />
