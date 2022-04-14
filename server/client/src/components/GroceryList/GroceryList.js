@@ -5,7 +5,7 @@ import { faCheckCircle, faCircle, faChevronLeft, faChevronRight, faPlus } from '
 import { useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 
-const GroceryList = () => {
+const GroceryList = ({ addGroceryListItem }) => {
   const [items, setItems] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [totalItemCount, setTotalItemCount] = useState(null);
@@ -33,6 +33,7 @@ const GroceryList = () => {
     setItems(newItems);
     setInputValue('');
     calculateTotal();
+    addGroceryListItem(newItem)
   };
   const toggleComplete = (index) => {
     const newItems = [...items];

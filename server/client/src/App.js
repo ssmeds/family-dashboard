@@ -30,6 +30,7 @@ function App() {
   const [users, setUsers] = useState('');
   const [weeklyMenu, setWeeklyMenu] = useState([]);
   const [recipes, setRecipes] = useState([]);
+  const [groceryListItem, setGroceryListItem] = useState([]);
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -99,6 +100,16 @@ function App() {
     getWeeklyMenu()
   }, [])
 
+  useEffect(() => {
+
+    const getGroceryListItems = async () => {
+      const itemsFromServer = await fetchGroceryListItems()
+      setGroceryListItem(itemsFromServer)
+    }
+
+    getGroceryListItems()
+  }, [])
+
   //Fetch homeworks
   const fetchHomeworks = async () => {
     const res = await fetch(`${BACKEND_URL}/api/homeworks`)
@@ -123,7 +134,15 @@ function App() {
       subject: newHomework.subject,
       assignment: newHomework.assignment,
       complete: false,
-      owner: userLoggedIn
+      owner: {
+        id: userLoggedIn._id,
+        firstName: userLoggedIn.firstName,
+        lastName: userLoggedIn.lastName,
+        email: userLoggedIn.email,
+        color: userLoggedIn.color,
+        familyMembers: userLoggedIn.familyMembers,
+        spouse: userLoggedIn.spouse,
+      }
     }
     console.log('newHomeworkToPost', newHomeworkToPost);
     fetch(`${BACKEND_URL}/api/homeworks`, {
@@ -266,7 +285,15 @@ function App() {
       date: newRemember.date,
       familyMember: newRemember.familyMember,
       color: color,
-      owner: userLoggedIn
+      owner: {
+        id: userLoggedIn._id,
+        firstName: userLoggedIn.firstName,
+        lastName: userLoggedIn.lastName,
+        email: userLoggedIn.email,
+        color: userLoggedIn.color,
+        familyMembers: userLoggedIn.familyMembers,
+        spouse: userLoggedIn.spouse,
+      }
     }
 
     fetch(`${BACKEND_URL}/api/remembers`, {
@@ -325,7 +352,15 @@ function App() {
       task: newTodo.task,
       date: newTodo.date,
       complete: false,
-      owner: userLoggedIn
+      owner: {
+        id: userLoggedIn._id,
+        firstName: userLoggedIn.firstName,
+        lastName: userLoggedIn.lastName,
+        email: userLoggedIn.email,
+        color: userLoggedIn.color,
+        familyMembers: userLoggedIn.familyMembers,
+        spouse: userLoggedIn.spouse,
+      }
     }
 
     fetch(`${BACKEND_URL}/api/todos`, {
@@ -408,10 +443,13 @@ function App() {
       },
       body: JSON.stringify({ isLoggedIn: true })
     })
-      .then(() => { console.log('user logged in'); })
-    setUsers([...users, user])
-    setUserLoggedIn(user)
-    setIsLoggedIn(true)
+      .then(() => {
+        console.log('user logged in');
+        setUsers([...users, user])
+        setUserLoggedIn(user)
+        setIsLoggedIn(true)
+      })
+
   }
 
   const logOutUser = (user) => {
@@ -497,7 +535,15 @@ function App() {
     const weekMenuToSaveToDB = {
       weekNr,
       weekMenu,
-      owner: userLoggedIn
+      owner: {
+        id: userLoggedIn._id,
+        firstName: userLoggedIn.firstName,
+        lastName: userLoggedIn.lastName,
+        email: userLoggedIn.email,
+        color: userLoggedIn.color,
+        familyMembers: userLoggedIn.familyMembers,
+        spouse: userLoggedIn.spouse,
+      }
     }
     console.log('weekMenuToSaveToDB', weekMenuToSaveToDB);
     fetch(`${BACKEND_URL}/api/weeklymenus`, {
@@ -531,7 +577,15 @@ function App() {
     const newNoteToPost = {
       task: newNote.task,
       date: newNote.date,
-      owner: userLoggedIn
+      owner: {
+        id: userLoggedIn._id,
+        firstName: userLoggedIn.firstName,
+        lastName: userLoggedIn.lastName,
+        email: userLoggedIn.email,
+        color: userLoggedIn.color,
+        familyMembers: userLoggedIn.familyMembers,
+        spouse: userLoggedIn.spouse,
+      }
     }
 
     fetch(`${BACKEND_URL}/api/notes`, {
@@ -568,6 +622,44 @@ function App() {
 
   }
 
+  //Fetch groceryListItems
+  const fetchGroceryListItems = async () => {
+    const res = await fetch(`${BACKEND_URL}/api/grocerylistitems`)
+    const data = await res.json()
+
+    return data
+  }
+
+  //Add Grocerylist item
+  const addGroceryListItem = (newItem) => {
+    console.log('newItem: ', newItem);
+    const newItemToPost = {
+      item: newItem.item,
+      quantity: newItem.quantity,
+      complete: false,
+      owner: {
+        id: userLoggedIn._id,
+        firstName: userLoggedIn.firstName,
+        lastName: userLoggedIn.lastName,
+        email: userLoggedIn.email,
+        color: userLoggedIn.color,
+        familyMembers: userLoggedIn.familyMembers,
+        spouse: userLoggedIn.spouse,
+      }
+    }
+
+    fetch(`${BACKEND_URL}/api/grocerylistitems`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newItemToPost)
+    })
+      .then(() => { console.log('new groceryList item added'); setGroceryListItem([...groceryListItem, newItemToPost]) })
+    ////console.log('todo', todo);
+
+
+  }
+
+
   return (
     <div className="App">
       {!isLoggedIn ? (
@@ -578,7 +670,7 @@ function App() {
             <div className="upper-container">
               <Todo userLoggedIn={userLoggedIn} todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
               <CalendarView userLoggedIn={userLoggedIn} value={value} onChange={setValue} addNote={addNote} notes={note} />
-              <GroceryList userLoggedIn={userLoggedIn} />
+              <GroceryList userLoggedIn={userLoggedIn} addGroceryListItem={addGroceryListItem} />
             </div>
             <div className="lower-container">
               <Chatt userLoggedIn={userLoggedIn} />
