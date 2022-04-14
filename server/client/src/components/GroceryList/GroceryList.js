@@ -6,7 +6,7 @@ import { useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 
 const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem }) => {
-  // console.log('groceryListItems from App', groceryListItems);
+  console.log('groceryListItems from App', groceryListItems);
   const [item, setItem] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [totalItemCount, setTotalItemCount] = useState(null);
@@ -43,39 +43,34 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
         groceryListItem._id === id ? { ...groceryListItem, complete: foundItem.complete } : groceryListItem))
   };
 
-  const handleQuantityIncrease = (e, id, name) => {
-    console.log('id in increase', id);
+  const handleQuantityIncrease = (id, name) => {
+    console.log('id or name in increase', id, name);
     if (id === undefined) {
-      console.log('försöker hitta item name', e);
-
       let foundItem = groceryListItems.find(item => item.item === name);
-      console.log('foundItem', foundItem);
+      // console.log('foundItem', foundItem);
       foundItem.quantity++;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
     } else {
       let foundItem = groceryListItems.find(item => item._id === id);
-      console.log('foundItem', foundItem);
+      // console.log('foundItem', foundItem);
       foundItem.quantity++;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
     }
   };
 
-  const handleQuantityDecrease = (e, id, name) => {
-    console.log('id in decrease', id);
+  const handleQuantityDecrease = (id, name) => {
+    console.log('id or name in decrease', id, name);
     if (id === undefined) {
-      console.log('försöker hitta item name', e);
-      console.log('name of item decrease', name);
-
       let foundItem = groceryListItems.find(item => item.item === name);
-      console.log('foundItem', foundItem);
+      // console.log('foundItem', foundItem);
       foundItem.quantity--;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity-- } : item))
     } else {
       let foundItem = groceryListItems.find(item => item._id === id);
-      console.log('foundItem', foundItem);
+      // console.log('foundItem', foundItem);
       foundItem.quantity--;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity-- } : item))
@@ -91,13 +86,11 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
     setTotalItemCount(totalItemCount);
   };
 
-  const handleRemoveItem = (e, id) => {
-    console.log('klick på krysset id', id);
+  const handleRemoveItem = (id, name) => {
+    // console.log('klick på krysset id', id);
     if (id === undefined) {
-      console.log('försöker hitta item name', e.target);
-      console.log(e.target.parentElement.previousElementSibling.innerText);
-      deleteGroceryListItem(e.target.parentElement.previousElementSibling.innerText)
-      const newGroceryList = groceryListItems.filter(item => item.item !== e.target.parentElement.previousElementSibling.innerText);
+      deleteGroceryListItem(name)
+      const newGroceryList = groceryListItems.filter(item => item.item !== name);
       setGroceryListItems(newGroceryList)
     } else {
       deleteGroceryListItem(id)
@@ -105,7 +98,7 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
       setGroceryListItems(newGroceryList)
     }
 
-
+    calculateTotal();
   }
 
   return (
@@ -139,14 +132,14 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
             </div>
             <div className='quantity'>
               <button>
-                <FontAwesomeIcon icon={faChevronLeft} onClick={(e) => handleQuantityDecrease(e, item._id, item.item)} />
+                <FontAwesomeIcon icon={faChevronLeft} onClick={() => handleQuantityDecrease(item._id, item.item)} />
               </button>
               <span> {item.quantity} </span>
               <button>
-                <FontAwesomeIcon icon={faChevronRight} onClick={(e) => handleQuantityIncrease(e, item._id, item.item)} />
+                <FontAwesomeIcon icon={faChevronRight} onClick={() => handleQuantityIncrease(item._id, item.item)} />
               </button>
               {/* <ClearIcon className='clear-btn' onClick={(e) => handleRemoveItem(e, item._id)} /> */}
-              <button className='clear-btn' onClick={(e) => handleRemoveItem(e, item._id)}>&#9747;</button>
+              <button className='clear-btn' onClick={() => handleRemoveItem(item._id, item.item)}>&#9747;</button>
             </div>
           </div>
 
