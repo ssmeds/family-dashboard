@@ -11,6 +11,7 @@ const todoRouter = require('./Routes/todoRouter')
 const invitationRouter = require('./Routes/invitationRouter')
 const menuRouter = require('./Routes/menuRouter')
 const calendarNotesRouter = require('./Routes/calendarNotesRouter')
+const groceryListRouter = require('./Routes/groceryListRouter')
 
 
 // mongodb + srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -46,6 +47,7 @@ mongoose
     app.use('/api', todoRouter)
     app.use('/api', menuRouter)
     app.use('/api', calendarNotesRouter)
+    app.use('/api', groceryListRouter)
     app.use('/invitation', invitationRouter)
 
 
