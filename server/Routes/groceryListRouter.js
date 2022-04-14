@@ -39,24 +39,34 @@ router.get('/groceryListItems/:id', async (req, res) => {
 //Update groceryListItem
 router.patch('/groceryListItems/:id', async (req, res) => {
   console.log('patching quantity', req.body);
+  let id = req.params.id
   try {
-    const groceryListItem = await GroceryListItem.findOne({ _id: req.params.id })
-    if (req.body.item) {
-      groceryListItem.item = req.body.item
-    }
-    if (req.body.quantity) {
-      groceryListItem.quantity = req.body.quantity
-    }
-    if (req.body.complete) {
-      groceryListItem.complete = req.body.complete
-    }
-
-    await groceryListItem.save()
-    res.send(groceryListItem)
+    let newQuantity = await GroceryListItem.findByIdAndUpdate(id, req.body.quantity, { new: true })
+    console.log('new quantity', newQuantity);
+    res.send(newQuantity)
   } catch {
     res.status(404)
     res.send({ error: 'GroceryListItem does not exist!' })
   }
+
+  // try {
+  //   const groceryListItem = await GroceryListItem.findOne({ _id: req.params.id })
+  //   if (req.body.item) {
+  //     groceryListItem.item = req.body.item
+  //   }
+  //   if (req.body.quantity) {
+  //     groceryListItem.quantity = req.body.quantity
+  //   }
+  //   if (req.body.complete) {
+  //     groceryListItem.complete = req.body.complete
+  //   }
+
+  //   await groceryListItem.save()
+  //   res.send(groceryListItem)
+  // } catch {
+  //   res.status(404)
+  //   res.send({ error: 'GroceryListItem does not exist!' })
+  // }
 })
 
 // Update groceryListItem completed
