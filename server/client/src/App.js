@@ -30,8 +30,12 @@ function App() {
   const [users, setUsers] = useState('');
   const [weeklyMenu, setWeeklyMenu] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  const [groceryListItem, setGroceryListItem] = useState([]);
-  const [groceryListItems, setGroceryListItems] = useState([]);
+  // const [groceryListItem, setGroceryListItem] = useState([]);
+  const [groceryListItems, setGroceryListItems] = useState([{
+    item: '',
+    quantity: 1,
+    complete: false,
+  }]);
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
