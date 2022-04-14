@@ -10,7 +10,7 @@ import { format } from 'date-fns'
 
 const CalendarView = ({ value, onChange, addNote, notes, userLoggedIn }) => {
   // console.log('todos.date', todos[0].date);
-  console.log('logged in user', userLoggedIn);
+  // console.log('logged in user', userLoggedIn);
   // let formattedDatesTodos = notes.map(item => {
   //   // console.log('nytt datum', item.date);
   //   return { ...item, date: item.date.slice(0, 10) }

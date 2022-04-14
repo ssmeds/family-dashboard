@@ -38,6 +38,7 @@ router.get('/groceryListItems/:id', async (req, res) => {
 
 //Update groceryListItem
 router.patch('/groceryListItems/:id', async (req, res) => {
+  console.log('patching quantity', req.body);
   try {
     const groceryListItem = await GroceryListItem.findOne({ _id: req.params.id })
     if (req.body.item) {
