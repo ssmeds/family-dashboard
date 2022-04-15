@@ -82,7 +82,9 @@ const Register = ({ regNewFamily }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     // console.log('reginputFields:', regInputFields[0])
-    console.log('setupinputFields:', setupInputFields)
+    // console.log('setupinputFields:', setupInputFields)
+    console.log('spouseInputFields in submit:', spouseInputFields)
+    console.log('spouseInputFields[0] in submit:', spouseInputFields[0])
 
     const newFamily = {
       firstName: regInputFields[0].firstName,
