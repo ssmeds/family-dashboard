@@ -99,7 +99,7 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
     // fetchUsers()
 
     addInvitedToDB(userLoggingIn)
-    setUserLoggedInAfterLogIn(userLoggingIn)
+    // setUserLoggedInAfterLogIn(userLoggingIn)
   }
 
 

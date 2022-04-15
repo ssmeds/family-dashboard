@@ -456,21 +456,25 @@ function App() {
   }
 
   const setUserLoggedInAfterLogIn = (user) => {
-
-    fetch(`${BACKEND_URL}/api/users/${user._id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ isLoggedIn: true })
-    })
-      .then(() => {
-        console.log('user logged in');
-        setUsers([...users, user])
-        setUserLoggedIn(user)
-        setIsLoggedIn(true)
+    if (user !== undefined) {
+      fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ isLoggedIn: true })
       })
-
+        .then(() => {
+          console.log('user logged in');
+          setUsers([...users, user])
+          setUserLoggedIn(user)
+          setIsLoggedIn(true)
+        })
+    } else {
+      setUsers([...users, user])
+      setUserLoggedIn(user)
+      setIsLoggedIn(true)
+    }
   }
 
   const logOutUser = (user) => {
@@ -533,11 +537,12 @@ function App() {
     })
       .then(() => {
         console.log('user added spouse info');
-        setUsers([...users, update])
+        // setUsers([...users, update])
         //   // console.log('foundFamily', foundFamily);
         // setUsers(data)
-        setUserLoggedIn(update)
-        setIsLoggedIn(true)
+        // setUserLoggedIn(update)
+        // setIsLoggedIn(true)
+        setUserLoggedInAfterLogIn(update)
       })
     //       }
     //     })
