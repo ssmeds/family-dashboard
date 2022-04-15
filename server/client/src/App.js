@@ -14,6 +14,7 @@ import LogIn from './components/LogIn/LogIn'
 
 import moment from 'moment/min/moment-with-locales'
 import FrontPage from './components/FrontPage/FrontPage'
+import { set } from 'date-fns/esm'
 
 
 
@@ -522,6 +523,7 @@ function App() {
               //   // console.log('foundFamily', foundFamily);
               // setUsers(data)
               setUserLoggedIn(update)
+              setIsLoggedIn(true)
             })
           //       }
           //     })
