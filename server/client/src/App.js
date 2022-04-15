@@ -481,37 +481,39 @@ function App() {
       await fetch(`${BACKEND_URL}/api/users`)
         .then((response) => response.json())
         .then((data) => {
-          // console.log('userdata', data);
+          console.log('userdata', data);
           const findEmail = invited.email;
-          data.map(user => {
-            // console.log('user', user);
-            let foundSpouses = user.spouse;
-            if (foundSpouses !== undefined) {
-              foundSpouses.map(info => {
-                if (info.spouseEmail === findEmail) {
-                  // console.log('found it', info);
-                  // console.log('found user', user);
-                  let foundUser = user
-                  let spousePatch = {
-                    spouseFirstName: foundUser.spouse[0].spouseFirstName,
-                    spouseLastName: foundUser.spouse[0].spouseLastName,
-                    spouseEmail: invited.email,
-                    spousePassword: invited.password,
-                    spouseColor: invited.color
-                  }
-                  // console.log('spousePatch', spousePatch);
-                  fetch(`${BACKEND_URL}/api/users/${user._id}`, {
-                    method: 'PATCH',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ spouse: spousePatch })
-                  })
-                    .then(() => { console.log('user added spouse info'); })
-                }
-              })
-            }
-          })
+          const foundOGPartner = data.find(user => user.spouseEmail === invited.email);
+          console.log('foundOGPartner', foundOGPartner);
+          // data.map(user => {
+          //   console.log('user', user);
+          //   let foundSpouses = user.spouse;
+          //   if (foundSpouses !== undefined) {
+          //     foundSpouses.map(info => {
+          //       if (info.spouseEmail === findEmail) {
+          //         // console.log('found it', info);
+          //         // console.log('found user', user);
+          //         let foundUser = user
+          //         let spousePatch = {
+          //           spouseFirstName: foundUser.spouse[0].spouseFirstName,
+          //           spouseLastName: foundUser.spouse[0].spouseLastName,
+          //           spouseEmail: invited.email,
+          //           spousePassword: invited.password,
+          //           spouseColor: invited.color
+          //         }
+          //         // console.log('spousePatch', spousePatch);
+          //         fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+          //           method: 'PATCH',
+          //           headers: {
+          //             'Content-Type': 'application/json'
+          //           },
+          //           body: JSON.stringify({ spouse: spousePatch })
+          //         })
+          //           .then(() => { console.log('user added spouse info'); })
+          //       }
+          //     })
+          //   }
+          // })
 
           //   // setUsers([...users, user])
           //   // console.log('foundFamily', foundFamily);

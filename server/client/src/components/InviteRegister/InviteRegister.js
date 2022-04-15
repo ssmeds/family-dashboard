@@ -38,9 +38,9 @@ const useStyles = makeStyles()((theme) => {
 })
 
 const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
-  const BACKEND_URL = 'https://familydashboard.herokuapp.com'
+  // const BACKEND_URL = 'https://familydashboard.herokuapp.com'
   const [inputFields, setInputFields] = useState([
-    { email: '', password: '', showPassword: false, color: '#333' },
+    { spouseEmail: '', spousePassword: '', showPassword: false, spouseColor: '#333' },
   ]);
   const { classes } = useStyles()
 
@@ -56,44 +56,47 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
     // console.log('inputFields:', inputFields[0])
 
     const userLoggingIn = {
-      email: inputFields[0].email,
-      password: inputFields[0].password,
-      color: inputFields[0].color
+      spouseEmail: inputFields[0].email,
+      spousePassword: inputFields[0].password,
+      spouseColor: inputFields[0].color
     }
 
     // console.log('invited user logging in', userLoggingIn);
 
-    const fetchUsers = async () => {
-      await fetch(`${BACKEND_URL}/api/users`)
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log('userdata on invite', data);
+    // const fetchUsers = async () => {
+    //   await fetch(`${BACKEND_URL}/api/users`)
+    //     .then((response) => response.json())
+    //     .then((data) => {
 
-          data.map(user => {
-            // console.log('user in map', user);
-            let foundSpouses = user.spouse;
-            if (foundSpouses !== undefined) {
-              foundSpouses.map(person => {
-                if (person.spouseEmail === userLoggingIn.email) {
-                  // console.log('found it', info);
-                  // console.log('found user', user);
-                  let invitedUser = person;
-                  // console.log('invited user in map', invitedUser);
-                  setUserLoggedInAfterLogIn(invitedUser)
+    //       const foundOGPartner = data.find(user => user.spouseEmail === invited.email);
+    //       console.log('foundOGPartner', foundOGPartner);
+    //       // console.log('userdata on invite', data);
 
-                }
-              })
-            }
-          })
+    //       // data.map(user => {
+    //       //   // console.log('user in map', user);
+    //       //   let foundSpouses = user.spouse;
+    //       //   if (foundSpouses !== undefined) {
+    //       //     foundSpouses.map(person => {
+    //       //       if (person.spouseEmail === userLoggingIn.email) {
+    //       //         // console.log('found it', info);
+    //       //         // console.log('found user', user);
+    //       //         let invitedUser = person;
+    //       //         // console.log('invited user in map', invitedUser);
+    //       //         setUserLoggedInAfterLogIn(invitedUser)
 
-          // let invitedUser = data.find(user => userLoggingIn.email === user.spouse[0].spouseEmail)
-          // console.log('invitedUser', invitedUser);
-          // // setUsers(data)
-          // setUserLoggedInAfterLogIn(invitedUser)
+    //       //       }
+    //       //     })
+    //       //   }
+    //       // })
 
-        })
-    }
-    fetchUsers()
+    //       // let invitedUser = data.find(user => userLoggingIn.email === user.spouse[0].spouseEmail)
+    //       // console.log('invitedUser', invitedUser);
+    //       // // setUsers(data)
+    //       // setUserLoggedInAfterLogIn(invitedUser)
+
+    //     })
+    // }
+    // fetchUsers()
 
     addInvitedToDB(userLoggingIn)
     // setUserLoggedInAfterLogIn(userLoggingIn)
