@@ -456,6 +456,8 @@ function App() {
   }
 
   const setUserLoggedInAfterLogIn = (user, invited) => {
+
+    console.log('user in setUserLoggedInAfterLogIn', user);
     console.log('invited in setUserLoggedInAfterLogIn', invited);
     if (user._id !== undefined) {
       fetch(`${BACKEND_URL}/api/users/${user._id}`, {
@@ -468,12 +470,12 @@ function App() {
         .then(() => {
           console.log('user logged in');
           setUsers([...users, user])
-          setUserLoggedIn(user)
+          // setUserLoggedIn(user)
           setIsLoggedIn(true)
         })
     } else {
       setUsers([...users, user])
-      setUserLoggedIn(user)
+      // setUserLoggedIn(user)
       setIsLoggedIn(true)
     }
   }
@@ -541,7 +543,7 @@ function App() {
         // setUsers([...users, update])
         //   // console.log('foundFamily', foundFamily);
         // setUsers(data)
-        // setUserLoggedIn(update)
+        setUserLoggedIn(update)
         // setIsLoggedIn(true)
         setUserLoggedInAfterLogIn(update, invited)
       })
