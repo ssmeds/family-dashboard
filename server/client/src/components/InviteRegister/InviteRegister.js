@@ -53,7 +53,7 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    // console.log('inputFields:', inputFields[0])
+    console.log('klick på registrera sig vid inbjudan')
 
     const userLoggingIn = {
       spouseEmail: inputFields[0].email,
@@ -99,7 +99,7 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
     // fetchUsers()
 
     addInvitedToDB(userLoggingIn)
-    // setUserLoggedInAfterLogIn(userLoggingIn)
+    setUserLoggedInAfterLogIn(userLoggingIn)
   }
 
 
