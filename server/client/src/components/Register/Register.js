@@ -77,12 +77,12 @@ const Register = ({ regNewFamily }) => {
     const values = [...spouseInputFields]
     values[i][e.target.name] = e.target.value;
     setSpouseInputFields(values)
-    // console.log('spouseInputFields', spouseInputFields);
+    console.log('spouseInputFields', spouseInputFields);
   }
   const handleSubmit = (e) => {
     e.preventDefault()
     // console.log('reginputFields:', regInputFields[0])
-    // console.log('setupinputFields:', setupInputFields)
+    console.log('setupinputFields:', setupInputFields)
 
     const newFamily = {
       firstName: regInputFields[0].firstName,
@@ -91,9 +91,9 @@ const Register = ({ regNewFamily }) => {
       password: regInputFields[0].password,
       color: regInputFields[0].color,
       familyMembers: setupInputFields,
-      spouseFirstName: spouseInputFields.spouseFirstName,
-      spouseLastName: spouseInputFields.spouseLastName,
-      spouseEmail: spouseInputFields.spouseEmail,
+      spouseFirstName: spouseInputFields[0].spouseFirstName,
+      spouseLastName: spouseInputFields[0].spouseLastName,
+      spouseEmail: spouseInputFields[0].spouseEmail,
     }
 
     console.log('newFamily', newFamily);
