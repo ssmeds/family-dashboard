@@ -455,7 +455,8 @@ function App() {
     setUsers([...users, user])
   }
 
-  const setUserLoggedInAfterLogIn = (user) => {
+  const setUserLoggedInAfterLogIn = (user, invited) => {
+    console.log('invited in setUserLoggedInAfterLogIn', invited);
     if (user._id !== undefined) {
       fetch(`${BACKEND_URL}/api/users/${user._id}`, {
         method: 'PATCH',
@@ -500,7 +501,7 @@ function App() {
       spouseLastName: invited.spouseLastName,
       spouseEmail: invited.spouseEmail,
       spousePassword: invited.spousePassword,
-      spuseColor: invited.spouseColor
+      spouseColor: invited.spouseColor
     }
     const usersFromServer = await fetchUsers();
     // const fetchUsers = async () => {
@@ -542,7 +543,7 @@ function App() {
         // setUsers(data)
         // setUserLoggedIn(update)
         // setIsLoggedIn(true)
-        setUserLoggedInAfterLogIn(update)
+        setUserLoggedInAfterLogIn(update, invited)
       })
     //       }
     //     })
