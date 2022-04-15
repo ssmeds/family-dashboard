@@ -71,21 +71,31 @@ router.patch('/groceryListItems/:id', async (req, res) => {
 
 // Update groceryListItem completed
 router.put('/groceryListItems/:id', async (req, res) => {
-  console.log('req.params.id', req.params.id);
-  let groceryListItem
+  console.log('req.body in put quantity', req.body);
+  let id = req.params.id
   try {
-    groceryListItem = await GroceryListItem.findById(req.params.id)
-    groceryListItem.complete = !groceryListItem.complete
-    await groceryListItem.save()
-    res.send(groceryListItem)
+    let newQuantity = await GroceryListItem.findByIdAndUpdate(id, req.body.quantity, { new: true })
+    console.log('new quantity', newQuantity);
+    res.send(newQuantity)
+  } catch {
+    res.status(404)
+    res.send({ error: 'GroceryListItem does not exist!' })
   }
-  catch {
-    if (groceryListItem == null) {
-      console.log('groceryListItem is null');
-    } else {
-      res.send({ msg: 'Error updating complete' })
-    }
-  }
+
+  // let groceryListItem
+  // try {
+  //   groceryListItem = await GroceryListItem.findById(req.params.id)
+  //   groceryListItem.complete = !groceryListItem.complete
+  //   await groceryListItem.save()
+  //   res.send(groceryListItem)
+  // }
+  // catch {
+  //   if (groceryListItem == null) {
+  //     console.log('groceryListItem is null');
+  //   } else {
+  //     res.send({ msg: 'Error updating complete' })
+  //   }
+  // }
 
 })
 
