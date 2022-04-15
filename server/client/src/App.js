@@ -41,20 +41,12 @@ function App() {
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
-
-    const fetchUsers = async () => {
-      await fetch(`${BACKEND_URL}/api/users`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('userdata', data);
-          let loggedInUser = data.find(user => user.isLoggedIn === true)
-          console.log('loggedInUser', loggedInUser);
-          setUsers(data)
-          // setUserLoggedIn(loggedInUser)
-
-        })
+    const getUsers = async () => {
+      const usersFromServer = await fetchUsers();
+      setUsers(usersFromServer);
     }
-    fetchUsers()
+    getUsers()
+
   }, [])
 
   useEffect(() => {
@@ -404,6 +396,28 @@ function App() {
 
   }
 
+  //Fetch users
+  const fetchUsers = async () => {
+    const res = await fetch(`${BACKEND_URL}/api/users`)
+    const data = await res.json()
+    console.log('users', data);
+    return data
+  }
+
+  // const fetchUsers = async () => {
+  //   await fetch(`${BACKEND_URL}/api/users`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log('userdata', data);
+  //       let loggedInUser = data.find(user => user.isLoggedIn === true)
+  //       console.log('loggedInUser', loggedInUser);
+  //       setUsers(data)
+  //       // setUserLoggedIn(loggedInUser)
+
+  //     })
+  // }
+  // fetchUsers()
+
   const addNewUser = (newUsersToPost) => {
     console.log('newUsers from Register before isloggedin', newUsersToPost);
     newUsersToPost.isLoggedIn = true;
@@ -484,57 +498,62 @@ function App() {
       spousePassword: invited.spousePassword,
       spuseColor: invited.spouseColor
     }
+    const usersFromServer = fetchUsers();
+    // const fetchUsers = async () => {
+    //   await fetch(`${BACKEND_URL}/api/users`)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       console.log('userdata', data);
+    //       // const findEmail = invited.email;
+    const foundOGPartner = usersFromServer.find(user => user.spouseEmail === invited.spouseEmail);
+    console.log('foundOGPartner', foundOGPartner);
+    // data.map(user => {
+    //   console.log('user', user);
+    //   let foundSpouses = user.spouse;
+    //   if (foundSpouses !== undefined) {
+    //     foundSpouses.map(info => {
+    //       if (info.spouseEmail === findEmail) {
+    //         // console.log('found it', info);
+    //         // console.log('found user', user);
+    //         let foundUser = user
+    //         let spousePatch = {
+    //           spouseFirstName: foundUser.spouse[0].spouseFirstName,
+    //           spouseLastName: foundUser.spouse[0].spouseLastName,
+    //           spouseEmail: invited.email,
+    //           spousePassword: invited.password,
+    //           spouseColor: invited.color
+    //         }
+    //         // console.log('spousePatch', spousePatch);
+    fetch(`${BACKEND_URL}/api/users/${foundOGPartner._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(update)
+    })
+      .then(() => {
+        console.log('user added spouse info');
+        setUsers([...users, update])
+        //   // console.log('foundFamily', foundFamily);
+        // setUsers(data)
+        setUserLoggedIn(update)
+        setIsLoggedIn(true)
+      })
+    //       }
+    //     })
+    //   }
+    // })
 
-    const fetchUsers = async () => {
-      await fetch(`${BACKEND_URL}/api/users`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('userdata', data);
-          // const findEmail = invited.email;
-          const foundOGPartner = data.find(user => user.spouseEmail === invited.spouseEmail);
-          console.log('foundOGPartner', foundOGPartner);
-          // data.map(user => {
-          //   console.log('user', user);
-          //   let foundSpouses = user.spouse;
-          //   if (foundSpouses !== undefined) {
-          //     foundSpouses.map(info => {
-          //       if (info.spouseEmail === findEmail) {
-          //         // console.log('found it', info);
-          //         // console.log('found user', user);
-          //         let foundUser = user
-          //         let spousePatch = {
-          //           spouseFirstName: foundUser.spouse[0].spouseFirstName,
-          //           spouseLastName: foundUser.spouse[0].spouseLastName,
-          //           spouseEmail: invited.email,
-          //           spousePassword: invited.password,
-          //           spouseColor: invited.color
-          //         }
-          //         // console.log('spousePatch', spousePatch);
-          fetch(`${BACKEND_URL}/api/users/${foundOGPartner._id}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(update)
-          })
-            .then(() => {
-              console.log('user added spouse info');
-              setUsers([...users, update])
-              //   // console.log('foundFamily', foundFamily);
-              // setUsers(data)
-              setUserLoggedIn(update)
-              setIsLoggedIn(true)
-            })
-          //       }
-          //     })
-          //   }
-          // })
 
 
-
-        })
-    }
-    fetchUsers()
+    // })
+    // }
+    // fetchUsers()
+    // setUsers([...users, update])
+    //   // console.log('foundFamily', foundFamily);
+    // setUsers(data)
+    // setUserLoggedIn(update)
+    // setIsLoggedIn(true)
     // setUsers([...users, invited])
     // setIsLoggedIn(true)
     // setUserLoggedIn(invited)
