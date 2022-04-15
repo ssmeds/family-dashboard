@@ -476,6 +476,13 @@ function App() {
     //   })
     //   return result;
     // }
+    let update = {
+      spouseFirstName: invited.spouseFirstName,
+      spouseLastName: invited.spouseLastName,
+      spouseEmail: invited.spouseEmail,
+      spousePassword: invited.spousePassword,
+      spuseColor: invited.spouseColor
+    }
 
     const fetchUsers = async () => {
       await fetch(`${BACKEND_URL}/api/users`)
@@ -502,30 +509,33 @@ function App() {
           //           spouseColor: invited.color
           //         }
           //         // console.log('spousePatch', spousePatch);
-          //         fetch(`${BACKEND_URL}/api/users/${user._id}`, {
-          //           method: 'PATCH',
-          //           headers: {
-          //             'Content-Type': 'application/json'
-          //           },
-          //           body: JSON.stringify({ spouse: spousePatch })
-          //         })
-          //           .then(() => { console.log('user added spouse info'); })
+          fetch(`${BACKEND_URL}/api/users/${foundOGPartner._id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(update)
+          })
+            .then(() => {
+              console.log('user added spouse info');
+              setUsers([...users, update])
+              //   // console.log('foundFamily', foundFamily);
+              // setUsers(data)
+              setUserLoggedIn(update)
+            })
           //       }
           //     })
           //   }
           // })
 
-          //   // setUsers([...users, user])
-          //   // console.log('foundFamily', foundFamily);
-          //   // setUsers(data)
-          //   // setUserLoggedIn(loggedInUser)
+
 
         })
     }
     fetchUsers()
-    // setUsers([...users, newUsersToPost])
+    // setUsers([...users, invited])
     // setIsLoggedIn(true)
-    // setUserLoggedIn(newUsersToPost)
+    // setUserLoggedIn(invited)
   }
 
   //Fetch MenuItems
