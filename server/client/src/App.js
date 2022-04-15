@@ -480,7 +480,7 @@ function App() {
     logOutUserFromDB(user)
   }
 
-  const addInvitedToDB = (invited) => {
+  const addInvitedToDB = async (invited) => {
     console.log('invited to save to db', invited);
     // const getObject = (obj, str) => {
     //   let result;
@@ -498,7 +498,7 @@ function App() {
       spousePassword: invited.spousePassword,
       spuseColor: invited.spouseColor
     }
-    const usersFromServer = fetchUsers();
+    const usersFromServer = await fetchUsers();
     // const fetchUsers = async () => {
     //   await fetch(`${BACKEND_URL}/api/users`)
     //     .then((response) => response.json())
@@ -506,7 +506,7 @@ function App() {
     //       console.log('userdata', data);
     //       // const findEmail = invited.email;
     const foundOGPartner = usersFromServer.find(user => user.spouseEmail === invited.spouseEmail);
-    console.log('foundOGPartner', foundOGPartner);
+    console.log('foundOGPartner i App', foundOGPartner);
     // data.map(user => {
     //   console.log('user', user);
     //   let foundSpouses = user.spouse;
