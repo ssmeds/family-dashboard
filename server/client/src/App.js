@@ -30,6 +30,7 @@ function App() {
   const [users, setUsers] = useState('');
   const [weeklyMenu, setWeeklyMenu] = useState([]);
   const [recipes, setRecipes] = useState([]);
+
   // const [groceryListItem, setGroceryListItem] = useState([]);
   const [groceryListItems, setGroceryListItems] = useState([{
     item: '',
@@ -745,22 +746,31 @@ function App() {
   }
 
   //Update GroceryListItem
-  const updateQuantity = (item, id) => {
-    console.log("id", id);
-
+  const updateQuantity = (changedItem) => {
+    console.log('changedItem', changedItem);
+    let id;
+    if (!changedItem.hasOwnProperty('_id')) {
+      const foundName = groceryListItems.find(item => item.item === changedItem.item)
+      id = foundName.item._id
+      console.log('found by name', foundName);
+    } else {
+      const found = groceryListItems.find(item => item._id === changedItem._id)
+      id = found.item._id
+      console.log('found by id', found);
+    }
     const updQuantity = {
-      quantity: item.quantity
+      quantity: changedItem.quantity
     }
     console.log('updQuantity', updQuantity);
 
-    const found = groceryListItems.find(item => item._id === id)
-    console.log('found', found);
+
 
     fetch(`${BACKEND_URL}/api/grocerylistitems/${id}`, {
-      method: 'PATCH',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updQuantity)
     })
+
       .then(res => {
         if (res.ok) {
           ////console.log(('Update successful!'));
@@ -787,7 +797,7 @@ function App() {
             <div className="upper-container">
               <Todo userLoggedIn={userLoggedIn} todos={todo} addTodo={addTodo} deleteTodo={deleteTodo} />
               <CalendarView userLoggedIn={userLoggedIn} value={value} onChange={setValue} addNote={addNote} notes={note} />
-              <GroceryList userLoggedIn={userLoggedIn} addGroceryListItem={addGroceryListItem} groceryListItems={groceryListItems} setGroceryListItems={setGroceryListItems} toggleCompletedGroceryListItem={toggleCompletedGroceryListItem} deleteGroceryListItem={deleteGroceryListItem} />
+              <GroceryList userLoggedIn={userLoggedIn} addGroceryListItem={addGroceryListItem} groceryListItems={groceryListItems} setGroceryListItems={setGroceryListItems} toggleCompletedGroceryListItem={toggleCompletedGroceryListItem} deleteGroceryListItem={deleteGroceryListItem} updateQuantity={updateQuantity} />
             </div>
             <div className="lower-container">
               <Chatt userLoggedIn={userLoggedIn} />

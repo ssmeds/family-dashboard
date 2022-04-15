@@ -5,8 +5,8 @@ import { faCheckCircle, faCircle, faChevronLeft, faChevronRight, faPlus } from '
 import { useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 
-const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem }) => {
-  console.log('groceryListItems from App', groceryListItems);
+const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem, updateQuantity }) => {
+  // console.log('groceryListItems from App', groceryListItems);
   const [item, setItem] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [totalItemCount, setTotalItemCount] = useState(null);
@@ -51,12 +51,14 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
       foundItem.quantity++;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
+      updateQuantity(foundItem)
     } else {
       let foundItem = groceryListItems.find(item => item._id === id);
       // console.log('foundItem', foundItem);
       foundItem.quantity++;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
+      updateQuantity(foundItem)
     }
   };
 
