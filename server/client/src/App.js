@@ -505,6 +505,10 @@ function App() {
       spousePassword: invited.spousePassword,
       spouseColor: invited.spouseColor
     }
+    setUserLoggedInAfterLogIn(update, invited)
+    setUserLoggedIn(update)
+    setIsLoggedIn(true)
+
     const usersFromServer = await fetchUsers();
     // const fetchUsers = async () => {
     //   await fetch(`${BACKEND_URL}/api/users`)
@@ -543,9 +547,9 @@ function App() {
         // setUsers([...users, update])
         //   // console.log('foundFamily', foundFamily);
         // setUsers(data)
-        setUserLoggedIn(update)
+        // setUserLoggedIn(update)
         // setIsLoggedIn(true)
-        setUserLoggedInAfterLogIn(update, invited)
+        // setUserLoggedInAfterLogIn(update, invited)
       })
     //       }
     //     })
