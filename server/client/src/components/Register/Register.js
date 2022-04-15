@@ -47,7 +47,7 @@ const useStyles = makeStyles()((theme) => {
 const Register = ({ regNewFamily }) => {
 
   const [regInputFields, setRegInputFields] = useState([
-    { firstName: '', lastName: '', email: '', password: '', showPassword: false, color: '' },
+    { firstName: '', lastName: '', email: '', password: '', showPassword: false, color: '#482ce7' },
   ]);
   const [setupInputFields, setSetupInputFields] = useState([
     { childFirstName: '', personalNumber: '', childColor: '' },
@@ -91,7 +91,9 @@ const Register = ({ regNewFamily }) => {
       password: regInputFields[0].password,
       color: regInputFields[0].color,
       familyMembers: setupInputFields,
-      spouse: spouseInputFields
+      spouseFirstName: spouseInputFields.spouseFirstName,
+      spouseLastName: spouseInputFields.spouseLastName,
+      spouseEmail: spouseInputFields.spouseEmail,
     }
 
     console.log('newFamily', newFamily);

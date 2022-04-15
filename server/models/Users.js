@@ -11,15 +11,15 @@ const familyMembersSchema = new Schema(
   }
 )
 
-const spouseSchema = new Schema(
-  {
-    spouseFirstName: String,
-    spouseLastName: String,
-    spouseEmail: String,
-    spousePassword: String,
-    spouseColor: String,
-  }
-)
+// const spouseSchema = new Schema(
+//   {
+//     spouseFirstName: String,
+//     spouseLastName: String,
+//     spouseEmail: String,
+//     spousePassword: String,
+//     spouseColor: String,
+//   }
+// )
 
 const userSchema = new Schema({
   firstName: String,
@@ -29,7 +29,11 @@ const userSchema = new Schema({
   color: String,
   isLoggedIn: Boolean,
   familyMembers: [familyMembersSchema],
-  spouse: [spouseSchema]
+  spouseFirstName: String,
+  spouseLastName: String,
+  spouseEmail: String,
+  spousePassword: String,
+  spouseColor: String,
 });
 
 const User = mongoose.model('User', userSchema)
