@@ -498,16 +498,8 @@ function App() {
     //   })
     //   return result;
     // }
-    let update = {
-      spouseFirstName: invited.spouseFirstName,
-      spouseLastName: invited.spouseLastName,
-      spouseEmail: invited.spouseEmail,
-      spousePassword: invited.spousePassword,
-      spouseColor: invited.spouseColor
-    }
-    setUserLoggedInAfterLogIn(update, invited)
-    setUserLoggedIn(update)
-    setIsLoggedIn(true)
+
+
 
     const usersFromServer = await fetchUsers();
     // const fetchUsers = async () => {
@@ -518,6 +510,16 @@ function App() {
     //       // const findEmail = invited.email;
     const foundOGPartner = usersFromServer.find(user => user.spouseEmail === invited.spouseEmail);
     console.log('foundOGPartner i App', foundOGPartner);
+    let update = {
+      spouseFirstName: foundOGPartner.spouseFirstName,
+      spouseLastName: foundOGPartner.spouseLastName,
+      spouseEmail: invited.spouseEmail,
+      spousePassword: invited.spousePassword,
+      spouseColor: invited.spouseColor
+    }
+    setUserLoggedInAfterLogIn(update, invited)
+    setUserLoggedIn(update)
+    setIsLoggedIn(true)
     // data.map(user => {
     //   console.log('user', user);
     //   let foundSpouses = user.spouse;
