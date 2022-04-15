@@ -482,8 +482,8 @@ function App() {
         .then((response) => response.json())
         .then((data) => {
           console.log('userdata', data);
-          const findEmail = invited.email;
-          const foundOGPartner = data.find(user => user.spouseEmail === invited.email);
+          // const findEmail = invited.email;
+          const foundOGPartner = data.find(user => user.spouseEmail === invited.spouseEmail);
           console.log('foundOGPartner', foundOGPartner);
           // data.map(user => {
           //   console.log('user', user);
