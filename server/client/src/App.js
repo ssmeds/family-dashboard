@@ -456,7 +456,7 @@ function App() {
   }
 
   const setUserLoggedInAfterLogIn = (user) => {
-    if (user !== undefined) {
+    if (user._id !== undefined) {
       fetch(`${BACKEND_URL}/api/users/${user._id}`, {
         method: 'PATCH',
         headers: {
