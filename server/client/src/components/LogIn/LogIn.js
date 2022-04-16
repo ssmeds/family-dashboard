@@ -69,7 +69,7 @@ const LogIn = ({ setUserLoggedInAfterLogIn }) => {
         .then((response) => response.json())
         .then((data) => {
           console.log('userdata', data);
-          let rightUser = data.find(user => userLoggingIn.email === user.email && userLoggingIn.password === user.password)
+          let rightUser = data.find(user => (userLoggingIn.email === user.email || userLoggingIn.email === user.spouseEmail) && (userLoggingIn.password === user.password || userLoggingIn.password === user.spousePassword))
           console.log('rightUser', rightUser);
           // setUsers(data)
           setUserLoggedInAfterLogIn(rightUser)
