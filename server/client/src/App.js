@@ -14,6 +14,7 @@ import LogIn from './components/LogIn/LogIn'
 
 import moment from 'moment/min/moment-with-locales'
 import FrontPage from './components/FrontPage/FrontPage'
+import { set } from 'date-fns/esm'
 
 
 
@@ -40,20 +41,12 @@ function App() {
   // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
-
-    const fetchUsers = async () => {
-      await fetch(`${BACKEND_URL}/api/users`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('userdata', data);
-          let loggedInUser = data.find(user => user.isLoggedIn === true)
-          console.log('loggedInUser', loggedInUser);
-          setUsers(data)
-          // setUserLoggedIn(loggedInUser)
-
-        })
+    const getUsers = async () => {
+      const usersFromServer = await fetchUsers();
+      setUsers(usersFromServer);
     }
-    fetchUsers()
+    getUsers()
+
   }, [])
 
   useEffect(() => {
@@ -403,6 +396,28 @@ function App() {
 
   }
 
+  //Fetch users
+  const fetchUsers = async () => {
+    const res = await fetch(`${BACKEND_URL}/api/users`)
+    const data = await res.json()
+    console.log('users', data);
+    return data
+  }
+
+  // const fetchUsers = async () => {
+  //   await fetch(`${BACKEND_URL}/api/users`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log('userdata', data);
+  //       let loggedInUser = data.find(user => user.isLoggedIn === true)
+  //       console.log('loggedInUser', loggedInUser);
+  //       setUsers(data)
+  //       // setUserLoggedIn(loggedInUser)
+
+  //     })
+  // }
+  // fetchUsers()
+
   const addNewUser = (newUsersToPost) => {
     console.log('newUsers from Register before isloggedin', newUsersToPost);
     newUsersToPost.isLoggedIn = true;
@@ -440,22 +455,29 @@ function App() {
     setUsers([...users, user])
   }
 
-  const setUserLoggedInAfterLogIn = (user) => {
+  const setUserLoggedInAfterLogIn = (user, invited) => {
 
-    fetch(`${BACKEND_URL}/api/users/${user._id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ isLoggedIn: true })
-    })
-      .then(() => {
-        console.log('user logged in');
-        setUsers([...users, user])
-        setUserLoggedIn(user)
-        setIsLoggedIn(true)
+    console.log('user in setUserLoggedInAfterLogIn', user);
+    console.log('invited in setUserLoggedInAfterLogIn', invited);
+    if (user._id !== undefined) {
+      fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ isLoggedIn: true })
       })
-
+        .then(() => {
+          console.log('user logged in');
+          setUsers([...users, user])
+          // setUserLoggedIn(user)
+          setIsLoggedIn(true)
+        })
+    } else {
+      setUsers([...users, user])
+      // setUserLoggedIn(user)
+      setIsLoggedIn(true)
+    }
   }
 
   const logOutUser = (user) => {
@@ -465,7 +487,7 @@ function App() {
     logOutUserFromDB(user)
   }
 
-  const addInvitedToDB = (invited) => {
+  const addInvitedToDB = async (invited) => {
     console.log('invited to save to db', invited);
     // const getObject = (obj, str) => {
     //   let result;
@@ -477,53 +499,78 @@ function App() {
     //   return result;
     // }
 
-    const fetchUsers = async () => {
-      await fetch(`${BACKEND_URL}/api/users`)
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log('userdata', data);
-          const findEmail = invited.email;
-          data.map(user => {
-            // console.log('user', user);
-            let foundSpouses = user.spouse;
-            if (foundSpouses !== undefined) {
-              foundSpouses.map(info => {
-                if (info.spouseEmail === findEmail) {
-                  // console.log('found it', info);
-                  // console.log('found user', user);
-                  let foundUser = user
-                  let spousePatch = {
-                    spouseFirstName: foundUser.spouse[0].spouseFirstName,
-                    spouseLastName: foundUser.spouse[0].spouseLastName,
-                    spouseEmail: invited.email,
-                    spousePassword: invited.password,
-                    spouseColor: invited.color
-                  }
-                  // console.log('spousePatch', spousePatch);
-                  fetch(`${BACKEND_URL}/api/users/${user._id}`, {
-                    method: 'PATCH',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ spouse: spousePatch })
-                  })
-                    .then(() => { console.log('user added spouse info'); })
-                }
-              })
-            }
-          })
 
-          //   // setUsers([...users, user])
-          //   // console.log('foundFamily', foundFamily);
-          //   // setUsers(data)
-          //   // setUserLoggedIn(loggedInUser)
 
-        })
+    const usersFromServer = await fetchUsers();
+    // const fetchUsers = async () => {
+    //   await fetch(`${BACKEND_URL}/api/users`)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       console.log('userdata', data);
+    //       // const findEmail = invited.email;
+    const foundOGPartner = usersFromServer.find(user => user.spouseEmail === invited.spouseEmail);
+    console.log('foundOGPartner i App', foundOGPartner);
+    let update = {
+      spouseFirstName: foundOGPartner.spouseFirstName,
+      spouseLastName: foundOGPartner.spouseLastName,
+      spouseEmail: invited.spouseEmail,
+      spousePassword: invited.spousePassword,
+      spouseColor: invited.spouseColor
     }
-    fetchUsers()
-    // setUsers([...users, newUsersToPost])
+    setUserLoggedInAfterLogIn(update, invited)
+    setUserLoggedIn(update)
+    setIsLoggedIn(true)
+    // data.map(user => {
+    //   console.log('user', user);
+    //   let foundSpouses = user.spouse;
+    //   if (foundSpouses !== undefined) {
+    //     foundSpouses.map(info => {
+    //       if (info.spouseEmail === findEmail) {
+    //         // console.log('found it', info);
+    //         // console.log('found user', user);
+    //         let foundUser = user
+    //         let spousePatch = {
+    //           spouseFirstName: foundUser.spouse[0].spouseFirstName,
+    //           spouseLastName: foundUser.spouse[0].spouseLastName,
+    //           spouseEmail: invited.email,
+    //           spousePassword: invited.password,
+    //           spouseColor: invited.color
+    //         }
+    //         // console.log('spousePatch', spousePatch);
+    fetch(`${BACKEND_URL}/api/users/${foundOGPartner._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(update)
+    })
+      .then(() => {
+        console.log('user added spouse info');
+        // setUsers([...users, update])
+        //   // console.log('foundFamily', foundFamily);
+        // setUsers(data)
+        // setUserLoggedIn(update)
+        // setIsLoggedIn(true)
+        // setUserLoggedInAfterLogIn(update, invited)
+      })
+    //       }
+    //     })
+    //   }
+    // })
+
+
+
+    // })
+    // }
+    // fetchUsers()
+    // setUsers([...users, update])
+    //   // console.log('foundFamily', foundFamily);
+    // setUsers(data)
+    // setUserLoggedIn(update)
     // setIsLoggedIn(true)
-    // setUserLoggedIn(newUsersToPost)
+    // setUsers([...users, invited])
+    // setIsLoggedIn(true)
+    // setUserLoggedIn(invited)
   }
 
   //Fetch MenuItems
