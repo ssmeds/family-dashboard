@@ -69,10 +69,16 @@ const LogIn = ({ setUserLoggedInAfterLogIn }) => {
         .then((response) => response.json())
         .then((data) => {
           console.log('userdata', data);
-          let rightUser = data.find(user => (userLoggingIn.email === user.email || userLoggingIn.email === user.spouseEmail) && (userLoggingIn.password === user.password || userLoggingIn.password === user.spousePassword))
-          console.log('rightUser', rightUser);
+          let rightOGUser = data.find(user => userLoggingIn.email === user.email && userLoggingIn.password === user.password)
+          let rightSpouseUser;
+          if (rightOGUser === undefined) {
+            rightSpouseUser = data.find(user => userLoggingIn.email === user.spouseEmail && userLoggingIn.password === user.spousePassword)
+            setUserLoggedInAfterLogIn(rightSpouseUser)
+          }
+
+          console.log('rightOGUser, rightSpouseUser', rightOGUser, rightSpouseUser);
           // setUsers(data)
-          setUserLoggedInAfterLogIn(rightUser)
+          setUserLoggedInAfterLogIn(rightOGUser)
 
         })
     }
