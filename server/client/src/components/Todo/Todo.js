@@ -6,10 +6,15 @@ import TodoItem from './TodoItem'
 
 const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete }) => {
   const todo = todos;
-  // console.log('todo', todo);
+  console.log('todo', todo);
   let formattedDatesTodos = todo.map(item => {
     // console.log('nytt datum', item.date);
-    return { ...item, date: item.date.slice(0, 10) }
+    if (item.date !== null) {
+      return { ...item, date: item.date.slice(0, 10) }
+    } else {
+      return { ...item, date: '' }
+    }
+
   })
   // console.log(props);
   todo.sort((a, b) => {

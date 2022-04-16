@@ -39,7 +39,7 @@ const useStyles = makeStyles()((theme) => {
   }
 })
 
-const LogIn = ({ setUserLoggedInAfterLogIn }) => {
+const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
   const BACKEND_URL = 'https://familydashboard.herokuapp.com'
   const [inputFields, setInputFields] = useState([
     { email: '', password: '', showPassword: false },
@@ -81,11 +81,13 @@ const LogIn = ({ setUserLoggedInAfterLogIn }) => {
             }
             console.log('spouse', spouse);
             setUserLoggedInAfterLogIn(spouse)
+            setUserLoggedIn(spouse)
           }
 
           console.log('rightOGUser, rightSpouseUser', rightOGUser, rightSpouseUser);
           // setUsers(data)
           setUserLoggedInAfterLogIn(rightOGUser)
+          setUserLoggedIn(rightOGUser)
 
         })
     }

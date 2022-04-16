@@ -53,7 +53,17 @@ function App() {
 
     const getHomeworks = async () => {
       const homeworksFromServer = await fetchHomeworks()
-      setHomework(homeworksFromServer)
+      console.log('homeworksFromServer', homeworksFromServer);
+      let allHomeworksOwnedByCurrentUser = []
+      homeworksFromServer.map(homework => {
+        if (homework.owner.id === userLoggedIn._id) {
+          allHomeworksOwnedByCurrentUser.push(homework)
+        }
+      })
+
+      console.log('findAllHomeworksOwnedByCurrentUser', allHomeworksOwnedByCurrentUser);
+      // setHomework(homeworksFromServer)
+      setHomework(allHomeworksOwnedByCurrentUser)
     }
 
     getHomeworks()
@@ -63,6 +73,7 @@ function App() {
 
     const getRemembers = async () => {
       const remembersFromServer = await fetchRemembers()
+      console.log('remembersFromServer', remembersFromServer);
       setRemember(remembersFromServer)
     }
 
@@ -434,26 +445,26 @@ function App() {
     setUserLoggedIn(newUsersToPost)
   }
 
-  const logOutUserFromDB = (user) => {
-    console.log('user to logout', user);
-    // user.isLoggedIn = false;
+  // const logOutUserFromDB = (user) => {
+  //   console.log('user to logout', user);
+  //   // user.isLoggedIn = false;
 
-    const foundUser = users.find(person => person.email === user.email && person.password === user.password)
-    // foundUser.isLoggedIn = false;
-    console.log('foundUser', foundUser);
+  //   const foundUser = users.find(person => person.email === user.email && person.password === user.password)
+  //   // foundUser.isLoggedIn = false;
+  //   console.log('foundUser', foundUser);
 
 
 
-    fetch(`${BACKEND_URL}/api/users/${foundUser._id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ isLoggedIn: false })
-    })
-      .then(() => { console.log('user logged out'); })
-    setUsers([...users, user])
-  }
+  //   fetch(`${BACKEND_URL}/api/users/${foundUser._id}`, {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({ isLoggedIn: false })
+  //   })
+  //     .then(() => { console.log('user logged out'); })
+  //   setUsers([...users, user])
+  // }
 
   const setUserLoggedInAfterLogIn = (user, invited) => {
 
@@ -482,9 +493,42 @@ function App() {
 
   const logOutUser = (user) => {
     console.log('App.js logga ut usern', user);
-    setUserLoggedIn('')
-    setIsLoggedIn(false)
-    logOutUserFromDB(user)
+
+    if (user._id !== undefined) {
+      fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ isLoggedIn: false })
+      })
+        .then(() => {
+          console.log('user logged out');
+          setUsers([...users, user])
+          setUserLoggedIn('')
+          setIsLoggedIn(false)
+        })
+    } else {
+      let OGuser = users.find(person => person.spouseEmail === user.email)
+      console.log('OGuser:', OGuser);
+      fetch(`${BACKEND_URL}/api/users/${OGuser._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ spouseIsLoggedIn: false })
+      })
+        .then(() => {
+          console.log('user logged out');
+          setUsers([...users, user])
+          setUserLoggedIn('')
+          setIsLoggedIn(false)
+        })
+    }
+
+    // setUserLoggedIn('')
+    // setIsLoggedIn(false)
+    // logOutUserFromDB(user)
   }
 
   const addInvitedToDB = async (invited) => {
@@ -515,7 +559,8 @@ function App() {
       spouseLastName: foundOGPartner.spouseLastName,
       spouseEmail: invited.spouseEmail,
       spousePassword: invited.spousePassword,
-      spouseColor: invited.spouseColor
+      spouseColor: invited.spouseColor,
+      spouseIsLoggedIn: true
     }
     setUserLoggedInAfterLogIn(update, invited)
     setUserLoggedIn(update)
@@ -837,7 +882,7 @@ function App() {
   return (
     <div className="App">
       {!isLoggedIn ? (
-        <FrontPage setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} regNewFamily={addNewUser} addInvitedToDB={addInvitedToDB} />) :
+        <FrontPage setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} regNewFamily={addNewUser} addInvitedToDB={addInvitedToDB} setUserLoggedIn={setUserLoggedIn} />) :
         (
           <>
             <Header userLoggedIn={userLoggedIn} logOutUser={logOutUser} />
@@ -847,11 +892,11 @@ function App() {
               <GroceryList userLoggedIn={userLoggedIn} addGroceryListItem={addGroceryListItem} groceryListItems={groceryListItems} setGroceryListItems={setGroceryListItems} toggleCompletedGroceryListItem={toggleCompletedGroceryListItem} deleteGroceryListItem={deleteGroceryListItem} updateQuantity={updateQuantity} />
             </div>
             <div className="lower-container">
-              <Chatt userLoggedIn={userLoggedIn} />
+              {/* <Chatt userLoggedIn={userLoggedIn} /> */}
               <Remember userLoggedIn={userLoggedIn} remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
               <Homework userLoggedIn={userLoggedIn} homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
               <Menu userLoggedIn={userLoggedIn} addWeeklyMenu={addWeeklyMenu} recipes={recipes} weeklyMenu={weeklyMenu} />
-              <Savings userLoggedIn={userLoggedIn} />
+              {/* <Savings userLoggedIn={userLoggedIn} /> */}
             </div>
 
             <Footer />

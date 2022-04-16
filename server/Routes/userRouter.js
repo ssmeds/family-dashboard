@@ -37,6 +37,7 @@ router.post('/users', async (req, res) => {
       spouseEmail: req.body.spouseEmail,
       spousePassword: req.body.spousePassword,
       spouseColor: req.body.spouseColor,
+      spouseIsLoggedIn: req.body.spouseIsLoggedIn,
     }).save()
   } catch (err) {
     console.log(err)

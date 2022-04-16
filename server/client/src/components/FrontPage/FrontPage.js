@@ -22,7 +22,7 @@ const useStyles = makeStyles()((theme) => {
   }
 })
 
-const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB }) => {
+const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB, setUserLoggedIn }) => {
 
   const [showLogIn, setShowLogIn] = useState(false)
   const [showReg, setShowReg] = useState(false)
@@ -73,7 +73,7 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB }) 
         </>
       ) : showLogIn ? (
         <>
-          <LogIn setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} />
+          <LogIn setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} setUserLoggedIn={setUserLoggedIn} />
           <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleReg(e)}>Registrera en ny familj</Button>
         </>
       ) : showReg ? (

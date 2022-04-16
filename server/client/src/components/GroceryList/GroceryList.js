@@ -2,7 +2,7 @@ import './groceryList.css'
 import Week from '.././Week/Week'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faCircle, faChevronLeft, faChevronRight, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 
 const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem, updateQuantity }) => {
@@ -11,6 +11,9 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
   const [inputValue, setInputValue] = useState('');
   const [totalItemCount, setTotalItemCount] = useState(null);
 
+  useEffect(() => {
+    calculateTotal();
+  })
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {

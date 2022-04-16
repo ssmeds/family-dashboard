@@ -34,6 +34,7 @@ const userSchema = new Schema({
   spouseEmail: String,
   spousePassword: String,
   spouseColor: String,
+  spouseIsLoggedIn: Boolean,
 });
 
 const User = mongoose.model('User', userSchema)
