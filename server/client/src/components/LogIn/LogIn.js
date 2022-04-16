@@ -73,7 +73,14 @@ const LogIn = ({ setUserLoggedInAfterLogIn }) => {
           let rightSpouseUser;
           if (rightOGUser === undefined) {
             rightSpouseUser = data.find(user => userLoggingIn.email === user.spouseEmail && userLoggingIn.password === user.spousePassword)
-            setUserLoggedInAfterLogIn(rightSpouseUser)
+            let spouse = {
+              spouseFirstName: rightSpouseUser.spouseFirstName,
+              spouseLastName: rightSpouseUser.spouseLastName,
+              spouseEmail: rightSpouseUser.spouseEmail,
+              spouseColor: rightSpouseUser.spouseColor
+            }
+            console.log('spouse', spouse);
+            setUserLoggedInAfterLogIn(spouse)
           }
 
           console.log('rightOGUser, rightSpouseUser', rightOGUser, rightSpouseUser);
