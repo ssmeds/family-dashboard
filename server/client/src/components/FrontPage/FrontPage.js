@@ -10,17 +10,17 @@ import InviteRegister from '../InviteRegister/InviteRegister';
 import { makeStyles } from 'tss-react/mui'
 import HomeIcon from '@mui/icons-material/Home';
 
-const useStyles = makeStyles()((theme) => {
-  return {
-    button: {
-      width: '250px',
-      marginBottom: '1rem',
+// const useStyles = makeStyles()((theme) => {
+//   return {
+//     button: {
+//       width: '250px',
+//       marginBottom: '1rem',
 
 
 
-    }
-  }
-})
+//     }
+//   }
+// })
 
 const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB, setUserLoggedIn }) => {
 
@@ -29,7 +29,7 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB, se
   const [showInviteReg, setShowInviteReg] = useState(false)
   const [showLogInAndReg, setShowLogInAndReg] = useState(true)
 
-  const { classes } = useStyles()
+  // const { classes } = useStyles()
 
   const handleLogIn = (e) => {
     console.log('user wants to log in', e)
@@ -62,30 +62,30 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB, se
       <HomeIcon className="home-icon" sx={{ cursor: 'pointer', fontSize: '3rem', alignContent: 'left' }} onClick={() => handleHomeClick()} />
       {showLogInAndReg ? (
         <>
-          <h1>Välkommen till Family Dashboard</h1>
+          <h1 id="frontPage-h1">Välkommen till <span className='title'>Family Dashboard</span></h1>
           <div className="fronPage-container menu-icons">
             <Stack direction='column' spacing={2}>
-              <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleLogIn(e)}>Logga in</Button>
-              <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleReg(e)}>Registrera dig</Button>
-              <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleInvite(e)}>Har du fått en inbjudan?</Button>
+              <Button className='logIn-btn' variant="contained" onClick={(e) => handleLogIn(e)}>Logga in</Button>
+              <Button className='reg-btn' variant="contained" onClick={(e) => handleReg(e)}>Registrera dig</Button>
+              <Button className='invite-btn' variant="contained" onClick={(e) => handleInvite(e)}>Har du fått en inbjudan?</Button>
             </Stack>
           </div>
         </>
       ) : showLogIn ? (
         <>
           <LogIn setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} setUserLoggedIn={setUserLoggedIn} />
-          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleReg(e)}>Registrera en ny familj</Button>
+          <Button className='reg-btn' id='reg-btn' variant="contained" onClick={(e) => handleReg(e)}>Registrera en ny familj</Button>
         </>
       ) : showReg ? (
         <>
           <Register regNewFamily={regNewFamily} />
-          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleLogIn(e)}>Logga in</Button>
+          <Button className='logIn-btn' id='logIn-btn' variant="contained" onClick={(e) => handleLogIn(e)}>Logga in</Button>
         </>
       ) : showInviteReg ? (
         <>
           <InviteRegister addInvitedToDB={addInvitedToDB} setUserLoggedInAfterLogIn={setUserLoggedInAfterLogIn} />
-          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleReg(e)}>Registrera en ny familj</Button>
-          <Button className={classes.button} variant="contained" color="secondary" onClick={(e) => handleLogIn(e)}>Logga in</Button>
+          <Button className='reg-btn' id='reg-btn' variant="contained" onClick={(e) => handleReg(e)}>Registrera en ny familj</Button>
+          <Button className='logIn-btn' id='logIn-btn' variant="contained" onClick={(e) => handleLogIn(e)}>Logga in</Button>
         </>
       ) : ''}
 

@@ -3,19 +3,38 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  // height: 100vh;
+  margin-bottom: 3rem;
 
   .home-icon {
     align-self: flex-start;
     padding: 1rem;
-    fill: rebeccapurple;
+    font-size: 5rem;
+    fill: #1F9876;
+    border: 3px solid #1F9876;
+    border-radius: 50%;
+    margin: 0.5rem 0 0 0.5rem;
+    box-shadow: 8px 8px 3px rgba(0, 0, 0, 0.5rem);
+    background: ghostwhite;
   }
 
   .logIn-container {
     margin: 3rem auto;
   }
 
-  h1 {
-    text-align: center
+  #frontPage-h1 {
+    text-align: center;
+    font-family: 'Comfortaa';
+    font-size: 2.5rem;
+    margin-top: 8rem;
+
+    .title {
+      display: block;
+      font-family: 'Sansita Swashed';
+      font-size: 3rem;
+      text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5rem);
+      color: #1F9876;
+    }
   }
 
   .menu-icons {
@@ -37,6 +56,36 @@
 
     .MuiAvatar-root {
       cursor: pointer;
+    }
+
+
+  }
+
+  .logIn-btn {
+    background: rebeccapurple;
+
+    // margin-bottom: 3rem;
+    &:hover {
+      color: rebeccapurple;
+      background: ghostwhite;
+    }
+  }
+
+  .reg-btn {
+    background: orange;
+
+    &:hover {
+      color: orange;
+      background: white;
+    }
+  }
+
+  .invite-btn {
+    background: green;
+
+    &:hover {
+      color: green;
+      background: white;
     }
   }
 }

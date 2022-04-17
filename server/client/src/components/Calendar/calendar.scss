@@ -19,6 +19,12 @@
   width: 60vw;
   height: 100%;
 
+  @media screen and(max-width:926px) {
+    width: 90%;
+    margin: 0 auto 1rem auto;
+    // order: 1;
+  }
+
   .calendar {
     box-sizing: border-box;
     font-size: 1rem;

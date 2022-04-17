@@ -6,7 +6,6 @@ const { Schema } = mongoose;
 const familyMembersSchema = new Schema(
   {
     childFirstName: String,
-    personalNumber: Number,
     childColor: String
   }
 )

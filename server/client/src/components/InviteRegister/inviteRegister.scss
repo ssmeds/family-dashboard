@@ -1,4 +1,39 @@
-.logIn-container {
-  // font-size: 2rem;
-  // color: greenyellow;
+.invite-register-container {
+  background: white;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .invite-register-inputs {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        background: ghostwhite;
+      }
+    }
+
+    .submit-btn {
+      margin: 1rem 0 3rem 0;
+      background: green;
+
+      &:hover {
+        background: white;
+        color: green;
+      }
+    }
+  }
+}
+
+#reg-btn {
+  margin-bottom: 1rem;
 }

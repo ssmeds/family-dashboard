@@ -1,27 +1,80 @@
 .register-container {
-  background: rebeccapurple;
+  background: white;
+  border-radius: 30px;
   display: flex;
   flex-direction: column;
-  width: 250px;
   padding: 1rem;
-  margin: 0 auto;
+  margin: 2rem auto;
 
-  h2 {
+  h1 {
     text-align: center;
-    color: #fff;
+    // color: #fff;
+    padding-top: 1rem;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    margin: 0 auto;
+    max-width: 90vw;
+    margin: 0 auto 2rem auto;
 
-    // button {
-    //   // width: 90%;
-    //   margin: 0 auto;
-    // }
+
+    button {
+      // width: 90%;
+      // margin: 0 auto;
+      background: orange;
+
+      &:hover {
+        background: rgb(233, 107, 5);
+        // color: #333;
+      }
+    }
+
+    .register-input-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+
+      // .colorInput {
+      // }
+      input {
+        width: 400px;
+      }
+
+
+      .icon-btn {
+        margin-right: 20px;
+      }
+    }
+
+    .child-inputs {
+      input {
+        width: 300px;
+      }
+
+      .colorInput {
+        width: 100px;
+      }
+    }
+
+    .submit-btn {
+      margin: 2rem auto 0 auto;
+      width: 75%;
+    }
+
+    .spouse-inputs {
+      input {
+        width: 300px;
+      }
+    }
   }
 
+
+
+}
+
+#logIn-btn {
+  margin-bottom: 3rem;
 
 }

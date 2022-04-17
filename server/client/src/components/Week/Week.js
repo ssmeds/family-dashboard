@@ -7,6 +7,9 @@ let weekNow = moment().isoWeeks(Number);
 // console.log(weekNow);
 console.log('veckonummer', moment().weeks());
 let thisWeekNr = moment().weeks();
+if (moment().day() === 0) {
+  thisWeekNr--
+}
 
 const Week = () => {
   return (

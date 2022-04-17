@@ -23,17 +23,17 @@ const useStyles = makeStyles()((theme) => {
         // padding: '0 30px',
         margin: theme.spacing(1),
       },
-      button: {
-        margin: theme.spacing(1),
-        background: 'linear-gradient(45deg, #e6385e 30%, #ff53c6 90%)',
-      },
+      // button: {
+      //   margin: theme.spacing(1),
+      //   background: 'linear-gradient(45deg, #e6385e 30%, #ff53c6 90%)',
+      // },
 
     },
-    colorInput: {
-      input: {
-        width: '50px'
-      }
-    }
+    // colorInput: {
+    //   input: {
+    //     width: '50px'
+    //   }
+    // }
   }
 })
 
@@ -104,12 +104,12 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
 
 
   return (
-    <div className="logIn-container">
+    <div className="invite-register-container">
       <Container >
         <h1>Registrera dig</h1>
         <form className={classes.root} onSubmit={handleSubmit}>
           {inputFields.map((inputField, i) => (
-            <div key={i}>
+            <div key={i} className='invite-register-inputs'>
               <TextField
                 name='email'
                 label='E-mail'
@@ -126,7 +126,6 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
                 onChange={(e) => handleChangeInput(e, i)}
               />
               <TextField
-                className={classes.colorInput}
                 type='color'
                 name='color'
                 label='Färg'
@@ -137,9 +136,8 @@ const InviteRegister = ({ setUserLoggedInAfterLogIn, addInvitedToDB }) => {
             </div>
           ))}
           <Button
-            className={classes.button}
+            className='submit-btn'
             variant='contained'
-            color='primary'
             type='submit'
             endIcon={<Icon>send</Icon>}
             onClick={handleSubmit}

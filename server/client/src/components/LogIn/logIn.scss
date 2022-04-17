@@ -1,4 +1,40 @@
 .logIn-container {
-  // font-size: 2rem;
-  // color: greenyellow;
+  background: white;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      width: 300px;
+    }
+
+    .logIn-Inputs-container {
+      input {
+        // width: 350px;
+      }
+    }
+
+    .submit-btn {
+      margin: 2rem auto 0 auto;
+      background: rebeccapurple;
+      width: 75%;
+
+      &:hover {
+        color: rebeccapurple;
+        background: white;
+      }
+    }
+  }
 }
