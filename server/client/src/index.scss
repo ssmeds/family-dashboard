@@ -6,6 +6,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  // height: 100%;
   font-family: 'Comfortaa', sans-serif;
 }
 
@@ -55,6 +56,11 @@ body {
   border-radius: 10px;
   background: #fff;
   margin: 0.5rem;
+
+  @media screen and(max-width:375px) {
+    width: 350px;
+    overflow-x: hidden;
+  }
 
   .card-header {
     display: flex;

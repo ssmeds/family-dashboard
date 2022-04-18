@@ -45,11 +45,15 @@
             }
 
             input {
-              width: 100%;
+              width: 90%;
               height: 40px;
               margin: 5px;
               padding: 3px 7px;
               font-size: 17px;
+              // border-bottom: 1px solid green;
+              background-color: rgb(230, 230, 245);
+              // outline: none;
+              border: none;
             }
           }
 

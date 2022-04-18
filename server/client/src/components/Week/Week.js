@@ -10,7 +10,7 @@ let thisWeekNr = moment().weeks();
 if (moment().day() === 0) {
   thisWeekNr--
 }
-
+console.log('thisWeekNr', thisWeekNr);
 const Week = () => {
   return (
     <div className="weekDisplay">v. <span id='weekNr'>{thisWeekNr}</span></div>

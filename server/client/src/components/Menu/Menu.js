@@ -27,28 +27,32 @@ const Menu = ({ addWeeklyMenu, recipes, weeklyMenu }) => {
       foundWeeks.push(week)
     }
   })
-  console.log('foundWeeks', foundWeeks);
+  // console.log('foundWeeks', foundWeeks);
   // console.log('last element in weeklyMenu', foundWeeks.at(-1));
   // console.log('foundWeeks', foundWeeks);
-
-  foundWeek = foundWeeks.at(-1)
-  console.log('foundWeek.weekMenu', foundWeek.weekMenu);
-  if (foundWeek.weekMenu[0] !== undefined) {
-    for (const day in foundWeek.weekMenu[0]) {
-      // console.log(`${day}: ${foundWeek.weekMenu[0][day]}`);
-      list.push(<tr key={day}><th>{day}</th><td>{foundWeek.weekMenu[0][day]}</td></tr>);
-    }
-  } else if (foundWeek === undefined) {
+  if (foundWeek === undefined) {
     weekDays.map(day => {
       list.push(<tr key={day}><th>{day}</th><td>-</td></tr>)
     })
-  }
-  else {
-    for (const day in foundWeek.weekMenu) {
-      // console.log(`${day}: ${foundWeek.weekMenu[day]}`);
-      list.push(<tr key={day}><th>{day}</th><td>{foundWeek.weekMenu[day]}</td></tr>);
+  } else {
+    foundWeek = foundWeeks.at(-1)
+    if (foundWeek.weekMenu[0] !== undefined) {
+      for (const day in foundWeek.weekMenu[0]) {
+        // console.log(`${day}: ${foundWeek.weekMenu[0][day]}`);
+        list.push(<tr key={day}><th>{day}</th><td>{foundWeek.weekMenu[0][day]}</td></tr>);
+      }
+    }
+    else {
+      for (const day in foundWeek.weekMenu) {
+        // console.log(`${day}: ${foundWeek.weekMenu[day]}`);
+        list.push(<tr key={day}><th>{day}</th><td>{foundWeek.weekMenu[day]}</td></tr>);
+      }
     }
   }
+
+
+
+  // console.log('foundWeek.weekMenu', foundWeek.weekMenu);
 
   // console.log(foundWeek.weekMenu);
 
