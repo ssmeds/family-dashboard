@@ -11,12 +11,14 @@ const RememberItem = ({ remembers, deleteRemember, userLoggedIn }) => {
       usersRemembersList.push(item)
     }
   })
-
+  // let foundColor = remembers.find(item => )
+  console.log('usersRemembersList', usersRemembersList);
+  let color;
   return (
     <>
       {usersRemembersList.map((item, i) => {
         // console.log('item.color', item.color);
-        let color = hex_is_light(item.color)
+        if (item.color !== undefined) { color = hex_is_light(item.color) }
         return (
           <div key={i} className="remember-item" style={color ? { backgroundColor: item.color } : { backgroundColor: item.color, color: '#fff' }}>
             <p>{item.task}</p>
