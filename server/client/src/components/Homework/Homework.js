@@ -19,11 +19,16 @@ const familyMembersOptions = [
   { value: 'Sebastian', label: "Sebastian" }
 ]
 
-const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, toggleComplete }) => {
+const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, toggleComplete, userLoggedIn }) => {
   const homework = homeworks;
-  // console.log(homework);
+  console.log(homework);
   // console.log(props);
-
+  let userHomeworkList = []
+  homework.map(homework => {
+    if (userLoggedIn._id === homework.owner.id) {
+      userHomeworkList.push(homework);
+    }
+  })
   const [subject, setSubject] = useState('');
   const [assignment, setAssignment] = useState('');
   const [familyMember, setFamilyMember] = useState('');
@@ -47,7 +52,7 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
 
       <div className='card-list homework-list'>
         <>
-          {homework.map((homework, i) => (
+          {userHomeworkList.map((homework, i) => (
             <HomeworkItem
               key={homework._id ? homework._id : i}
               homework={homework}

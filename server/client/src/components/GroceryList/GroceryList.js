@@ -5,7 +5,7 @@ import { faCheckCircle, faCircle, faChevronLeft, faChevronRight, faPlus } from '
 import { useState, useEffect } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 
-const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem, updateQuantity }) => {
+const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem, updateQuantity, userLoggedIn }) => {
   // console.log('groceryListItems from App', groceryListItems);
   const [item, setItem] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -106,6 +106,13 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
     calculateTotal();
   }
 
+  let userShoppingList = [];
+  groceryListItems.map(item => {
+    if (userLoggedIn._id === item.owner.id) {
+      userShoppingList.push(item)
+    }
+  })
+
   return (
     <div className="groceryList-container card">
       <div className='groceryList-header card-header'>
@@ -117,7 +124,7 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
         <FontAwesomeIcon icon={faPlus} onClick={() => handleAddButtonClick()} />
       </div>
       <div className='item-list'>
-        {groceryListItems.map((item, id) => (
+        {userShoppingList.map((item, id) => (
 
           <div className='item-container'>
             <div className='item-name' onClick={() => toggleComplete(item._id)}>

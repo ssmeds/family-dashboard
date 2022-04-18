@@ -1,41 +1,59 @@
 import './menu.css'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import AddMenuPopup from './AddMenuPopup'
 import Week from '.././Week/Week'
 import moment from 'moment/min/moment-with-locales'
 
-const Menu = ({ addWeeklyMenu, recipes, weeklyMenu }) => {
+const Menu = ({ addWeeklyMenu, recipes, weeklyMenu, fetchWeeklyMenu, userLoggedIn }) => {
   // console.log('recipes', recipes);
-  console.log('weeklyMenu in Menu.js', weeklyMenu);
+  // console.log('weeklyMenu in Menu.js', weeklyMenu);
   const [buttonPopup, setButtonPopup] = useState(false)
   const [day, setDay] = useState('')
+  // const [addedWeekMenuFromUI, setAddedWeekMenuFromUI] = useState()
 
   const weekDays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag']
+  // let allWeekMenus
+
+  useEffect(() => {
+    // console.log('useEffect after popup was closed');
+    // setAddedWeekMenuFromUI(fetchWeeklyMenu())
+    // console.log('weekMenus', weeklyMenu);
+    weeklyMenu.current = [...weeklyMenu]
+    // console.log('weeklyMenus in effect', weeklyMenu);
+  }, [!buttonPopup])
 
   let thisWeekNr = moment().weeks();
   let foundWeeks = [];
   let list = [];
   let foundWeek;
-  console.log('thisWeekNr', thisWeekNr);
-  console.log('moment().day()', moment().day());
+  // console.log('thisWeekNr', thisWeekNr);
+  // console.log('moment().day()', moment().day());
   if (moment().day() === 0) {
     thisWeekNr--
   }
-  console.log('thisWeekNr after', thisWeekNr);
+  // console.log('thisWeekNr after', typeof thisWeekNr);
+  // console.log('weeklyMenu to map', weeklyMenu);
+
   weeklyMenu.map(week => {
-    if (week.weekNr === thisWeekNr) {
-      foundWeeks.push(week)
+    if (week.owner.id === userLoggedIn._id) {
+      if (week.weekNr === thisWeekNr) {
+        // console.log('samma veckonr');
+        foundWeeks.push(week)
+      }
     }
+    // console.log('week', week);
+    // console.log('weekNr typeof', typeof week.weekNr);
+
   })
   // console.log('foundWeeks', foundWeeks);
   // console.log('last element in weeklyMenu', foundWeeks.at(-1));
-  // console.log('foundWeeks', foundWeeks);
+  foundWeek = foundWeeks.at(-1)
+  console.log('foundWeek', foundWeek);
   if (foundWeek === undefined) {
     weekDays.map(day => {
       list.push(<tr key={day}><th>{day}</th><td>-</td></tr>)
     })
   } else {
-    foundWeek = foundWeeks.at(-1)
     if (foundWeek.weekMenu[0] !== undefined) {
       for (const day in foundWeek.weekMenu[0]) {
         // console.log(`${day}: ${foundWeek.weekMenu[0][day]}`);
@@ -49,7 +67,6 @@ const Menu = ({ addWeeklyMenu, recipes, weeklyMenu }) => {
       }
     }
   }
-
 
 
   // console.log('foundWeek.weekMenu', foundWeek.weekMenu);

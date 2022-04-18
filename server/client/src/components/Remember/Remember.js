@@ -12,8 +12,8 @@ const options = [
   { value: 'Mathias', label: "Mathias" }
 ]
 
-const Remember = ({ remembers, addRemember, deleteRemember }) => {
-  // console.log('remembers from App.js', remembers);
+const Remember = ({ remembers, addRemember, deleteRemember, userLoggedIn }) => {
+  console.log('remembers from App.js', remembers);
   const [task, setTask] = useState('');
   const [familyMember, setFamilyMember] = useState('');
 
@@ -34,7 +34,7 @@ const Remember = ({ remembers, addRemember, deleteRemember }) => {
     <div className="remember-container card">
       <div className="remember-header card-header"><h1>Kom-ihåg</h1></div>
       <div className="card-list remember-list">
-        <RememberItem remembers={remembers} deleteRemember={deleteRemember} />
+        <RememberItem remembers={remembers} deleteRemember={deleteRemember} userLoggedIn={userLoggedIn} />
       </div>
       <form onSubmit={handleSaveClick} id='form-select'>
         <input

@@ -70,7 +70,7 @@ const Register = ({ regNewFamily }) => {
   const handleRegChangeInput = (e, i) => {
     // console.log(e.target.value, i);
     const values = [...regInputFields]
-    values[i][e.target.name] = e.target.value;
+    values[i][e.target.name] = e.target.value.trim();
     setRegInputFields(values)
     // console.log('regInputFields', regInputFields);
   }
@@ -78,14 +78,14 @@ const Register = ({ regNewFamily }) => {
   const handleSetupChangeInput = (e, i) => {
     // console.log(e.target.value, i);
     const values = [...setupInputFields]
-    values[i][e.target.name] = e.target.value;
+    values[i][e.target.name] = e.target.value.trim();
     setSetupInputFields(values)
   }
 
   const handleSpouseChangeInput = (e, i) => {
     // console.log(e.target.value, i);
     const values = [...spouseInputFields]
-    values[i][e.target.name] = e.target.value;
+    values[i][e.target.name] = e.target.value.trim();
     setSpouseInputFields(values)
     console.log('spouseInputFields', spouseInputFields);
   }

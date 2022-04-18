@@ -53,17 +53,18 @@ function App() {
 
     const getHomeworks = async () => {
       const homeworksFromServer = await fetchHomeworks()
-      console.log('homeworksFromServer', homeworksFromServer);
-      let allHomeworksOwnedByCurrentUser = []
-      homeworksFromServer.map(homework => {
-        if (homework.owner.id === userLoggedIn._id) {
-          allHomeworksOwnedByCurrentUser.push(homework)
-        }
-      })
+      // console.log('homeworksFromServer', homeworksFromServer);
+      // let allHomeworksOwnedByCurrentUser = []
+      // homeworksFromServer.map(homework => {
+      //   if (homework.owner.id === userLoggedIn._id) {
+      //     allHomeworksOwnedByCurrentUser.push(homework)
+      //   }
+      // })
 
-      console.log('findAllHomeworksOwnedByCurrentUser', allHomeworksOwnedByCurrentUser);
-      // setHomework(homeworksFromServer)
-      setHomework(allHomeworksOwnedByCurrentUser)
+      // console.log('allHomeworksOwnedByCurrentUser', allHomeworksOwnedByCurrentUser);
+      // // setHomework(homeworksFromServer)
+      // setHomework(allHomeworksOwnedByCurrentUser)
+      setHomework(homeworksFromServer)
     }
 
     getHomeworks()
@@ -73,7 +74,16 @@ function App() {
 
     const getRemembers = async () => {
       const remembersFromServer = await fetchRemembers()
-      console.log('remembersFromServer', remembersFromServer);
+      // console.log('remembersFromServer', remembersFromServer);
+      // let allRemembersOwnedByCurrentUser = []
+      // remembersFromServer.map(remember => {
+      //   if (remember.owner.id === userLoggedIn._id) {
+      //     allRemembersOwnedByCurrentUser.push(remember)
+      //   }
+      // })
+
+      // console.log('allRemembersOwnedByCurrentUser', allRemembersOwnedByCurrentUser);
+      // setRemember(allRemembersOwnedByCurrentUser)
       setRemember(remembersFromServer)
     }
 
@@ -84,6 +94,15 @@ function App() {
 
     const getTodos = async () => {
       const todosFromServer = await fetchTodos()
+      // let allTodosOwnedByCurrentUser = []
+      // todosFromServer.map(todo => {
+      //   if (todo.owner.id === userLoggedIn._id) {
+      //     allTodosOwnedByCurrentUser.push(todo)
+      //   }
+      // })
+
+      // console.log('allTodosOwnedByCurrentUser', allTodosOwnedByCurrentUser);
+      // setTodo(allTodosOwnedByCurrentUser)
       setTodo(todosFromServer)
     }
 
@@ -94,6 +113,15 @@ function App() {
 
     const getNotes = async () => {
       const notesFromServer = await fetchNotes()
+      // let allNotesOwnedByCurrentUser = []
+      // notesFromServer.map(note => {
+      //   if (note.owner.id === userLoggedIn._id) {
+      //     allNotesOwnedByCurrentUser.push(note)
+      //   }
+      // })
+
+      // console.log('allNotesOwnedByCurrentUser', allNotesOwnedByCurrentUser);
+      // setNote(allNotesOwnedByCurrentUser)
       setNote(notesFromServer)
     }
 
@@ -104,6 +132,15 @@ function App() {
 
     const getWeeklyMenu = async () => {
       const weeklyMenuFromServer = await fetchWeeklyMenu()
+      // let allWeeklyMenusOwnedByCurrentUser = []
+      // weeklyMenuFromServer.map(menu => {
+      //   if (menu.owner.id === userLoggedIn._id) {
+      //     allWeeklyMenusOwnedByCurrentUser.push(menu)
+      //   }
+      // })
+
+      // console.log('allWeeklyMenusOwnedByCurrentUser', allWeeklyMenusOwnedByCurrentUser);
+      // setWeeklyMenu(allWeeklyMenusOwnedByCurrentUser)
       setWeeklyMenu(weeklyMenuFromServer)
     }
 
@@ -114,6 +151,15 @@ function App() {
 
     const getGroceryListItems = async () => {
       const itemsFromServer = await fetchGroceryListItems()
+      // let allItemsOwnedByCurrentUser = []
+      // itemsFromServer.map(item => {
+      //   if (item.owner.id === userLoggedIn._id) {
+      //     allItemsOwnedByCurrentUser.push(item)
+      //   }
+      // })
+
+      // console.log('allItemsOwnedByCurrentUser', allItemsOwnedByCurrentUser);
+      // setGroceryListItems(allItemsOwnedByCurrentUser)
       setGroceryListItems(itemsFromServer)
     }
 
@@ -146,12 +192,12 @@ function App() {
       complete: false,
       owner: {
         id: userLoggedIn._id,
-        firstName: userLoggedIn.firstName,
-        lastName: userLoggedIn.lastName,
-        email: userLoggedIn.email,
-        color: userLoggedIn.color,
-        familyMembers: userLoggedIn.familyMembers,
-        spouse: userLoggedIn.spouse,
+        // firstName: userLoggedIn.firstName,
+        // lastName: userLoggedIn.lastName,
+        // email: userLoggedIn.email,
+        // color: userLoggedIn.color,
+        // familyMembers: userLoggedIn.familyMembers,
+        // spouse: userLoggedIn.spouse,
       }
     }
     console.log('newHomeworkToPost', newHomeworkToPost);
@@ -297,12 +343,12 @@ function App() {
       color: color,
       owner: {
         id: userLoggedIn._id,
-        firstName: userLoggedIn.firstName,
-        lastName: userLoggedIn.lastName,
-        email: userLoggedIn.email,
-        color: userLoggedIn.color,
-        familyMembers: userLoggedIn.familyMembers,
-        spouse: userLoggedIn.spouse,
+        // firstName: userLoggedIn.firstName,
+        // lastName: userLoggedIn.lastName,
+        // email: userLoggedIn.email,
+        // color: userLoggedIn.color,
+        // familyMembers: userLoggedIn.familyMembers,
+        // spouse: userLoggedIn.spouse,
       }
     }
 
@@ -364,12 +410,12 @@ function App() {
       complete: false,
       owner: {
         id: userLoggedIn._id,
-        firstName: userLoggedIn.firstName,
-        lastName: userLoggedIn.lastName,
-        email: userLoggedIn.email,
-        color: userLoggedIn.color,
-        familyMembers: userLoggedIn.familyMembers,
-        spouse: userLoggedIn.spouse,
+        // firstName: userLoggedIn.firstName,
+        // lastName: userLoggedIn.lastName,
+        // email: userLoggedIn.email,
+        // color: userLoggedIn.color,
+        // familyMembers: userLoggedIn.familyMembers,
+        // spouse: userLoggedIn.spouse,
       }
     }
 
@@ -635,12 +681,12 @@ function App() {
       weekMenu,
       owner: {
         id: userLoggedIn._id,
-        firstName: userLoggedIn.firstName,
-        lastName: userLoggedIn.lastName,
-        email: userLoggedIn.email,
-        color: userLoggedIn.color,
-        familyMembers: userLoggedIn.familyMembers,
-        spouse: userLoggedIn.spouse,
+        // firstName: userLoggedIn.firstName,
+        // lastName: userLoggedIn.lastName,
+        // email: userLoggedIn.email,
+        // color: userLoggedIn.color,
+        // familyMembers: userLoggedIn.familyMembers,
+        // spouse: userLoggedIn.spouse,
       }
     }
     console.log('weekMenuToSaveToDB', weekMenuToSaveToDB);
@@ -649,8 +695,11 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(weekMenuToSaveToDB)
     })
-      .then(() => { console.log('new weeks menu added'); })
-    setWeeklyMenu([...weeklyMenu, weekMenuToSaveToDB])
+      .then(() => {
+        console.log('new weeks menu added');
+        setWeeklyMenu([...weeklyMenu, weekMenuToSaveToDB])
+      })
+
   }
 
   //Fetch Notes
@@ -677,12 +726,12 @@ function App() {
       date: newNote.date,
       owner: {
         id: userLoggedIn._id,
-        firstName: userLoggedIn.firstName,
-        lastName: userLoggedIn.lastName,
-        email: userLoggedIn.email,
-        color: userLoggedIn.color,
-        familyMembers: userLoggedIn.familyMembers,
-        spouse: userLoggedIn.spouse,
+        // firstName: userLoggedIn.firstName,
+        // lastName: userLoggedIn.lastName,
+        // email: userLoggedIn.email,
+        // color: userLoggedIn.color,
+        // familyMembers: userLoggedIn.familyMembers,
+        // spouse: userLoggedIn.spouse,
       }
     }
 
@@ -737,12 +786,12 @@ function App() {
       complete: false,
       owner: {
         id: userLoggedIn._id,
-        firstName: userLoggedIn.firstName,
-        lastName: userLoggedIn.lastName,
-        email: userLoggedIn.email,
-        color: userLoggedIn.color,
-        familyMembers: userLoggedIn.familyMembers,
-        spouse: userLoggedIn.spouse,
+        // firstName: userLoggedIn.firstName,
+        // lastName: userLoggedIn.lastName,
+        // email: userLoggedIn.email,
+        // color: userLoggedIn.color,
+        // familyMembers: userLoggedIn.familyMembers,
+        // spouse: userLoggedIn.spouse,
       }
     }
 
@@ -895,7 +944,7 @@ function App() {
               {/* <Chatt userLoggedIn={userLoggedIn} /> */}
               <Remember userLoggedIn={userLoggedIn} remembers={remember} addRemember={addRemember} deleteRemember={deleteRemember} />
               <Homework userLoggedIn={userLoggedIn} homeworks={homework} addHomework={addHomework} deleteHomework={deleteHomework} toggleComplete={toggleComplete} />
-              <Menu userLoggedIn={userLoggedIn} addWeeklyMenu={addWeeklyMenu} recipes={recipes} weeklyMenu={weeklyMenu} />
+              <Menu userLoggedIn={userLoggedIn} addWeeklyMenu={addWeeklyMenu} recipes={recipes} weeklyMenu={weeklyMenu} fetchWeeklyMenu={fetchWeeklyMenu} />
               {/* <Savings userLoggedIn={userLoggedIn} /> */}
             </div>
 

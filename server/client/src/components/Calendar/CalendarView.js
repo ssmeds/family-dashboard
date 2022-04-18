@@ -11,12 +11,12 @@ import { format } from 'date-fns'
 const CalendarView = ({ value, onChange, addNote, notes, userLoggedIn }) => {
   // console.log('todos.date', todos[0].date);
   // console.log('logged in user', userLoggedIn);
-  // let formattedDatesTodos = notes.map(item => {
-  //   // console.log('nytt datum', item.date);
-  //   return { ...item, date: item.date.slice(0, 10) }
-  // })
+  let formattedDates = notes.map(item => {
+    // console.log('nytt datum', item.date);
+    return { ...item, date: item.date.slice(0, 10) }
+  })
   // console.log('new todos after slice', formattedDates)
-  // console.log('value', value);
+  // console.log('notes', notes);
   const [calendar, setCalendar] = useState([])
   const [buttonPopup, setButtonPopup] = useState(false)
   const [date, setDate] = useState('')
@@ -25,8 +25,13 @@ const CalendarView = ({ value, onChange, addNote, notes, userLoggedIn }) => {
     setCalendar(buildCalender(value))
   }, [value])
 
-
-
+  let userNotesList = []
+  formattedDates.map(note => {
+    if (note.owner.id === userLoggedIn._id) {
+      userNotesList.push(note)
+    }
+  })
+  // console.log('userNotesList', userNotesList);
   return (
     <div className="calendar-container card">
       <div className='calendar' key={Math.floor(Math.random() * 10000) + 1}>
@@ -52,8 +57,10 @@ const CalendarView = ({ value, onChange, addNote, notes, userLoggedIn }) => {
                     {day.format('D')}
 
                   </div>
-                  {notes.map((note) => {
-                    // console.log('todo i todos.map', todo);
+                  {userNotesList.map((note) => {
+                    // console.log('note i userNotesList.map', note);
+                    // console.log('note date i userNotesList.map', note.date);
+                    // console.log('day.format i userNotesList.map', day.format('L'));
                     return (
                       note.date === day.format('L') ? <li key={Math.floor(Math.random() * 10000) + 1} className='todos'>{note.task}</li> : ''
                     )

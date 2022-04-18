@@ -4,24 +4,33 @@ import Week from '.././Week/Week'
 
 import TodoItem from './TodoItem'
 
-const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete }) => {
+const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete, userLoggedIn }) => {
   const todo = todos;
   console.log('todo', todo);
-  let formattedDatesTodos = todo.map(item => {
-    // console.log('nytt datum', item.date);
-    if (item.date !== null) {
-      return { ...item, date: item.date.slice(0, 10) }
-    } else {
-      return { ...item, date: '' }
-    }
+  let formattedDatesTodos;
+  let rightOwnerTodos = [];
+  todo.map(todoItem => {
+    if (todoItem.owner.id === userLoggedIn._id) {
+      rightOwnerTodos.push(todoItem)
+      formattedDatesTodos = rightOwnerTodos.map(item => {
+        // console.log('nytt datum', item.date);
+        if (item.date !== null) {
+          return { ...item, date: item.date.slice(0, 10) }
+        } else {
+          return { ...item, date: '' }
+        }
 
+      })
+      // console.log(props);
+      rightOwnerTodos.sort((a, b) => {
+        let da = new Date(a.date),
+          db = new Date(b.date);
+        return da - db;
+      })
+    }
   })
-  // console.log(props);
-  todo.sort((a, b) => {
-    let da = new Date(a.date),
-      db = new Date(b.date);
-    return da - db;
-  })
+
+
   // console.log('sorted todos', todo);
   const [task, setTask] = useState('');
   const [date, setDate] = useState('');
@@ -46,15 +55,18 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete }) => {
 
       <div className='card-list todo-list'>
         <>
-          {formattedDatesTodos.map((todo, i) => (
-            <TodoItem
-              key={todo._id ? todo._id : i}
-              todo={todo}
-              updateTodo={updateTodo}
-              deleteTodo={deleteTodo}
-              toggleComplete={toggleComplete}
-            />
-          ))}
+          {rightOwnerTodos.length !== 0 ?
+            formattedDatesTodos.map((todo, i) => (
+              <TodoItem
+                key={todo._id ? todo._id : i}
+                todo={todo}
+                updateTodo={updateTodo}
+                deleteTodo={deleteTodo}
+                toggleComplete={toggleComplete}
+              />
+            )) : ''
+          }
+
         </>
       </div>
 
