@@ -314,29 +314,6 @@ function App() {
     console.log(newRemember);
     let color;
     let familyMemberFromRemember = newRemember.familyMember
-    // switch (newRemember.familyMember) {
-    //   case 'Fredrik':
-    //     color = '#071DE8';
-    //     break;
-    //   case 'Stina':
-    //     color = '#FF91F8';
-    //     break;
-    //   case 'Johannes':
-    //     color = '#4ED264';
-    //     break;
-    //   case 'Samuel':
-    //     color = '#F9D570';
-    //     break;
-    //   case 'Sebastian':
-    //     color = '#37BEF1';
-    //     break;
-    //   case 'Mathias':
-    //     color = '#F2FF40';
-    //     break;
-    //   default:
-    //     color = '#5593e4';
-
-    // }
     let children = [];
     userLoggedIn.familyMembers.map(familyMember => {
       children.push(familyMember)
@@ -354,8 +331,6 @@ function App() {
       color = '#5593e4'
     }
     console.log('color', color);
-    // let foundColor = userLoggedIn.find(person => person.firstName || person.familyMembers.childFirstName || person.spouseFirstName === newRemember.familyMember)
-    // console.log('foundColor', foundColor);
     const newRememberToPost = {
       task: newRemember.task,
       date: newRemember.date,
