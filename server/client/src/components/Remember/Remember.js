@@ -53,7 +53,7 @@ const Remember = ({ remembers, addRemember, deleteRemember, userLoggedIn }) => {
       <div className="card-list remember-list">
         <RememberItem remembers={remembers} deleteRemember={deleteRemember} userLoggedIn={userLoggedIn} />
       </div>
-      <form onSubmit={handleSaveClick} id='form-select'>
+      <form onSubmit={(e) => handleSaveClick(e)} id='form-select'>
         <input
           type="text"
           required

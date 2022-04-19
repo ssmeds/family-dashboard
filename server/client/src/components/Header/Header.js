@@ -6,7 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
 import SettingsPopup from '../Settings/SettingsPopup'
 
-const Header = ({ userLoggedIn, logOutUser }) => {
+const Header = ({ userLoggedIn, logOutUser, updateUserInformation }) => {
   console.log('user logged in', userLoggedIn);
   const [buttonPopup, setButtonPopup] = useState(false)
   let currentUser = userLoggedIn;
@@ -41,7 +41,7 @@ const Header = ({ userLoggedIn, logOutUser }) => {
           <Avatar sx={{ bgcolor: 'red' }} ><LogoutIcon onClick={() => handleLogOut()}></LogoutIcon></Avatar>
         </Stack>
       </div>
-      <SettingsPopup trigger={buttonPopup} setTrigger={setButtonPopup} userLoggedIn={userLoggedIn}>
+      <SettingsPopup updateUserInformation={updateUserInformation} trigger={buttonPopup} setTrigger={setButtonPopup} userLoggedIn={userLoggedIn}>
       </SettingsPopup>
     </div>
   )

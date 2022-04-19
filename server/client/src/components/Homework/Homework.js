@@ -20,7 +20,12 @@ import HomeworkItem from './HomeworkItem'
 // ]
 
 const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, toggleComplete, userLoggedIn }) => {
-  const homework = homeworks;
+  console.log(userLoggedIn);
+  let homework;
+  if (homeworks) {
+    homework = homeworks;
+  }
+  // const homework = homeworks;
   console.log(homework);
   // console.log(props);
 
@@ -34,7 +39,6 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
 
   if (userLoggedIn !== undefined) {
     userLoggedIn.familyMembers.map(familyMember => {
-
       familyMembersOptions.push({ value: '', label: 'Välj barn', disabled: true });
       familyMembersOptions.push({ value: familyMember.childFirstName, label: familyMember.childFirstName })
     })
@@ -49,11 +53,14 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
   // ]
 
   let userHomeworkList = []
-  homework.map(homework => {
-    if (userLoggedIn._id === homework.owner.id) {
-      userHomeworkList.push(homework);
-    }
-  })
+  if (homework !== undefined) {
+    homework.map(homework => {
+      if (userLoggedIn._id === homework.owner.id) {
+        userHomeworkList.push(homework);
+      }
+    })
+  }
+
   console.log('familyMembersOptions:', familyMembersOptions);
   const [subject, setSubject] = useState('');
   const [assignment, setAssignment] = useState('');

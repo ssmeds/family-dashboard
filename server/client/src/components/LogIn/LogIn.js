@@ -45,6 +45,7 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
   const [inputFields, setInputFields] = useState([
     { email: '', password: '', showPassword: false },
   ]);
+  const [error, setError] = useState('')
   const { classes } = useStyles()
 
 
@@ -57,7 +58,7 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('inputFields:', inputFields[0])
-
+    setError('')
     const userLoggingIn = {
       email: inputFields[0].email,
       password: inputFields[0].password,
@@ -90,9 +91,12 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
           // setUsers(data)
           setUserLoggedInAfterLogIn(rightOGUser)
           setUserLoggedIn(rightOGUser)
-
+          if (rightOGUser === undefined && rightSpouseUser === undefined) {
+            setError('Fel e-mail eller lösenord')
+          }
         })
     }
+
     fetchUsers()
 
     // regNewFamily(newFamily)
@@ -104,11 +108,13 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
       <Container >
         <h1>Logga in</h1>
         <form className={classes.root} onSubmit={handleSubmit}>
+          {error && <p>{error}</p>}
           {inputFields.map((inputField, i) => (
             <div key={i} className='logIn-inputs-container'>
               <TextField
                 name='email'
                 label='E-mail'
+                placeholder='e-mail'
                 variant='filled'
                 value={inputField.email}
                 onChange={(e) => handleChangeInput(e, i)}
@@ -116,6 +122,8 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
               <TextField
                 name='password'
                 type={inputFields.showPassword ? 'text' : 'password'}
+                placeholder='Lösenord'
+                autoComplete='new-password'
                 label='Lösenord'
                 variant='filled'
                 value={inputField.password}
