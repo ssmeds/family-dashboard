@@ -3,8 +3,12 @@ const GroceryListItem = require('../models/GroceryList');
 const router = express.Router()
 const cors = require('cors')
 
-router.use(cors());
-
+// router.use(cors());
+router.use(cors({
+  origin: "*",
+  methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH'],
+  credentials: true
+}));
 //Get all GroceryListItems
 router.get('/groceryListItems', async (req, res) => {
   const groceryListItem = await GroceryListItem.find()
@@ -37,41 +41,44 @@ router.get('/groceryListItems/:id', async (req, res) => {
 })
 
 //Update groceryListItem
-router.patch('/groceryListItems/:id', async (req, res) => {
-  console.log('patching quantity', req.body.quantity);
+router.patch('/groceryListItems/:id', (req, res) => {
+  console.log('patch req.body:', req.body);//3
 
-  // try {
-  let id = req.params.id
-  let quantity = req.body.quantity
-  // let update = req.body
-  // const options = { new: true }
-  // console.log('updatedQuantity', updatedQuantity);
-  // let newQuantity = await GroceryListItem.findByIdAndUpdate(id, update, options)
-  GroceryListItem.findByIdAndUpdate(id, { $set: { quantity: quantity } }, { new: true }).then(updatedItem => {
-    res.send('Item updated by id through PATCH', updatedItem);
-  });
-  // let item = await GroceryListItem.find((item => item._id === id), {
-  //   new: true
+  GroceryListItem.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => res.json('item updated'))
+    .catch((err) => { res.status(422).send('item update failed') })
+  // GroceryListItem.findByIdAndUpdate(req.params.id, { quantity: req.body }, { new: true }).then((item) => {
+  //   if (!item) {
+  //     return res.status(404).send();
+  //   }
+  //   res.send(item);
+  // }).catch((error) => {
+  //   res.status(500).send(error);
   // })
-  // item.quantity = req.body.quantity
-  // console.log('new quantity', newQuantity);
-  // res.send(newQuantity)
-  // } catch {
-  //   res.status(404)
-  //   res.send({ error: 'GroceryListItem does not exist!' })
-  // }
+  // // try {
+  // let id = req.params.id
+  // let quantity = req.body.quantity
+  // // let update = req.body
+  // // const options = { new: true }
+  // // console.log('updatedQuantity', updatedQuantity);
+  // // let newQuantity = await GroceryListItem.findByIdAndUpdate(id, update, options)
+  // GroceryListItem.findByIdAndUpdate(id, { $set: { quantity: quantity } }, { new: true }).then(updatedItem => {
+  //   res.send('Item updated by id through PATCH', updatedItem);
+  // });
+  // // let item = await GroceryListItem.find((item => item._id === id), {
+  // //   new: true
+  // // })
+  // // item.quantity = req.body.quantity
+  // // console.log('new quantity', newQuantity);
+  // // res.send(newQuantity)
+  // // } catch {
+  // //   res.status(404)
+  // //   res.send({ error: 'GroceryListItem does not exist!' })
+  // // }
 
   // try {
-  //   const groceryListItem = await GroceryListItem.findOne({ _id: req.params.id })
-  //   if (req.body.item) {
-  //     groceryListItem.item = req.body.item
-  //   }
-  //   if (req.body.quantity) {
-  //     groceryListItem.quantity = req.body.quantity
-  //   }
-  //   if (req.body.complete) {
-  //     groceryListItem.complete = req.body.complete
-  //   }
+  //   const groceryListItem = await GroceryListItem.findOne({ _id: req.params.id }, { new: true })
+  //   groceryListItem.quantity = req.body.quantity
 
   //   await groceryListItem.save()
   //   res.send(groceryListItem)
