@@ -600,8 +600,21 @@ function App() {
       spouseColor: invited.spouseColor,
       spouseIsLoggedIn: true
     }
+    let spouseToSaveToState = {
+      spouseFirstName: foundOGPartner.spouseFirstName,
+      spouseLastName: foundOGPartner.spouseLastName,
+      spouseEmail: invited.spouseEmail,
+      spousePassword: invited.spousePassword,
+      spouseColor: invited.spouseColor,
+      familyMembers: foundOGPartner.familyMembers,
+      OGid: foundOGPartner._id,
+      firstName: foundOGPartner.firstName,
+      lastName: foundOGPartner.lastName,
+      email: foundOGPartner.email,
+      color: foundOGPartner.color
+    }
     setUserLoggedInAfterLogIn(update, invited)
-    setUserLoggedIn(update)
+    setUserLoggedIn(spouseToSaveToState)
     setIsLoggedIn(true)
     // data.map(user => {
     //   console.log('user', user);
