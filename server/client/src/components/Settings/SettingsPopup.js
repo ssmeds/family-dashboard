@@ -2,6 +2,7 @@ import { CgClose } from 'react-icons/cg'
 // import AddWeeklyMenu from './AddWeeklyMenu'
 import { useState, useReducer } from 'react'
 import formReducer from './formReducer'
+import { Identity } from '@mui/base'
 
 
 
@@ -38,6 +39,7 @@ const SettingsPopup = (props) => {
     email: '',
     password: '',
     color: props.userLoggedIn.color,
+    // children: [],
     childName0: '',
     childColor0: '',
     childName1: '',
@@ -58,13 +60,17 @@ const SettingsPopup = (props) => {
     childName8: '',
   })
 
-  const handleChange = (event,) => {
+  const handleChange = (event, i, id) => {
     console.log('event.target.value', event.target.value);
     console.log('event.target.name', event.target.name);
     console.log('contactInfo in change', contactInfo);
+    console.log('childId', id);
     setContactInfo({
       ...contactInfo,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value, [id]: event.target.id
+      // ...contactInfo.children,
+      // id: id,
+      // [event.target.name]: event.target.value,
     });
   };
 
@@ -206,10 +212,11 @@ const SettingsPopup = (props) => {
                 <div className='children-settings'>
                   <label htmlFor="">Förnamn: </label>
                   <input type="text"
+                    id={kid._id}
                     name={'childName' + i}
                     placeholder={kid.childFirstName}
                     value={contactInfo['childName' + i]}
-                    onChange={(e) => handleChange(e, i)}
+                    onChange={(e) => handleChange(e, i, kid._id)}
                   // onChange={(e) => setChild({ ...child, childFirstName: e.target.value.trim() })}
                   // onChange={(e) =>
                   //   dispatch({
@@ -220,10 +227,11 @@ const SettingsPopup = (props) => {
                   />
                   <label htmlFor="">Färg: </label>
                   <input type="color"
+                    id={kid._id}
                     name={'childColor' + i}
                     className='color-input'
                     value={contactInfo['childColor' + i]}
-                    onChange={(e) => handleChange(e, i)}
+                    onChange={(e) => handleChange(e, i, kid._id)}
                   // onChange={(e) => setChild({ ...child, childColor: e.target.value })}
                   // onChange={(e) =>
                   //   dispatch({

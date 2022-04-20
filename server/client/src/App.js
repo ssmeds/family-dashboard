@@ -668,23 +668,111 @@ function App() {
     console.log('updates after remove same color', updates);
 
     let familyMembersArray = [];
+    Object.keys(updates).map(function (k) {
+      console.log("key with value: " + k + " = " + updates[k])
+      // console.log(`'childName${k}'`);
+      for (let i = 0; i < 10; i++) {
+        console.log(`'childName${i}'`);
+        switch (k) {
+          case `childName${i}`:
+            familyMembersArray.push({
+              childFirstName: updates[k]
+            })
+            break;
+          case `childColor${i}`:
+            familyMembersArray.push({
+              childColor: updates[k]
+            })
+            break;
+          default:
+            break;
+        }
+
+
+      }
+
+      // if (k === 'childName0') {
+      //   familyMembersArray.push({
+      //     childFirstName: updates[k]
+      //   })
+      // }
+    })
+    console.log('familyMembersArray', familyMembersArray);
+    let newChildObject;
+    Object.entries(updates).forEach(([key, value], i) => {
+      console.log(`${key}: ${value} and index: ${i}`)
+      userLoggedIn.familyMembers.map((child, i) => {
+        // let updatesArray = Object.entries(updates)
+        // updatesArray.map((info, i) => {
+        //   console.log('info and i', info, i);
+        // })
+        // console.log('updatesArray', updatesArray);
+        // Object.entries(updates).forEach(([key, value], i) => {
+        //   console.log(`${key}: ${value} and index: ${i}`)
+
+
+
+        // if (updatesArray.includes(child._id)) {
+        //   newChildObject = {
+        //     _id: child._id,
+        //     childFirstName: updatesArray[]
+        //   }
+
+
+        //   //   // console.log('matchande id', child._id);
+        //   //   // console.log(Object.keys(updates).length)
+        //   //   // // updates.`childName${i}` = 'childFirstName'
+        //   //   // let placesInUpdates = Object.keys(updates).length - 1
+        //   //   // 
+        // }
+      })
+
+    })
+
+    // familyMembersArray.map((child, i) => {
+
+    //   familyMembersArray[i].childColor = familyMembersArray[i + 1].childColor
+    //   // familyMembersArray.splice(i, 1)
+
+    // })
+    console.log('familyMembersArray', familyMembersArray);
+    familyMembersArray.map((info, i) => {
+      if ('childFirstName' in info) {
+        console.log('childFirstName exists', info, i);
+      } else {
+        console.log("childFirstName doesn't exist", info, i);
+      }
+    })
+    // let keys = Object.keys(updates).filter(k => updates[k] === value);
+    // console.log('keys', keys);
+    // for (let i = 0; i < 9; i++) {
+    //   console.log(updates.childName);
+    //   if (`${updates.childName}${i}` !== undefined || `${updates.childColor}${i}` !== undefined) {
+    //     familyMembersArray.push({
+    //       childFirstName: `${updates.childName}${i}`,
+    //       childColor: `${updates.childColor}${i}`
+    //     })
+    //   }
+    //   console.log('familyMembersArray', familyMembersArray);
+    // }
+
     // for (const [key, value] of Object.entries(updates)) {
     //   if (Object.keys(updates).some(i => { return i.endsWith('0') })) {
     //     console.log(`${key}: ${value}`);
     //   }
     // }
     // let key;
-    for (let [key, value] in updates) {
-      if (key.endsWith('0')) {
-        if (key.contains('Name')) {
-          familyMembersArray.push({ childFirstName: value })
-        } else {
-          familyMembersArray.push({ childColor: value })
-        }
-
-      }
-      console.log(key, updates[key]);
-    }
+    // for (let [key, value] in updates) {
+    //   if (key === 'childName0') {
+    //     familyMembersArray.push({ childFirstName: value })
+    //   } else if ([key].includes('Color')) {
+    //     console.log('includes color', key);
+    //     familyMembersArray.push({ childColor: value })
+    //   }
+    //   console.log('familyMembersArray', familyMembersArray);
+    // }
+    // console.log(key, updates[key]);
+    // }
 
     fetch(`${BACKEND_URL}/api/users/${userLoggedIn._id}`, {
       method: 'PATCH',
