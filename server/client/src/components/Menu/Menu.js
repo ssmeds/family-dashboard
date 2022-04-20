@@ -35,7 +35,7 @@ const Menu = ({ addWeeklyMenu, recipes, weeklyMenu, fetchWeeklyMenu, userLoggedI
   // console.log('weeklyMenu to map', weeklyMenu);
 
   weeklyMenu.map(week => {
-    if (week.owner.id === userLoggedIn._id) {
+    if (week.owner.id === userLoggedIn._id || userLoggedIn.OGid === week.owner.id) {
       if (week.weekNr === thisWeekNr) {
         // console.log('samma veckonr');
         foundWeeks.push(week)

@@ -7,6 +7,7 @@ import { Identity } from '@mui/base'
 
 
 const SettingsPopup = (props) => {
+  console.log('userLoggedIn', props);
   // let childArray = []
   // props.userLoggedIn.familyMembers.map(child => {
   //   childArray.push({ childFirstName: child.childFirstName, childColor: child.childColor })
@@ -118,7 +119,7 @@ const SettingsPopup = (props) => {
             <input
               type="text"
               name='firstName'
-              placeholder={props.userLoggedIn.firstName}
+              placeholder={props.userLoggedIn._id !== undefined ? props.userLoggedIn.firstName : props.userLoggedIn.spouseFirstName}
               value={contactInfo.firstName}
               onChange={handleChange}
             // onChange={(e) =>
@@ -131,7 +132,7 @@ const SettingsPopup = (props) => {
             <label htmlFor="">Efternamn: </label>
             <input type="text"
               name='lastName'
-              placeholder={props.userLoggedIn.lastName}
+              placeholder={props.userLoggedIn._id !== undefined ? props.userLoggedIn.lastName : props.userLoggedIn.spouseLastName}
               value={contactInfo.lastName}
               onChange={handleChange}
             // onChange={(e) =>
@@ -144,7 +145,7 @@ const SettingsPopup = (props) => {
             <label htmlFor="">Email: </label>
             <input type="text"
               name='email'
-              placeholder={props.userLoggedIn.email}
+              placeholder={props.userLoggedIn._id !== undefined ? props.userLoggedIn.email : props.userLoggedIn.spouseEmail}
               value={contactInfo.email}
               onChange={handleChange}
             // onChange={(e) =>
@@ -183,7 +184,8 @@ const SettingsPopup = (props) => {
           </div>
 
           <div className='partner-settings'>
-            {props.userLoggedIn.spouseFirstName !== undefined ? (
+            {/* Om userLoggedIn._id inte är undefined betyder att det är en OGuser som loggat in*/}
+            {props.userLoggedIn._id !== undefined ? (
               <div>
                 <h3>Partner</h3>
                 <p>Förnamn:  <span>{props.userLoggedIn.spouseFirstName}</span> </p>
@@ -195,7 +197,20 @@ const SettingsPopup = (props) => {
                   readOnly />
                 </p>
               </div>
-            ) : ''}
+            ) : (
+              // Annars är det en spouse som loggat in och vill se OGuser som partner
+              <div>
+                <h3>Partner</h3>
+                <p>Förnamn:  <span>{props.userLoggedIn.firstName}</span> </p>
+                <p>Efternamn:  <span>{props.userLoggedIn.lastName}</span></p>
+                <p>Email:  <span>{props.userLoggedIn.email}</span> </p>
+                <p>Färg:  <input type="color"
+                  className='color-input'
+                  value={props.userLoggedIn.color}
+                  readOnly />
+                </p>
+              </div>
+            )}
 
 
           </div>

@@ -10,7 +10,7 @@ const Header = ({ userLoggedIn, logOutUser, updateUserInformation }) => {
   console.log('user logged in', userLoggedIn);
   const [buttonPopup, setButtonPopup] = useState(false)
   let currentUser = userLoggedIn;
-
+  console.log('current user', currentUser);
   function firstAndLast(fname, lname) {
     let fName = fname.charAt(0).toUpperCase();
     let lName = lname.charAt(0).toUpperCase()
@@ -42,7 +42,7 @@ const Header = ({ userLoggedIn, logOutUser, updateUserInformation }) => {
           {/* <h3>Inloggad:</h3> */}
           {/* <Avatar sx={currentUser ? { bgcolor: currentUser.color } : { bgcolor: 'black' }}>{currentUser ? firstAndLast(currentUser.firstName || currentUser.spouseFirstName, currentUser.lastName || currentUser.spouseLastName) : 'None'}</Avatar>
            */}
-          <h2 className='display-username' style={currentUser ? { color: currentUser.color, borderColor: currentUser.color } : { color: 'black' }}>{currentUser ? displayFullName(currentUser.firstName || currentUser.spouseFirstName, currentUser.lastName || currentUser.spouseLastName) : 'None'}</h2>
+          <h2 className='display-username' style={currentUser ? { color: currentUser.color, borderColor: currentUser.color } : { color: 'black' }}>{currentUser.OGid ? displayFullName(currentUser.spouseFirstName, currentUser.spouseLastName) : displayFullName(currentUser.firstName, currentUser.lastName)}</h2>
           <Avatar sx={{ bgcolor: 'black' }}><SettingsIcon onClick={() => handleSettingsClick()}></SettingsIcon></Avatar>
           <Avatar sx={{ bgcolor: 'red' }} ><LogoutIcon onClick={() => handleLogOut()}></LogoutIcon></Avatar>
         </Stack>

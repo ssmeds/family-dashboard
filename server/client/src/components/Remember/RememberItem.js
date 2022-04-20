@@ -7,7 +7,7 @@ const RememberItem = ({ remembers, deleteRemember, userLoggedIn }) => {
 
   let usersRemembersList = []
   remembers.map(item => {
-    if (userLoggedIn._id === item.owner.id) {
+    if (userLoggedIn._id === item.owner.id || userLoggedIn.OGid === item.owner.id) {
       usersRemembersList.push(item)
     }
   })

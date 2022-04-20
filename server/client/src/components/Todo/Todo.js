@@ -10,7 +10,7 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete, userLogg
   let formattedDatesTodos;
   let rightOwnerTodos = [];
   todo.map(todoItem => {
-    if (todoItem.owner.id === userLoggedIn._id) {
+    if (todoItem.owner.id === userLoggedIn._id || userLoggedIn.OGid === todoItem.owner.id) {
       rightOwnerTodos.push(todoItem)
       formattedDatesTodos = rightOwnerTodos.map(item => {
         // console.log('nytt datum', item.date);

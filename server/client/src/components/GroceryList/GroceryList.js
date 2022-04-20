@@ -18,7 +18,7 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
   let userShoppingList = [];
   groceryListItems.map(item => {
     // console.log('item.owner.id', item);
-    if (userLoggedIn._id === item.owner.id) {
+    if (userLoggedIn._id === item.owner.id || userLoggedIn.OGid === item.owner.id) {
       userShoppingList.push(item)
     }
   })

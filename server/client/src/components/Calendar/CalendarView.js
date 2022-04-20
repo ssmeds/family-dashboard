@@ -27,7 +27,7 @@ const CalendarView = ({ value, onChange, addNote, notes, userLoggedIn }) => {
 
   let userNotesList = []
   formattedDates.map(note => {
-    if (note.owner.id === userLoggedIn._id) {
+    if (note.owner.id === userLoggedIn._id || userLoggedIn.OGid === note.owner.id) {
       userNotesList.push(note)
     }
   })

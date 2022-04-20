@@ -83,17 +83,21 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
               spouseEmail: rightSpouseUser.spouseEmail,
               spouseColor: rightSpouseUser.spouseColor,
               familyMembers: rightSpouseUser.familyMembers,
-              OGid: rightSpouseUser._id
+              OGid: rightSpouseUser._id,
+              firstName: rightSpouseUser.firstName,
+              lastName: rightSpouseUser.lastName,
+              email: rightSpouseUser.email,
+              color: rightSpouseUser.color
             }
             console.log('spouse', spouse);
             setUserLoggedInAfterLogIn(spouse)
-            setUserLoggedIn(spouse)
+            // setUserLoggedIn(spouse)
           }
 
           console.log('rightOGUser, rightSpouseUser', rightOGUser, rightSpouseUser);
           // setUsers(data)
           setUserLoggedInAfterLogIn(rightOGUser)
-          setUserLoggedIn(rightOGUser)
+          // setUserLoggedIn(rightOGUser)
           if (rightOGUser === undefined && rightSpouseUser === undefined) {
             setError('Fel e-mail eller lösenord')
           }

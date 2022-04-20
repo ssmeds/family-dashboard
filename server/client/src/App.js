@@ -510,27 +510,27 @@ function App() {
 
     console.log('user in setUserLoggedInAfterLogIn', user);
     console.log('invited in setUserLoggedInAfterLogIn', invited);
-    if (user._id) {
-      if (user._id !== undefined) {
-        fetch(`${BACKEND_URL}/api/users/${user._id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ isLoggedIn: true })
+    // if (user._id) {
+    if (user._id in user) {
+      fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ isLoggedIn: true })
+      })
+        .then(() => {
+          console.log('user logged in');
+          setUsers([...users, user])
+          setUserLoggedIn(user)
+          setIsLoggedIn(true)
         })
-          .then(() => {
-            console.log('user logged in');
-            setUsers([...users, user])
-            // setUserLoggedIn(user)
-            setIsLoggedIn(true)
-          })
-      } else {
-        setUsers([...users, user])
-        setUserLoggedIn(user)
-        setIsLoggedIn(true)
-      }
+    } else {
+      setUsers([...users, user])
+      setUserLoggedIn(user)
+      setIsLoggedIn(true)
     }
+    // }
   }
 
   const logOutUser = (user) => {
@@ -551,7 +551,7 @@ function App() {
           setUserLoggedIn('')
         })
     } else {
-      let OGuser = users.find(person => person.spouseEmail === user.email)
+      let OGuser = users.find(person => person._id === user.OGid)
       console.log('OGuser:', OGuser);
       fetch(`${BACKEND_URL}/api/users/${OGuser._id}`, {
         method: 'PATCH',

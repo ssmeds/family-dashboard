@@ -22,7 +22,7 @@ const HomeworkItem = ({ homeworks, deleteHomework, updateHomework, toggleComplet
         return (
           <div
             key={homework._id}
-            style={color ? { backgroundColor: homework.color } : { backgroundColor: homework.color, color: 'white' }}
+            style={homework.color !== undefined ? { backgroundColor: homework.color, color: 'white' } : { backgroundColor: 'blue', color: 'white' }}
             className={`homework-item ${homework.complete && 'completed'}`}
             onDoubleClick={() => toggleComplete(homework._id)}>
             <h3 className="homework-subject" >{homework.subject}<RiDeleteBin6Fill onClick={() => deleteHomework(homework._id)} style={{ cursor: 'pointer' }} /></h3>
