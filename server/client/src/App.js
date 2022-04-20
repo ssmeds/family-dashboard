@@ -661,51 +661,47 @@ function App() {
 
   const updateUserInformation = (updates) => {
     console.log('updates', updates);
-    // console.log('childs index', updates.childFirstName.charAt(updates.childFirstName.length - 1));
-    const updatesToSave = {
-      firstName: updates.firstName,
-      lastName: updates.lastName,
-      email: updates.email,
-      password: updates.password,
-      color: updates.color,
-      childName0: updates.childName0,
-      childColor0: updates.childColor0,
-      childName1: updates.childName1,
-      childColor1: updates.childColor1,
-      childColor2: updates.childColor2,
-      childName2: updates.childName2,
-      childColor3: updates.childColor3,
-      childName3: updates.childName3,
-      childColor4: updates.childColor4,
-      childName4: updates.childName4,
-      childColor5: updates.childColor5,
-      childName5: updates.childName5,
-      childColor6: updates.childColor6,
-      childName6: updates.childName6,
-      childColor7: updates.childColor7,
-      childName7: updates.childName7,
-      childColor8: updates.childColor8,
-      childName8: updates.childName8,
-    }
-    console.log('updatesToSave', updatesToSave);
-    let newUpdatesToSave;
-    if (updatesToSave.color === userLoggedIn.color) {
-      updatesToSave.color = userLoggedIn.color
-    }
-    console.log('updatesToSave after change', updatesToSave);
-    for (const [key, value] of Object.entries(updatesToSave)) {
-      if (value !== undefined && value !== '') {
-        console.log(`${key}: ${value}`);
-        newUpdatesToSave[key] = value
-      }
-    }
-    console.log('newUpdatesToSave', newUpdatesToSave);
-    // updatesToSave.map(info => {
-    //   if () {
 
+    if (updates.color === userLoggedIn.color) {
+      delete updates.color
+    }
+    console.log('updates after remove same color', updates);
+
+    let familyMembersArray = [];
+    // for (const [key, value] of Object.entries(updates)) {
+    //   if (Object.keys(updates).some(i => { return i.endsWith('0') })) {
+    //     console.log(`${key}: ${value}`);
     //   }
-    // })
-    // let foundUpdates = updatesToSave.filter(info !== undefined)
+    // }
+    // let key;
+    for (let [key, value] in updates) {
+      if (key.endsWith('0')) {
+        if (key.contains('Name')) {
+          familyMembersArray.push({ childFirstName: value })
+        } else {
+          familyMembersArray.push({ childColor: value })
+        }
+
+      }
+      console.log(key, updates[key]);
+    }
+
+    fetch(`${BACKEND_URL}/api/users/${userLoggedIn._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updates)
+    })
+      .then(() => {
+        console.log('user changed info');
+        // setUsers([...users, update])
+        //   // console.log('foundFamily', foundFamily);
+        // setUsers(data)
+        // setUserLoggedIn(update)
+        // setIsLoggedIn(true)
+        // setUserLoggedInAfterLogIn(update, invited)
+      })
   }
 
   //Fetch MenuItems

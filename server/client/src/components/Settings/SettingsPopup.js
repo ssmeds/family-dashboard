@@ -87,7 +87,17 @@ const SettingsPopup = (props) => {
       password: '',
       color: props.userLoggedIn.color
     })
-    props.updateUserInformation(contactInfo)
+    let newUpdatesToSave;
+    for (const [key, value] of Object.entries(contactInfo)) {
+      if (value !== undefined && value !== '') {
+        console.log(`${key}: ${value}`);
+        // newUpdatesToSave[key] = value
+        // Object.assign(newUpdatesToSave, { key: value })
+        newUpdatesToSave = { ...newUpdatesToSave, [key]: value }
+      }
+    }
+    console.log('newUpdatesToSave', newUpdatesToSave);
+    props.updateUserInformation(newUpdatesToSave)
   };
   // console.log('child', child);
   return (props.trigger) ? (
