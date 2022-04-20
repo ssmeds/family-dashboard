@@ -455,20 +455,6 @@ function App() {
     return data
   }
 
-  // const fetchUsers = async () => {
-  //   await fetch(`${BACKEND_URL}/api/users`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log('userdata', data);
-  //       let loggedInUser = data.find(user => user.isLoggedIn === true)
-  //       console.log('loggedInUser', loggedInUser);
-  //       setUsers(data)
-  //       // setUserLoggedIn(loggedInUser)
-
-  //     })
-  // }
-  // fetchUsers()
-
   const addNewUser = (newUsersToPost) => {
     console.log('newUsers from Register before isloggedin', newUsersToPost);
     newUsersToPost.isLoggedIn = true;
@@ -485,31 +471,10 @@ function App() {
     setUserLoggedIn(newUsersToPost)
   }
 
-  // const logOutUserFromDB = (user) => {
-  //   console.log('user to logout', user);
-  //   // user.isLoggedIn = false;
-
-  //   const foundUser = users.find(person => person.email === user.email && person.password === user.password)
-  //   // foundUser.isLoggedIn = false;
-  //   console.log('foundUser', foundUser);
-
-
-
-  //   fetch(`${BACKEND_URL}/api/users/${foundUser._id}`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({ isLoggedIn: false })
-  //   })
-  //     .then(() => { console.log('user logged out'); })
-  //   setUsers([...users, user])
-  // }
-
-  const setUserLoggedInAfterLogIn = (user, invited) => {
+  const setUserLoggedInAfterLogIn = (user) => {
 
     console.log('user in setUserLoggedInAfterLogIn', user);
-    console.log('invited in setUserLoggedInAfterLogIn', invited);
+    // console.log('invited in setUserLoggedInAfterLogIn', invited);
     // if (user._id) {
     if (user._id in user) {
       fetch(`${BACKEND_URL}/api/users/${user._id}`, {
@@ -522,15 +487,23 @@ function App() {
         .then(() => {
           console.log('user logged in');
           setUsers([...users, user])
-          setUserLoggedIn(user)
           setIsLoggedIn(true)
+          setUserLoggedIn(user)
         })
-    } else {
-      setUsers([...users, user])
-      setUserLoggedIn(user)
-      setIsLoggedIn(true)
-    }
-    // }
+    } else
+      fetch(`${BACKEND_URL}/api/users/${user.OGid}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ spouseIsLoggedIn: true })
+      })
+        .then(() => {
+          console.log('user logged in');
+          setUsers([...users, user])
+          setIsLoggedIn(true)
+          setUserLoggedIn(user)
+        })
   }
 
   const logOutUser = (user) => {
@@ -571,25 +544,8 @@ function App() {
 
   const addInvitedToDB = async (invited) => {
     console.log('invited to save to db', invited);
-    // const getObject = (obj, str) => {
-    //   let result;
-    //   if (!obj || typeof obj !== 'object') return;
-    //   Object.values(obj).some((v) => {
-    //     if (v === str) return result = obj;
-    //     return result = getObject(v, str);
-    //   })
-    //   return result;
-    // }
-
-
 
     const usersFromServer = await fetchUsers();
-    // const fetchUsers = async () => {
-    //   await fetch(`${BACKEND_URL}/api/users`)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log('userdata', data);
-    //       // const findEmail = invited.email;
     const foundOGPartner = usersFromServer.find(user => user.spouseEmail === invited.spouseEmail);
     console.log('foundOGPartner i App', foundOGPartner);
     let update = {
@@ -613,7 +569,7 @@ function App() {
       email: foundOGPartner.email,
       color: foundOGPartner.color
     }
-    setUserLoggedInAfterLogIn(update, invited)
+    setUserLoggedInAfterLogIn(spouseToSaveToState)
     setUserLoggedIn(spouseToSaveToState)
     setIsLoggedIn(true)
     // data.map(user => {
