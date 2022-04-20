@@ -15,4 +15,4 @@ const GroceryListItem = mongoose.model('GroceryListItem', groceryListSchema)
 //   complete: false
 // });
 // groceryListItem.save().then(() => { console.log('One item added'); })
-module.exports = mongoose.model('GroceryListItems', groceryListSchema)
+module.exports = GroceryListItem

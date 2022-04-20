@@ -34,9 +34,9 @@ function App() {
 
   // const [groceryListItem, setGroceryListItem] = useState([]);
   const [groceryListItems, setGroceryListItems] = useState([{
-    item: '',
-    quantity: 1,
-    complete: false,
+    // item: '',
+    // quantity: 1,
+    // complete: false,
   }]);
   // const [tasks, setTasks] = useState([])
 
@@ -185,22 +185,37 @@ function App() {
 
   //Add Homework
   const addHomework = (newHomework) => {
-    // ////console.log(homework);
+
+    console.log(newHomework);
+    let color;
+    let familyMemberFromHomework = newHomework.familyMember
+    let children = [];
+    userLoggedIn.familyMembers.map(familyMember => {
+      children.push(familyMember)
+    })
+    let foundChild = children.find(person => person.childFirstName === familyMemberFromHomework)
+    console.log('foundChild', foundChild);
+    if (userLoggedIn.firstName === familyMemberFromHomework) {
+      color = userLoggedIn.color
+    } else if (userLoggedIn.spouseFirstName === familyMemberFromHomework) {
+      color = userLoggedIn.spouseColor
+    } else {
+      color = foundChild.childColor
+    }
+    if (color === '') {
+      color = '#5593e4'
+    }
+    console.log('color', color);
     const newHomeworkToPost = {
       subject: newHomework.subject,
       assignment: newHomework.assignment,
-      complete: false,
+      familyMember: newHomework.familyMember,
+      color: color,
       owner: {
         id: userLoggedIn._id,
-        // firstName: userLoggedIn.firstName,
-        // lastName: userLoggedIn.lastName,
-        // email: userLoggedIn.email,
-        // color: userLoggedIn.color,
-        // familyMembers: userLoggedIn.familyMembers,
-        // spouse: userLoggedIn.spouse,
       }
     }
-    console.log('newHomeworkToPost', newHomeworkToPost);
+
     fetch(`${BACKEND_URL}/api/homeworks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -209,6 +224,31 @@ function App() {
       .then(() => { console.log('new homework added'); })
     ////console.log('homework', homework);
     setHomework([...homework, newHomeworkToPost])
+
+    // // ////console.log(homework);
+    // const newHomeworkToPost = {
+    //   subject: newHomework.subject,
+    //   assignment: newHomework.assignment,
+    //   complete: false,
+    //   owner: {
+    //     id: userLoggedIn._id,
+    //     // firstName: userLoggedIn.firstName,
+    //     // lastName: userLoggedIn.lastName,
+    //     // email: userLoggedIn.email,
+    //     // color: userLoggedIn.color,
+    //     // familyMembers: userLoggedIn.familyMembers,
+    //     // spouse: userLoggedIn.spouse,
+    //   }
+    // }
+    // console.log('newHomeworkToPost', newHomeworkToPost);
+    // fetch(`${BACKEND_URL}/api/homeworks`, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(newHomeworkToPost)
+    // })
+    //   .then(() => { console.log('new homework added'); })
+    // ////console.log('homework', homework);
+    // setHomework([...homework, newHomeworkToPost])
 
   }
 
@@ -405,15 +445,8 @@ function App() {
       complete: false,
       owner: {
         id: userLoggedIn._id,
-        // firstName: userLoggedIn.firstName,
-        // lastName: userLoggedIn.lastName,
-        // email: userLoggedIn.email,
-        // color: userLoggedIn.color,
-        // familyMembers: userLoggedIn.familyMembers,
-        // spouse: userLoggedIn.spouse,
       }
     }
-
     fetch(`${BACKEND_URL}/api/todos`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -422,10 +455,9 @@ function App() {
       .then(() => { console.log('new todo added'); })
     ////console.log('todo', todo);
     setTodo([...todo, newTodoToPost])
-
   }
 
-  //Delete Homework
+  //Delete Todo
   const deleteTodo = (id) => {
     ////console.log(id);
 
@@ -914,12 +946,6 @@ function App() {
       complete: false,
       owner: {
         id: userLoggedIn._id,
-        // firstName: userLoggedIn.firstName,
-        // lastName: userLoggedIn.lastName,
-        // email: userLoggedIn.email,
-        // color: userLoggedIn.color,
-        // familyMembers: userLoggedIn.familyMembers,
-        // spouse: userLoggedIn.spouse,
       }
     }
 
@@ -932,6 +958,7 @@ function App() {
         console.log('new groceryList item added');
         // setGroceryListItems([...groceryListItem, newItemToPost])
       })
+    setGroceryListItems([...groceryListItems, newItemToPost])
     ////console.log('todo', todo);
 
   }
@@ -1015,44 +1042,48 @@ function App() {
   }
 
   //Update GroceryListItem
-  const updateQuantity = (changedItem) => {
+  const updateQuantity = async (changedItem) => {
     console.log('changedItem', changedItem);
     let id;
     if (!changedItem.hasOwnProperty('_id')) {
-      const foundName = groceryListItems.find(item => item.item === changedItem.item)
-      id = foundName.item._id
-      console.log('found by name', foundName);
+      let allItems = await fetchGroceryListItems()
+      const foundName = allItems.find(item => item.item === changedItem.item)
+      id = foundName._id
+      // console.log('found by name', foundName);
+      // console.log('groceryListItems', groceryListItems);
     } else {
       const found = groceryListItems.find(item => item._id === changedItem._id)
-      id = found.item._id
+      id = found._id
       console.log('found by id', found);
     }
-    const updQuantity = {
-      quantity: changedItem.quantity
-    }
-    console.log('updQuantity', updQuantity);
+    // const updQuantity = {
+    //   quantity: changedItem.quantity
+    // }
+    // console.log('updQuantity', updQuantity);
 
 
-
+    console.log('id', id);
     fetch(`${BACKEND_URL}/api/grocerylistitems/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updQuantity)
+      body: JSON.stringify({ quantity: changedItem.quantity })
     })
 
       .then(res => {
         if (res.ok) {
-          ////console.log(('Update successful!'));
+          console.log(('Update successful!'));
         }
         else {
-          ////console.log('Update unsuccessful!');
+          console.log('Update unsuccessful!');
         }
         return res
       })
-      .then(() => { ////console.log('Homework updated'); })
-        // setGroceryListItem(groceryListItems.map(item => item._id === id ? { ...item, complete: !item.complete } : item))
-
+      .then((data) => {
+        console.log('Quantity updated', data);
       })
+    // setGroceryListItem(groceryListItems.map(item => item._id === id ? { ...item, complete: !item.complete } : item))
+
+    // })
   }
 
 

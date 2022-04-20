@@ -17,7 +17,7 @@ const RememberItem = ({ remembers, deleteRemember, userLoggedIn }) => {
   return (
     <>
       {usersRemembersList.map((item, i) => {
-        // console.log('item.color', item.color);
+        console.log('item.color', item.color);
         if (item.color !== undefined) { color = hex_is_light(item.color) }
         return (
           <div key={i} className="remember-item" style={color ? { backgroundColor: item.color } : { backgroundColor: item.color, color: '#fff' }}>

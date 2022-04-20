@@ -38,16 +38,28 @@ router.get('/groceryListItems/:id', async (req, res) => {
 
 //Update groceryListItem
 router.patch('/groceryListItems/:id', async (req, res) => {
-  console.log('patching quantity', req.body);
+  console.log('patching quantity', req.body.quantity);
+
+  // try {
   let id = req.params.id
-  try {
-    let newQuantity = await GroceryListItem.findByIdAndUpdate(id, req.body.quantity, { new: true })
-    console.log('new quantity', newQuantity);
-    res.send(newQuantity)
-  } catch {
-    res.status(404)
-    res.send({ error: 'GroceryListItem does not exist!' })
-  }
+  let quantity = req.body.quantity
+  // let update = req.body
+  // const options = { new: true }
+  // console.log('updatedQuantity', updatedQuantity);
+  // let newQuantity = await GroceryListItem.findByIdAndUpdate(id, update, options)
+  GroceryListItem.findByIdAndUpdate(id, { $set: { quantity: quantity } }, { new: true }).then(updatedItem => {
+    res.send('Item updated by id through PATCH', updatedItem);
+  });
+  // let item = await GroceryListItem.find((item => item._id === id), {
+  //   new: true
+  // })
+  // item.quantity = req.body.quantity
+  // console.log('new quantity', newQuantity);
+  // res.send(newQuantity)
+  // } catch {
+  //   res.status(404)
+  //   res.send({ error: 'GroceryListItem does not exist!' })
+  // }
 
   // try {
   //   const groceryListItem = await GroceryListItem.findOne({ _id: req.params.id })

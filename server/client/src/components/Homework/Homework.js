@@ -38,8 +38,8 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
   ]
 
   if (userLoggedIn !== undefined) {
+    familyMembersOptions.push({ value: '', label: 'Välj barn', disabled: true });
     userLoggedIn.familyMembers.map(familyMember => {
-      familyMembersOptions.push({ value: '', label: 'Välj barn', disabled: true });
       familyMembersOptions.push({ value: familyMember.childFirstName, label: familyMember.childFirstName })
     })
   }
@@ -60,7 +60,7 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
       }
     })
   }
-
+  console.log('userHomeworklist', userHomeworkList);
   console.log('familyMembersOptions:', familyMembersOptions);
   const [subject, setSubject] = useState('');
   const [assignment, setAssignment] = useState('');
@@ -71,7 +71,7 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
     e.preventDefault();
     console.log('Nu har nån klickat på sparaknappen!');
     console.log('Ämne', subject);
-    addHomework({ subject, assignment })
+    addHomework({ subject, assignment, familyMember })
 
     setAssignment('')
     setSubject('')
@@ -92,6 +92,7 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
               updateHomework={updateHomework}
               deleteHomework={deleteHomework}
               toggleComplete={toggleComplete}
+              userLoggedIn={userLoggedIn}
             />
           ))}
         </>

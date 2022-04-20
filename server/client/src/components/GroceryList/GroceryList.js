@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 
 const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem, updateQuantity, userLoggedIn }) => {
-  // console.log('groceryListItems from App', groceryListItems);
+  console.log('groceryListItems from App', groceryListItems);
   const [item, setItem] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [totalItemCount, setTotalItemCount] = useState(null);
@@ -15,6 +15,13 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
     calculateTotal();
   })
 
+  let userShoppingList = [];
+  groceryListItems.map(item => {
+    // console.log('item.owner.id', item);
+    if (userLoggedIn._id === item.owner.id) {
+      userShoppingList.push(item)
+    }
+  })
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleAddButtonClick()
@@ -31,7 +38,7 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
     setInputValue('');
     setItem('');
 
-    setGroceryListItems([...groceryListItems, newItem])
+    // setGroceryListItems([...groceryListItems, newItem])
     calculateTotal();
 
   };
@@ -50,14 +57,14 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
     console.log('id or name in increase', id, name);
     if (id === undefined) {
       let foundItem = groceryListItems.find(item => item.item === name);
-      // console.log('foundItem', foundItem);
+      console.log('foundItem undefined id', foundItem);
       foundItem.quantity++;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
       updateQuantity(foundItem)
     } else {
       let foundItem = groceryListItems.find(item => item._id === id);
-      // console.log('foundItem', foundItem);
+      console.log('foundItem', foundItem);
       foundItem.quantity++;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
@@ -84,7 +91,7 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
   };
 
   const calculateTotal = () => {
-    const totalItemCount = groceryListItems.reduce((total, item) => {
+    const totalItemCount = userShoppingList.reduce((total, item) => {
       return total + item.quantity;
     }, 0);
 
@@ -106,12 +113,7 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
     calculateTotal();
   }
 
-  let userShoppingList = [];
-  groceryListItems.map(item => {
-    if (userLoggedIn._id === item.owner.id) {
-      userShoppingList.push(item)
-    }
-  })
+
 
   return (
     <div className="groceryList-container card">
