@@ -185,9 +185,8 @@ function App() {
 
   //Add Homework
   const addHomework = (newHomework) => {
-
     console.log(newHomework);
-    let color;
+    let newColor;
     let familyMemberFromHomework = newHomework.familyMember
     let children = [];
     userLoggedIn.familyMembers.map(familyMember => {
@@ -196,21 +195,21 @@ function App() {
     let foundChild = children.find(person => person.childFirstName === familyMemberFromHomework)
     console.log('foundChild', foundChild);
     if (userLoggedIn.firstName === familyMemberFromHomework) {
-      color = userLoggedIn.color
+      newColor = userLoggedIn.color
     } else if (userLoggedIn.spouseFirstName === familyMemberFromHomework) {
-      color = userLoggedIn.spouseColor
+      newColor = userLoggedIn.spouseColor
     } else {
-      color = foundChild.childColor
+      newColor = foundChild.childColor
     }
-    if (color === '') {
-      color = '#5593e4'
+    if (newColor === '') {
+      newColor = '#5593e4'
     }
-    console.log('color', color);
+    console.log('color', newColor);
     const newHomeworkToPost = {
       subject: newHomework.subject,
       assignment: newHomework.assignment,
       familyMember: newHomework.familyMember,
-      color: color,
+      color: newColor,
       owner: {
         id: userLoggedIn._id,
       }
@@ -224,32 +223,6 @@ function App() {
       .then(() => { console.log('new homework added'); })
     ////console.log('homework', homework);
     setHomework([...homework, newHomeworkToPost])
-
-    // // ////console.log(homework);
-    // const newHomeworkToPost = {
-    //   subject: newHomework.subject,
-    //   assignment: newHomework.assignment,
-    //   complete: false,
-    //   owner: {
-    //     id: userLoggedIn._id,
-    //     // firstName: userLoggedIn.firstName,
-    //     // lastName: userLoggedIn.lastName,
-    //     // email: userLoggedIn.email,
-    //     // color: userLoggedIn.color,
-    //     // familyMembers: userLoggedIn.familyMembers,
-    //     // spouse: userLoggedIn.spouse,
-    //   }
-    // }
-    // console.log('newHomeworkToPost', newHomeworkToPost);
-    // fetch(`${BACKEND_URL}/api/homeworks`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(newHomeworkToPost)
-    // })
-    //   .then(() => { console.log('new homework added'); })
-    // ////console.log('homework', homework);
-    // setHomework([...homework, newHomeworkToPost])
-
   }
 
   //Delete Homework
@@ -378,12 +351,6 @@ function App() {
       color: color,
       owner: {
         id: userLoggedIn._id,
-        // firstName: userLoggedIn.firstName,
-        // lastName: userLoggedIn.lastName,
-        // email: userLoggedIn.email,
-        // color: userLoggedIn.color,
-        // familyMembers: userLoggedIn.familyMembers,
-        // spouse: userLoggedIn.spouse,
       }
     }
 
@@ -543,24 +510,26 @@ function App() {
 
     console.log('user in setUserLoggedInAfterLogIn', user);
     console.log('invited in setUserLoggedInAfterLogIn', invited);
-    if (user._id !== undefined) {
-      fetch(`${BACKEND_URL}/api/users/${user._id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ isLoggedIn: true })
-      })
-        .then(() => {
-          console.log('user logged in');
-          setUsers([...users, user])
-          // setUserLoggedIn(user)
-          setIsLoggedIn(true)
+    if (user._id) {
+      if (user._id !== undefined) {
+        fetch(`${BACKEND_URL}/api/users/${user._id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ isLoggedIn: true })
         })
-    } else {
-      setUsers([...users, user])
-      // setUserLoggedIn(user)
-      setIsLoggedIn(true)
+          .then(() => {
+            console.log('user logged in');
+            setUsers([...users, user])
+            // setUserLoggedIn(user)
+            setIsLoggedIn(true)
+          })
+      } else {
+        setUsers([...users, user])
+        setUserLoggedIn(user)
+        setIsLoggedIn(true)
+      }
     }
   }
 
@@ -578,8 +547,8 @@ function App() {
         .then(() => {
           console.log('user logged out');
           setUsers([...users, user])
-          setUserLoggedIn('')
           setIsLoggedIn(false)
+          setUserLoggedIn('')
         })
     } else {
       let OGuser = users.find(person => person.spouseEmail === user.email)
@@ -594,14 +563,10 @@ function App() {
         .then(() => {
           console.log('user logged out');
           setUsers([...users, user])
-          setUserLoggedIn('')
           setIsLoggedIn(false)
+          setUserLoggedIn('')
         })
     }
-
-    // setUserLoggedIn('')
-    // setIsLoggedIn(false)
-    // logOutUserFromDB(user)
   }
 
   const addInvitedToDB = async (invited) => {

@@ -47,45 +47,6 @@ router.patch('/groceryListItems/:id', (req, res) => {
   GroceryListItem.findByIdAndUpdate(req.params.id, req.body)
     .then(() => res.json('item updated'))
     .catch((err) => { res.status(422).send('item update failed') })
-  // GroceryListItem.findByIdAndUpdate(req.params.id, { quantity: req.body }, { new: true }).then((item) => {
-  //   if (!item) {
-  //     return res.status(404).send();
-  //   }
-  //   res.send(item);
-  // }).catch((error) => {
-  //   res.status(500).send(error);
-  // })
-  // // try {
-  // let id = req.params.id
-  // let quantity = req.body.quantity
-  // // let update = req.body
-  // // const options = { new: true }
-  // // console.log('updatedQuantity', updatedQuantity);
-  // // let newQuantity = await GroceryListItem.findByIdAndUpdate(id, update, options)
-  // GroceryListItem.findByIdAndUpdate(id, { $set: { quantity: quantity } }, { new: true }).then(updatedItem => {
-  //   res.send('Item updated by id through PATCH', updatedItem);
-  // });
-  // // let item = await GroceryListItem.find((item => item._id === id), {
-  // //   new: true
-  // // })
-  // // item.quantity = req.body.quantity
-  // // console.log('new quantity', newQuantity);
-  // // res.send(newQuantity)
-  // // } catch {
-  // //   res.status(404)
-  // //   res.send({ error: 'GroceryListItem does not exist!' })
-  // // }
-
-  // try {
-  //   const groceryListItem = await GroceryListItem.findOne({ _id: req.params.id }, { new: true })
-  //   groceryListItem.quantity = req.body.quantity
-
-  //   await groceryListItem.save()
-  //   res.send(groceryListItem)
-  // } catch {
-  //   res.status(404)
-  //   res.send({ error: 'GroceryListItem does not exist!' })
-  // }
 })
 
 // Update groceryListItem completed
@@ -100,22 +61,6 @@ router.put('/groceryListItems/:id', async (req, res) => {
     res.status(404)
     res.send({ error: 'GroceryListItem does not exist!' })
   }
-
-  // let groceryListItem
-  // try {
-  //   groceryListItem = await GroceryListItem.findById(req.params.id)
-  //   groceryListItem.complete = !groceryListItem.complete
-  //   await groceryListItem.save()
-  //   res.send(groceryListItem)
-  // }
-  // catch {
-  //   if (groceryListItem == null) {
-  //     console.log('groceryListItem is null');
-  //   } else {
-  //     res.send({ msg: 'Error updating complete' })
-  //   }
-  // }
-
 })
 
 //Delete groceryListItem

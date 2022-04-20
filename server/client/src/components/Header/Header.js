@@ -20,6 +20,10 @@ const Header = ({ userLoggedIn, logOutUser, updateUserInformation }) => {
     )
   }
 
+  const displayFullName = (fname, lname) => {
+    return `${fname} ${lname}`
+  }
+
   const handleLogOut = () => {
     // console.log('jag vill logga ut nu');
     logOutUser(currentUser)
@@ -36,7 +40,9 @@ const Header = ({ userLoggedIn, logOutUser, updateUserInformation }) => {
       <div className="header-container menu-icons">
         <Stack direction='row' spacing={2}>
           {/* <h3>Inloggad:</h3> */}
-          <Avatar sx={currentUser ? { bgcolor: currentUser.color } : { bgcolor: 'black' }}>{currentUser ? firstAndLast(currentUser.firstName || currentUser.spouseFirstName, currentUser.lastName || currentUser.spouseLastName) : 'None'}</Avatar>
+          {/* <Avatar sx={currentUser ? { bgcolor: currentUser.color } : { bgcolor: 'black' }}>{currentUser ? firstAndLast(currentUser.firstName || currentUser.spouseFirstName, currentUser.lastName || currentUser.spouseLastName) : 'None'}</Avatar>
+           */}
+          <h2 className='display-username' style={currentUser ? { color: currentUser.color, borderColor: currentUser.color } : { color: 'black' }}>{currentUser ? displayFullName(currentUser.firstName || currentUser.spouseFirstName, currentUser.lastName || currentUser.spouseLastName) : 'None'}</h2>
           <Avatar sx={{ bgcolor: 'black' }}><SettingsIcon onClick={() => handleSettingsClick()}></SettingsIcon></Avatar>
           <Avatar sx={{ bgcolor: 'red' }} ><LogoutIcon onClick={() => handleLogOut()}></LogoutIcon></Avatar>
         </Stack>

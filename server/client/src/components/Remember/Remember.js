@@ -2,37 +2,28 @@ import { useState } from 'react';
 import RememberItem from './RememberItem'
 import './remember.css'
 
-// const options = [
-//   { value: '', label: 'Välj familjemedlem', disabled: true },
-//   { value: 'Stina', label: "Stina" },
-//   { value: 'Fredrik', label: "Fredrik" },
-//   { value: 'Johannes', label: "Johannes" },
-//   { value: 'Samuel', label: "Samuel" },
-//   { value: 'Sebastian', label: "Sebastian" },
-//   { value: 'Mathias', label: "Mathias" }
-// ]
 
 const Remember = ({ remembers, addRemember, deleteRemember, userLoggedIn }) => {
   console.log('remembers from App.js', remembers);
   const [task, setTask] = useState('');
   const [familyMember, setFamilyMember] = useState('');
-  // const [color, setColor] = useState('');
+  console.log('userLoggedIn', userLoggedIn);
 
   const options = []
   if (userLoggedIn !== undefined) {
     options.push({ value: '', label: 'Välj familjemedlem', disabled: true });
-    userLoggedIn.familyMembers.map(familyMember => {
-      options.push({ value: familyMember.childFirstName, label: familyMember.childFirstName })
-    })
-    options.push({ value: userLoggedIn.firstName, label: userLoggedIn.firstName })
-    if (userLoggedIn.spouseFirstName !== undefined) {
-      options.push({ value: userLoggedIn.spouseFirstName, label: userLoggedIn.spouseFirstName })
+    if (userLoggedIn.familyMember !== undefined) {
+      userLoggedIn.familyMembers.map(familyMember => {
+        options.push({ value: familyMember.childFirstName, label: familyMember.childFirstName })
+      })
+      options.push({ value: userLoggedIn.firstName, label: userLoggedIn.firstName })
+      if (userLoggedIn.spouseFirstName !== undefined) {
+        options.push({ value: userLoggedIn.spouseFirstName, label: userLoggedIn.spouseFirstName })
+      }
+    } else {
+
     }
   }
-
-
-
-
 
   const handleSaveClick = (e) => {
     e.preventDefault();

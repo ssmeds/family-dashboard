@@ -6,6 +6,7 @@ const homeworkSchema = new mongoose.Schema({
   subject: String,
   assignment: String,
   complete: Boolean,
+  color: String,
   owner: {}
 })
 

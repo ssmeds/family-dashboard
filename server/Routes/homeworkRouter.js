@@ -17,6 +17,7 @@ router.post('/homeworks', async (req, res) => {
     subject: req.body.subject,
     assignment: req.body.assignment,
     complete: req.body.complete,
+    color: req.body.color,
     owner: req.body.owner
   })
   await homework.save()

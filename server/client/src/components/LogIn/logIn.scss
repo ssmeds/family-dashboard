@@ -9,6 +9,11 @@
   align-items: center;
   justify-content: center;
 
+  @media screen and(max-width:376px) {
+    max-width: 350px;
+    overflow-x: hidden;
+  }
+
   form {
     margin: 0 auto;
     display: flex;
@@ -18,6 +23,11 @@
 
     input {
       width: 300px;
+
+      @media screen and(max-width:376px) {
+        max-width: 250px;
+        overflow-x: hidden;
+      }
     }
 
     .logIn-Inputs-container {

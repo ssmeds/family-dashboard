@@ -1,5 +1,4 @@
 const express = require('express');
-// const userSchema = require('../models/Users');
 const User = require('../models/Users');
 const router = express.Router()
 const cors = require('cors')
@@ -42,15 +41,6 @@ router.post('/users', async (req, res) => {
   } catch (err) {
     console.log(err)
   }
-  //   const user = new User({
-  //     firstName: req.body.firstName,
-  //     lastName: req.body.lastName,
-  //     role: req.body.role,
-  //     email: req.body.email,
-  //     password: req.body.password
-  //   })
-  //   await user.save()
-  //   res.send(user)
 })
 
 //Get individual user
@@ -70,8 +60,6 @@ router.patch('/users/:id', async (req, res) => {
   console.log('user to patch up', req.body);
   console.log('user to patch up params', req.params);
   try {
-    // const user = await User.findOne({ _id: req.params.id })
-    // console.log('found user in userRouter: ', user);
     const id = req.params.id
     const updates = req.body
     console.log('updates', updates);
@@ -81,8 +69,6 @@ router.patch('/users/:id', async (req, res) => {
     const result = await User.findByIdAndUpdate(id, updates, options)
     console.log('result', result);
     res.send(result)
-    // await user.save()
-    // res.send(user)
   } catch {
     res.status(404)
     res.send({ error: 'User does not exist!' })

@@ -5,29 +5,10 @@ import Week from '.././Week/Week'
 import HomeworkItem from './HomeworkItem'
 
 
-// const options = [
-//   { value: '', label: 'Välj ämne', disabled: true },
-//   { value: 'Engelska', label: "Engelska" },
-//   { value: 'Svenska', label: "Svenska" },
-//   { value: 'Samhällskunskap', label: "Samhällskunskap" }
-// ]
-
-// const familyMembersOptions = [
-//   { value: '', label: 'Välj familjemedlem', disabled: true },
-//   { value: 'Johannes', label: "Johannes" },
-//   { value: 'Samuel', label: "Samuel" },
-//   { value: 'Sebastian', label: "Sebastian" }
-// ]
-
 const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, toggleComplete, userLoggedIn }) => {
-  console.log(userLoggedIn);
-  let homework;
-  if (homeworks) {
-    homework = homeworks;
-  }
-  // const homework = homeworks;
-  console.log(homework);
-  // console.log(props);
+  const [subject, setSubject] = useState('');
+  const [assignment, setAssignment] = useState('');
+  const [familyMember, setFamilyMember] = useState('');
 
   const familyMembersOptions = []
   const options = [
@@ -36,7 +17,7 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
     { value: 'Svenska', label: "Svenska" },
     { value: 'Samhällskunskap', label: "Samhällskunskap" }
   ]
-
+  console.log('userLoggedIn', userLoggedIn);
   if (userLoggedIn !== undefined) {
     familyMembersOptions.push({ value: '', label: 'Välj barn', disabled: true });
     userLoggedIn.familyMembers.map(familyMember => {
@@ -45,26 +26,14 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
   }
 
 
-  //   const familyMembersOptions = [
-  //     { value: '', label: 'Välj familjemedlem', disabled: true },
-  //     { value: 'Johannes', label: "Johannes" },
-  //     { value: 'Samuel', label: "Samuel" },
-  //     { value: 'Sebastian', label: "Sebastian" }
-  // ]
-
-  let userHomeworkList = []
-  if (homework !== undefined) {
-    homework.map(homework => {
-      if (userLoggedIn._id === homework.owner.id) {
-        userHomeworkList.push(homework);
-      }
-    })
-  }
-  console.log('userHomeworklist', userHomeworkList);
+  // console.log('userHomeworklist', userHomeworkList);
   console.log('familyMembersOptions:', familyMembersOptions);
-  const [subject, setSubject] = useState('');
-  const [assignment, setAssignment] = useState('');
-  const [familyMember, setFamilyMember] = useState('');
+  console.log(userLoggedIn);
+
+  // const homework = homeworks;
+  console.log(homeworks);
+  // console.log(props);
+
   // const [complete, setComplete] = useState(false);
 
   const handleSaveClick = (e) => {
@@ -75,6 +44,7 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
 
     setAssignment('')
     setSubject('')
+    setFamilyMember('')
     document.querySelector('#form-select').reset()
   }
 
@@ -85,16 +55,13 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
 
       <div className='card-list homework-list'>
         <>
-          {userHomeworkList.map((homework, i) => (
-            <HomeworkItem
-              key={homework._id ? homework._id : i}
-              homework={homework}
-              updateHomework={updateHomework}
-              deleteHomework={deleteHomework}
-              toggleComplete={toggleComplete}
-              userLoggedIn={userLoggedIn}
-            />
-          ))}
+          <HomeworkItem
+            homeworks={homeworks}
+            updateHomework={updateHomework}
+            deleteHomework={deleteHomework}
+            toggleComplete={toggleComplete}
+            userLoggedIn={userLoggedIn}
+          />
         </>
       </div>
 
