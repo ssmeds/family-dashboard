@@ -12,7 +12,7 @@ const Remember = ({ remembers, addRemember, deleteRemember, userLoggedIn }) => {
   const options = []
   if (userLoggedIn !== undefined) {
     options.push({ value: '', label: 'Välj familjemedlem', disabled: true });
-    if (userLoggedIn.familyMember !== undefined) {
+    if (userLoggedIn.familyMembers !== undefined) {
       userLoggedIn.familyMembers.map(familyMember => {
         options.push({ value: familyMember.childFirstName, label: familyMember.childFirstName })
       })
@@ -20,8 +20,6 @@ const Remember = ({ remembers, addRemember, deleteRemember, userLoggedIn }) => {
       if (userLoggedIn.spouseFirstName !== undefined) {
         options.push({ value: userLoggedIn.spouseFirstName, label: userLoggedIn.spouseFirstName })
       }
-    } else {
-
     }
   }
 

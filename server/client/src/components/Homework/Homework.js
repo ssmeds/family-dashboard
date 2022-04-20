@@ -20,9 +20,11 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
   console.log('userLoggedIn', userLoggedIn);
   if (userLoggedIn !== undefined) {
     familyMembersOptions.push({ value: '', label: 'Välj barn', disabled: true });
-    userLoggedIn.familyMembers.map(familyMember => {
-      familyMembersOptions.push({ value: familyMember.childFirstName, label: familyMember.childFirstName })
-    })
+    if (userLoggedIn.familyMembers !== undefined) {
+      userLoggedIn.familyMembers.map(familyMember => {
+        familyMembersOptions.push({ value: familyMember.childFirstName, label: familyMember.childFirstName })
+      })
+    }
   }
 
 
