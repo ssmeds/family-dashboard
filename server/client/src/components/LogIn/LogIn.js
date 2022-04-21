@@ -91,13 +91,13 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
             }
             console.log('spouse', spouse);
             setUserLoggedInAfterLogIn(spouse)
-            // setUserLoggedIn(spouse)
+            setUserLoggedIn(spouse)
           }
 
           console.log('rightOGUser, rightSpouseUser', rightOGUser, rightSpouseUser);
           // setUsers(data)
           setUserLoggedInAfterLogIn(rightOGUser)
-          // setUserLoggedIn(rightOGUser)
+          setUserLoggedIn(rightOGUser)
           if (rightOGUser === undefined && rightSpouseUser === undefined) {
             setError('Fel e-mail eller lösenord')
           }
