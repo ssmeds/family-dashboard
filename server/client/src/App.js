@@ -211,6 +211,7 @@ function App() {
     } else {
       ownerId = userLoggedIn.OGid
     }
+    console.log('ownerId', ownerId);
     const newHomeworkToPost = {
       subject: newHomework.subject,
       assignment: newHomework.assignment,
@@ -351,11 +352,13 @@ function App() {
     }
     console.log('color', color);
     let ownerId;
+
     if (userLoggedIn._id in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
     }
+    console.log('ownerId', ownerId);
     const newRememberToPost = {
       task: newRemember.task,
       date: newRemember.date,
@@ -424,6 +427,7 @@ function App() {
     } else {
       ownerId = userLoggedIn.OGid
     }
+    console.log('ownerId', ownerId);
     const newTodoToPost = {
       task: newTodo.task,
       date: newTodo.date,
@@ -802,6 +806,7 @@ function App() {
     } else {
       ownerId = userLoggedIn.OGid
     }
+    console.log('ownerId', ownerId);
     const weekMenuToSaveToDB = {
       weekNr,
       weekMenu,
@@ -847,6 +852,7 @@ function App() {
     } else {
       ownerId = userLoggedIn.OGid
     }
+    console.log('ownerId', ownerId);
     const newNoteToPost = {
       task: newNote.task,
       date: newNote.date,
@@ -906,6 +912,7 @@ function App() {
     } else {
       ownerId = userLoggedIn.OGid
     }
+    console.log('ownerId', ownerId);
     const newItemToPost = {
       item: newItem.item,
       quantity: newItem.quantity,
