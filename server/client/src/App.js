@@ -205,13 +205,19 @@ function App() {
       newColor = '#5593e4'
     }
     console.log('color', newColor);
+    let ownerId;
+    if (userLoggedIn._id in userLoggedIn) {
+      ownerId = userLoggedIn._id;
+    } else {
+      ownerId = userLoggedIn.OGid
+    }
     const newHomeworkToPost = {
       subject: newHomework.subject,
       assignment: newHomework.assignment,
       familyMember: newHomework.familyMember,
       color: newColor,
       owner: {
-        id: userLoggedIn._id,
+        id: ownerId,
       }
     }
     console.log('newHomeworkToPost', newHomeworkToPost);
