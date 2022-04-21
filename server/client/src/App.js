@@ -206,7 +206,7 @@ function App() {
     }
     console.log('color', newColor);
     let ownerId;
-    if (userLoggedIn._id in userLoggedIn) {
+    if ('userLoggedIn._id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
@@ -353,7 +353,7 @@ function App() {
     console.log('color', color);
     let ownerId;
 
-    if (userLoggedIn._id in userLoggedIn) {
+    if ('userLoggedIn._id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
@@ -422,7 +422,7 @@ function App() {
   const addTodo = (newTodo) => {
     ////console.log('newTodo: ', newTodo);
     let ownerId;
-    if (userLoggedIn._id in userLoggedIn) {
+    if ('userLoggedIn._id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
@@ -805,7 +805,7 @@ function App() {
   const addWeeklyMenu = (weekMenu, weekNr) => {
     console.log('this weeks menu and weeknr', weekMenu, weekNr);
     let ownerId;
-    if (userLoggedIn._id in userLoggedIn) {
+    if ('userLoggedIn._id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
@@ -851,7 +851,7 @@ function App() {
   const addNote = (newNote) => {
     ////console.log('newNote: ', newNote);
     let ownerId;
-    if (userLoggedIn._id in userLoggedIn) {
+    if ('userLoggedIn._id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
@@ -911,7 +911,7 @@ function App() {
   const addGroceryListItem = (newItem) => {
     console.log('newItem: ', newItem);
     let ownerId;
-    if (userLoggedIn._id in userLoggedIn) {
+    if ('userLoggedIn._id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
