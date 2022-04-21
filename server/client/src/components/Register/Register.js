@@ -1,5 +1,3 @@
-
-// import FirstSetup from '../FirstSetup/FirstSetup'
 import React, { useState } from 'react'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
@@ -8,9 +6,6 @@ import IconButton from '@mui/material/IconButton'
 import Icon from '@mui/material/Icon'
 import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { makeStyles } from 'tss-react/mui';
 import './register.css'
 import emailjs from '@emailjs/browser';
@@ -27,44 +22,16 @@ const useStyles = makeStyles()((theme) => {
         borderStyle: 'none',
         color: 'white',
         height: 48,
-        // padding: '0 30px',
         margin: theme.spacing(1.5),
-        // display: 'flex',
-        // flexWrap: 'wrap',
       },
-      // button: {
-      //   margin: theme.spacing(1.5),
-      //   background: 'linear-gradient(45deg, #e6385e 30%, #ff53c6 90%)',
-      // },
-      // input: {
-      //   width: '150px',
-      // }
     },
-    // input: {
-    //   width: '300px',
-    // },
-    // colorInput: {
-    //   width: '300px',
-    //   input: {
-    //     width: '90%',
-    //   }
-    // }
   }
 })
 
-
-
 const Register = ({ regNewFamily }) => {
-
-  const [regInputFields, setRegInputFields] = useState([
-    { firstName: '', lastName: '', email: '', password: '', showPassword: false, color: '#482ce7' },
-  ]);
-  const [setupInputFields, setSetupInputFields] = useState([
-    { childFirstName: '', childColor: '' },
-  ]);
-  const [spouseInputFields, setSpouseInputFields] = useState([
-    { spouseFirstName: '', spouseLastName: '', spouseEmail: '' },
-  ]);
+  const [regInputFields, setRegInputFields] = useState([{ firstName: '', lastName: '', email: '', password: '', showPassword: false, color: '#482ce7' }]);
+  const [setupInputFields, setSetupInputFields] = useState([{ childFirstName: '', childColor: '' }]);
+  const [spouseInputFields, setSpouseInputFields] = useState([{ spouseFirstName: '', spouseLastName: '', spouseEmail: '' }]);
   const { classes } = useStyles()
 
   const handleRegChangeInput = (e, i) => {
@@ -87,14 +54,14 @@ const Register = ({ regNewFamily }) => {
     const values = [...spouseInputFields]
     values[i][e.target.name] = e.target.value.trim();
     setSpouseInputFields(values)
-    console.log('spouseInputFields', spouseInputFields);
+    // console.log('spouseInputFields', spouseInputFields);
   }
   const handleSubmit = (e) => {
     e.preventDefault()
     // console.log('reginputFields:', regInputFields[0])
     // console.log('setupinputFields:', setupInputFields)
-    console.log('spouseInputFields in submit:', spouseInputFields)
-    console.log('spouseInputFields[0] in submit:', spouseInputFields[0])
+    // console.log('spouseInputFields in submit:', spouseInputFields)
+    // console.log('spouseInputFields[0] in submit:', spouseInputFields[0])
 
     const newFamily = {
       firstName: regInputFields[0].firstName,
@@ -124,12 +91,12 @@ const Register = ({ regNewFamily }) => {
   };
 
   const handleAddFields = () => {
-    console.log('add a field');
+    // console.log('add a field');
     setSetupInputFields([...setupInputFields, { childFirstName: '', childColor: '' }])
   }
 
   const handleRemoveFields = (i) => {
-    console.log('remove a field');
+    // console.log('remove a field');
     const values = [...setupInputFields]
     values.splice(i, 1)
     setSetupInputFields(values)
@@ -139,7 +106,7 @@ const Register = ({ regNewFamily }) => {
   const sendEmail = (e) => {
     e.preventDefault();
     // console.log('send email e.target', e.target);
-    console.log('spouseInputFields', spouseInputFields);
+    // console.log('spouseInputFields', spouseInputFields);
 
     let templateParams = {
       spouseFirstName: spouseInputFields[0].spouseFirstName,
@@ -148,12 +115,12 @@ const Register = ({ regNewFamily }) => {
       fromParentFirstName: regInputFields[0].firstName,
       fromParentLastName: regInputFields[0].lastName
     };
-    console.log('templateParams', templateParams);
+    // console.log('templateParams', templateParams);
     emailjs.send('gmail', 'invite-email', templateParams, '8lrT3DeEntYvyEf1w')
       .then(function (response) {
-        console.log('SUCCESS!', response.status, response.text);
+        // console.log('SUCCESS!', response.status, response.text);
       }, function (error) {
-        console.log('FAILED...', error);
+        // console.log('FAILED...', error);
       });
 
   }
@@ -196,18 +163,6 @@ const Register = ({ regNewFamily }) => {
                 variant='filled'
                 value={regInputField.password}
                 onChange={(e) => handleRegChangeInput(e, i)}
-              // endAdornment={
-              //   <InputAdornment position="end">
-              //     <IconButton
-              //       aria-label="toggle password visibility"
-              //       onClick={handleClickShowPassword}
-              //       onMouseDown={handleMouseDownPassword}
-              //       edge="end"
-              //     >
-              //       {regInputFields.showPassword ? <VisibilityOff /> : <Visibility />}
-              //     </IconButton>
-              //   </InputAdornment>
-              // }
               />
               <TextField
                 className='colorInput'
@@ -220,7 +175,6 @@ const Register = ({ regNewFamily }) => {
               />
             </div>
           ))}
-
 
           <h1>Lägg till familjemedlemmar</h1>
 

@@ -22,13 +22,11 @@
   @media screen and(max-width:926px) {
     width: 90%;
     margin: 0 auto 1rem auto;
-    // order: 1;
   }
 
   .calendar {
     box-sizing: border-box;
     font-size: 1rem;
-    // width: 75vw;
 
     .header {
       background-color: var(--light-blue);
@@ -41,8 +39,6 @@
       display: flex;
       text-transform: capitalize;
       border-radius: 10px;
-
-
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
@@ -70,7 +66,6 @@
     }
 
     .body {
-      // border: 1px solid var(--light-blue);
       border-radius: 10px;
       margin-left: auto;
       margin-right: auto;
@@ -119,15 +114,11 @@
 
       div {
         width: 30px;
-        // height: 44px;
         height: 20px;
-        // position: absolute;
         top: 2px;
         left: 2px;
         color: var(--black);
-        // z-index: 100;
         display: block;
-        // line-height: 44px;
         cursor: pointer;
         padding: 2px;
       }
@@ -149,7 +140,6 @@
       .todos {
         text-align: left;
         padding-left: 0.5rem;
-        // word-break: break-word;
         hyphens: auto;
       }
     }
@@ -225,8 +215,6 @@
           display: block;
           width: 100%;
         }
-
-
       }
 
       .close-btn {
@@ -235,9 +223,6 @@
         right: 16px;
         cursor: pointer;
       }
-
-
-
     }
   }
 }

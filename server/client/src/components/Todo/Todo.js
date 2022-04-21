@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import './todo.css'
 import Week from '.././Week/Week'
-
 import TodoItem from './TodoItem'
 
 const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete, userLoggedIn }) => {
   const todo = todos;
-  console.log('todo', todo);
+  // console.log('todo', todo);
   let formattedDatesTodos;
   let rightOwnerTodos = [];
   todo.map(todoItem => {
@@ -19,7 +18,6 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete, userLogg
         } else {
           return { ...item, date: '' }
         }
-
       })
       // console.log(props);
       rightOwnerTodos.sort((a, b) => {
@@ -29,12 +27,9 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete, userLogg
       })
     }
   })
-
-
   // console.log('sorted todos', todo);
   const [task, setTask] = useState('');
   const [date, setDate] = useState('');
-  // const [complete, setComplete] = useState(false);
 
   const handleSaveClick = (e) => {
     e.preventDefault();
@@ -42,7 +37,6 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete, userLogg
     // console.log('Ämne', task);
     // console.log('Datum', date);
     addTodo({ task, date })
-
     setDate('')
     setTask('')
     document.querySelector('#form-select').reset()
@@ -66,7 +60,6 @@ const Todo = ({ todos, addTodo, deleteTodo, updateTodo, toggleComplete, userLogg
               />
             )) : ''
           }
-
         </>
       </div>
 

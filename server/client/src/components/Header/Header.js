@@ -7,18 +7,10 @@ import { useState } from 'react';
 import SettingsPopup from '../Settings/SettingsPopup'
 
 const Header = ({ userLoggedIn, logOutUser, updateUserInformation }) => {
-  console.log('user logged in', userLoggedIn);
+  // console.log('user logged in', userLoggedIn);
   const [buttonPopup, setButtonPopup] = useState(false)
   let currentUser = userLoggedIn;
-  console.log('current user', currentUser);
-  function firstAndLast(fname, lname) {
-    let fName = fname.charAt(0).toUpperCase();
-    let lName = lname.charAt(0).toUpperCase()
-    let result = fName.concat(lName)
-    return (
-      result
-    )
-  }
+  // console.log('current user', currentUser);
 
   const displayFullName = (fname, lname) => {
     return `${fname} ${lname}`
@@ -30,7 +22,7 @@ const Header = ({ userLoggedIn, logOutUser, updateUserInformation }) => {
   }
 
   const handleSettingsClick = () => {
-    console.log('jag vill se mina settings');
+    // console.log('jag vill se mina settings');
     setButtonPopup(true)
   }
 
@@ -39,9 +31,6 @@ const Header = ({ userLoggedIn, logOutUser, updateUserInformation }) => {
       <h1>Family Dashboard</h1>
       <div className="header-container menu-icons">
         <Stack direction='row' spacing={2}>
-          {/* <h3>Inloggad:</h3> */}
-          {/* <Avatar sx={currentUser ? { bgcolor: currentUser.color } : { bgcolor: 'black' }}>{currentUser ? firstAndLast(currentUser.firstName || currentUser.spouseFirstName, currentUser.lastName || currentUser.spouseLastName) : 'None'}</Avatar>
-           */}
           <h2 className='display-username' style={currentUser ? { color: currentUser.color, borderColor: currentUser.color } : { color: 'black' }}>{currentUser.OGid ? displayFullName(currentUser.spouseFirstName, currentUser.spouseLastName) : displayFullName(currentUser.firstName, currentUser.lastName)}</h2>
           <Avatar sx={{ bgcolor: 'black' }}><SettingsIcon onClick={() => handleSettingsClick()}></SettingsIcon></Avatar>
           <Avatar sx={{ bgcolor: 'red' }} ><LogoutIcon onClick={() => handleLogOut()}></LogoutIcon></Avatar>

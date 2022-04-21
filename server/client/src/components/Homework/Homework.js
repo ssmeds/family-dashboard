@@ -11,13 +11,15 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
   const [familyMember, setFamilyMember] = useState('');
 
   const familyMembersOptions = []
+
+  //I will add more subjects in the future and maybe let the user add their own subjects
   const options = [
     { value: '', label: 'Välj ämne', disabled: true },
     { value: 'Engelska', label: "Engelska" },
     { value: 'Svenska', label: "Svenska" },
     { value: 'Samhällskunskap', label: "Samhällskunskap" }
   ]
-  console.log('userLoggedIn', userLoggedIn);
+  // console.log('userLoggedIn', userLoggedIn);
   if (userLoggedIn !== undefined) {
     familyMembersOptions.push({ value: '', label: 'Välj barn', disabled: true });
     if (userLoggedIn.familyMembers !== undefined) {
@@ -27,21 +29,15 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
     }
   }
 
-
   // console.log('userHomeworklist', userHomeworkList);
-  console.log('familyMembersOptions:', familyMembersOptions);
-  console.log(userLoggedIn);
-
-  // const homework = homeworks;
-  console.log(homeworks);
-  // console.log(props);
-
-  // const [complete, setComplete] = useState(false);
+  // console.log('familyMembersOptions:', familyMembersOptions);
+  // console.log(userLoggedIn);
+  // console.log(homeworks);
 
   const handleSaveClick = (e) => {
     e.preventDefault();
-    console.log('Nu har nån klickat på sparaknappen!');
-    console.log('Ämne', subject);
+    // console.log('Nu har nån klickat på sparaknappen!');
+    // console.log('Ämne', subject);
     addHomework({ subject, assignment, familyMember })
 
     setAssignment('')
@@ -87,8 +83,6 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
           {options.map((item, i) => (
             <option disabled={item.disabled} key={i} value={item.value} required>{item.label}</option>
           ))}
-
-
         </select>
         <select
           name="homework-form-select"
@@ -100,8 +94,6 @@ const Homework = ({ homeworks, addHomework, deleteHomework, updateHomework, togg
           {familyMembersOptions.map((item, i) => (
             <option disabled={item.disabled} key={i} value={item.value}>{item.label}</option>
           ))}
-
-
         </select>
         <button>Spara</button>
       </form>

@@ -8,32 +8,8 @@ import { Identity } from '@mui/base'
 
 const SettingsPopup = (props) => {
   console.log('userLoggedIn', props);
-  // let childArray = []
-  // props.userLoggedIn.familyMembers.map(child => {
-  //   childArray.push({ childFirstName: child.childFirstName, childColor: child.childColor })
-  // })
-  // let initialFormData = {
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   password: '',
-  //   color: props.userLoggedIn.color,
-  //   // children: []
-  //   // childFirstName: '',
-  //   // childColor: '',
-  //   // children: childArray
-  //   // children: [
-  //   //   {
-  //   //     childFirstName: '',
-  //   //     childColor: ''
-  //   //   }
-  //   // ]
-  // }
 
-  // console.log('props', props);
-  // const [formState, dispatch] = useReducer(formReducer, initialFormData)
-  // const [child, setChild] = useState([
-  //   { childFirstName: '', childColor: '', }])
+  //I know this is really ugly code but I couldn't figure out how to save the childrens updates to an array in state. I will get back to this when I have time
   const [contactInfo, setContactInfo] = useState({
     firstName: '',
     lastName: '',
@@ -69,22 +45,10 @@ const SettingsPopup = (props) => {
     setContactInfo({
       ...contactInfo,
       [event.target.name]: event.target.value, [id]: event.target.id
-      // ...contactInfo.children,
-      // id: id,
-      // [event.target.name]: event.target.value,
     });
   };
 
-  // console.log('formState', formState);
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log('klick på uppdatera');
-  //   // console.log('formState', formState);
-  //   // props.updateUserInformation(formState)
-  // }
-
   const handleSubmit = (event) => {
-    // prevents the submit button from refreshing the page
     event.preventDefault();
     console.log('contactinfo', contactInfo);
     setContactInfo({
@@ -98,8 +62,6 @@ const SettingsPopup = (props) => {
     for (const [key, value] of Object.entries(contactInfo)) {
       if (value !== undefined && value !== '') {
         console.log(`${key}: ${value}`);
-        // newUpdatesToSave[key] = value
-        // Object.assign(newUpdatesToSave, { key: value })
         newUpdatesToSave = { ...newUpdatesToSave, [key]: value }
       }
     }
@@ -122,12 +84,6 @@ const SettingsPopup = (props) => {
               placeholder={props.userLoggedIn._id !== undefined ? props.userLoggedIn.firstName : props.userLoggedIn.spouseFirstName}
               value={contactInfo.firstName}
               onChange={handleChange}
-            // onChange={(e) =>
-            //   dispatch({
-            //     type: 'HANDLE INPUT TEXT',
-            //     field: e.target.name,
-            //     payload: e.currentTarget.value.trim()
-            //   })}
             />
             <label htmlFor="">Efternamn: </label>
             <input type="text"
@@ -135,12 +91,6 @@ const SettingsPopup = (props) => {
               placeholder={props.userLoggedIn._id !== undefined ? props.userLoggedIn.lastName : props.userLoggedIn.spouseLastName}
               value={contactInfo.lastName}
               onChange={handleChange}
-            // onChange={(e) =>
-            //   dispatch({
-            //     type: 'HANDLE INPUT TEXT',
-            //     field: e.target.name,
-            //     payload: e.currentTarget.value.trim()
-            //   })}
             />
             <label htmlFor="">Email: </label>
             <input type="text"
@@ -148,12 +98,6 @@ const SettingsPopup = (props) => {
               placeholder={props.userLoggedIn._id !== undefined ? props.userLoggedIn.email : props.userLoggedIn.spouseEmail}
               value={contactInfo.email}
               onChange={handleChange}
-            // onChange={(e) =>
-            //   dispatch({
-            //     type: 'HANDLE INPUT TEXT',
-            //     field: e.target.name,
-            //     payload: e.currentTarget.value.trim()
-            //   })}
             />
             <label htmlFor="">Lösenord: </label>
             <input type="password"
@@ -161,12 +105,6 @@ const SettingsPopup = (props) => {
               placeholder='Ange ett nytt lösenord'
               value={contactInfo.password}
               onChange={handleChange}
-            // onChange={(e) =>
-            //   dispatch({
-            //     type: 'HANDLE INPUT TEXT',
-            //     field: e.target.name,
-            //     payload: e.currentTarget.value.trim()
-            //   })}
             />
             <label htmlFor="">Färg: </label>
             <input type="color"
@@ -174,12 +112,6 @@ const SettingsPopup = (props) => {
               className='color-input'
               value={contactInfo.color}
               onChange={handleChange}
-            // onChange={(e) =>
-            //   dispatch({
-            //     type: 'HANDLE INPUT TEXT',
-            //     field: e.target.name,
-            //     payload: e.currentTarget.value
-            //   })}
             />
           </div>
 
@@ -212,7 +144,6 @@ const SettingsPopup = (props) => {
               </div>
             )}
 
-
           </div>
 
           <div className="children-settings-container">
@@ -221,7 +152,6 @@ const SettingsPopup = (props) => {
               // console.log('initialFormData', initialFormData);
               console.log('kid.childFirstName', kid.childFirstName);
               // console.log('formState.childColor', formState.childColor);
-              // initialFormData.childColor = kid.childColor
               // console.log(initialFormData);
               return (
                 <div className='children-settings'>
@@ -232,13 +162,6 @@ const SettingsPopup = (props) => {
                     placeholder={kid.childFirstName}
                     value={contactInfo['childName' + i]}
                     onChange={(e) => handleChange(e, i, kid._id)}
-                  // onChange={(e) => setChild({ ...child, childFirstName: e.target.value.trim() })}
-                  // onChange={(e) =>
-                  //   dispatch({
-                  //     type: 'child-firstName',
-                  //     field: e.currentTarget.name,
-                  //     payload: e.target.value.trim()
-                  //   })}
                   />
                   <label htmlFor="">Färg: </label>
                   <input type="color"
@@ -247,13 +170,6 @@ const SettingsPopup = (props) => {
                     className='color-input'
                     value={contactInfo['childColor' + i]}
                     onChange={(e) => handleChange(e, i, kid._id)}
-                  // onChange={(e) => setChild({ ...child, childColor: e.target.value })}
-                  // onChange={(e) =>
-                  //   dispatch({
-                  //     type: 'child-color',
-                  //     field: e.currentTarget.name,
-                  //     payload: e.target.value
-                  //   })}
                   />
                 </div>
               )
@@ -262,13 +178,10 @@ const SettingsPopup = (props) => {
               <button
                 className='submit-btn'
                 type="submit"
-              // onClick={(e) => handleSubmit(e)}
               >Uppdatera</button>
             </div>
           </div>
         </form>
-
-
 
         <CgClose className="close-btn" onClick={() => props.setTrigger(false)} />
       </div>

@@ -55,26 +55,6 @@ router.patch('/notes/:id', async (req, res) => {
   }
 })
 
-// Update notes completed
-// router.put('/notes/:id', async (req, res) => {
-//   console.log('req.params.id', req.params.id);
-//   let note
-//   try {
-//     note = await Note.findById(req.params.id)
-//     note.complete = !note.complete
-//     await note.save()
-//     res.send(note)
-//   }
-//   catch {
-//     if (note == null) {
-//       console.log('note is null');
-//     } else {
-//       res.send({ msg: 'Error updating complete' })
-//     }
-//   }
-
-// })
-
 //Delete note
 router.delete('/notes/:id', async (req, res) => {
   try {
@@ -85,6 +65,5 @@ router.delete('/notes/:id', async (req, res) => {
     res.send({ error: "Note doesn't exist!" })
   }
 })
-
 
 module.exports = router

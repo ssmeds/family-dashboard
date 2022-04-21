@@ -1,5 +1,5 @@
 import './menu.css'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import AddMenuPopup from './AddMenuPopup'
 import Week from '.././Week/Week'
 import moment from 'moment/min/moment-with-locales'
@@ -9,17 +9,10 @@ const Menu = ({ addWeeklyMenu, recipes, weeklyMenu, fetchWeeklyMenu, userLoggedI
   // console.log('weeklyMenu in Menu.js', weeklyMenu);
   const [buttonPopup, setButtonPopup] = useState(false)
   const [day, setDay] = useState('')
-  // const [addedWeekMenuFromUI, setAddedWeekMenuFromUI] = useState()
-
   const weekDays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag']
-  // let allWeekMenus
 
   useEffect(() => {
-    // console.log('useEffect after popup was closed');
-    // setAddedWeekMenuFromUI(fetchWeeklyMenu())
-    // console.log('weekMenus', weeklyMenu);
     weeklyMenu.current = [...weeklyMenu]
-    // console.log('weeklyMenus in effect', weeklyMenu);
   }, [!buttonPopup])
 
   let thisWeekNr = moment().weeks();
@@ -31,24 +24,21 @@ const Menu = ({ addWeeklyMenu, recipes, weeklyMenu, fetchWeeklyMenu, userLoggedI
   if (moment().day() === 0) {
     thisWeekNr--
   }
-  // console.log('thisWeekNr after', typeof thisWeekNr);
   // console.log('weeklyMenu to map', weeklyMenu);
 
   weeklyMenu.map(week => {
     if (week.owner.id === userLoggedIn._id || userLoggedIn.OGid === week.owner.id) {
       if (week.weekNr === thisWeekNr) {
-        // console.log('samma veckonr');
         foundWeeks.push(week)
       }
     }
     // console.log('week', week);
-    // console.log('weekNr typeof', typeof week.weekNr);
 
   })
   // console.log('foundWeeks', foundWeeks);
   // console.log('last element in weeklyMenu', foundWeeks.at(-1));
   foundWeek = foundWeeks.at(-1)
-  console.log('foundWeek', foundWeek);
+  // console.log('foundWeek', foundWeek);
   if (foundWeek === undefined) {
     weekDays.map(day => {
       list.push(<tr key={day}><th>{day}</th><td>-</td></tr>)
@@ -68,9 +58,7 @@ const Menu = ({ addWeeklyMenu, recipes, weeklyMenu, fetchWeeklyMenu, userLoggedI
     }
   }
 
-
   // console.log('foundWeek.weekMenu', foundWeek.weekMenu);
-
   // console.log(foundWeek.weekMenu);
 
   const handleClickOnDay = (e) => {

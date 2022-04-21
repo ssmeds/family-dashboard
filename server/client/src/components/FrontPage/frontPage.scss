@@ -40,7 +40,6 @@
   .menu-icons {
     display: flex;
     flex-direction: column;
-    // background-color: aqua;
     justify-content: center;
     padding: 0 1rem;
     margin: 0 auto;
@@ -53,18 +52,14 @@
       align-items: center;
     }
 
-
     .MuiAvatar-root {
       cursor: pointer;
     }
-
-
   }
 
   .logIn-btn {
     background: rebeccapurple;
 
-    // margin-bottom: 3rem;
     &:hover {
       color: rebeccapurple;
       background: ghostwhite;

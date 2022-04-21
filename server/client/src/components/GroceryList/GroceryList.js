@@ -3,10 +3,9 @@ import Week from '.././Week/Week'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faCircle, faChevronLeft, faChevronRight, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react'
-import ClearIcon from '@mui/icons-material/Clear';
 
 const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems, toggleCompletedGroceryListItem, deleteGroceryListItem, updateQuantity, userLoggedIn }) => {
-  console.log('groceryListItems from App', groceryListItems);
+  // console.log('groceryListItems from App', groceryListItems);
   const [item, setItem] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [totalItemCount, setTotalItemCount] = useState(null);
@@ -38,7 +37,6 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
     setInputValue('');
     setItem('');
 
-    // setGroceryListItems([...groceryListItems, newItem])
     calculateTotal();
 
   };
@@ -54,17 +52,17 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
   };
 
   const handleQuantityIncrease = (id, name) => {
-    console.log('id or name in increase', id, name);
+    // console.log('id or name in increase', id, name);
     if (id === undefined) {
       let foundItem = groceryListItems.find(item => item.item === name);
-      console.log('foundItem undefined id', foundItem);
+      // console.log('foundItem undefined id', foundItem);
       foundItem.quantity++;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
       updateQuantity(foundItem)
     } else {
       let foundItem = groceryListItems.find(item => item._id === id);
-      console.log('foundItem', foundItem);
+      // console.log('foundItem', foundItem);
       foundItem.quantity++;
       calculateTotal();
       setGroceryListItems(groceryListItems.map(item => item._id === id ? { ...item, quantity: foundItem.quantity++ } : item))
@@ -73,7 +71,7 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
   };
 
   const handleQuantityDecrease = (id, name) => {
-    console.log('id or name in decrease', id, name);
+    // console.log('id or name in decrease', id, name);
     if (id === undefined) {
       let foundItem = groceryListItems.find(item => item.item === name);
       // console.log('foundItem', foundItem);
@@ -152,7 +150,6 @@ const GroceryList = ({ addGroceryListItem, groceryListItems, setGroceryListItems
               <button>
                 <FontAwesomeIcon icon={faChevronRight} onClick={() => handleQuantityIncrease(item._id, item.item)} />
               </button>
-              {/* <ClearIcon className='clear-btn' onClick={(e) => handleRemoveItem(e, item._id)} /> */}
               <button className='clear-btn' onClick={() => handleRemoveItem(item._id, item.item)}>&#9747;</button>
             </div>
           </div>

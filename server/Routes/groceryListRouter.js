@@ -3,12 +3,12 @@ const GroceryListItem = require('../models/GroceryList');
 const router = express.Router()
 const cors = require('cors')
 
-// router.use(cors());
 router.use(cors({
   origin: "*",
   methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH'],
   credentials: true
 }));
+
 //Get all GroceryListItems
 router.get('/groceryListItems', async (req, res) => {
   const groceryListItem = await GroceryListItem.find()
@@ -73,6 +73,5 @@ router.delete('/groceryListItems/:id', async (req, res) => {
     res.send({ error: "GroceryListItem doesn't exist!" })
   }
 })
-
 
 module.exports = router

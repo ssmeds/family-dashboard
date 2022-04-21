@@ -2,8 +2,8 @@ import { RiDeleteBin6Fill } from 'react-icons/ri'
 import { hex_is_light } from '../../helperFunctions/colorCheck'
 
 const HomeworkItem = ({ homeworks, deleteHomework, updateHomework, toggleComplete, userLoggedIn }) => {
-  console.log('homework in homeworkItem', homeworks);
-  console.log('userLoggedIn', userLoggedIn);
+  // console.log('homework in homeworkItem', homeworks);
+  // console.log('userLoggedIn', userLoggedIn);
   let userHomeworkList = []
   if (homeworks !== undefined) {
     homeworks.map(homework => {

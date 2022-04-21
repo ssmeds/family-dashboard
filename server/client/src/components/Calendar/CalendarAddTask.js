@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-
 const CalendarAddTask = ({ addNote, date, setTrigger }) => {
   const [task, setTask] = useState('')
 

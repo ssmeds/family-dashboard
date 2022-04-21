@@ -1,4 +1,3 @@
-
 const express = require('express')
 require('dotenv').config({ path: 'server/.env' });
 const cors = require('cors')
@@ -13,15 +12,7 @@ const menuRouter = require('./Routes/menuRouter')
 const calendarNotesRouter = require('./Routes/calendarNotesRouter')
 const groceryListRouter = require('./Routes/groceryListRouter')
 
-
 // mongodb + srv://stina:stina@cluster0.uuyr3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-
-
-// const corsOptions = {
-//   origin: 'https://familydashboard.herokuapp.com/',
-//   credentials: true,            //access-control-allow-credentials:true
-//   optionSuccessStatus: 200,
-// }
 
 mongoose
   .connect(
@@ -50,36 +41,14 @@ mongoose
     app.use('/api', groceryListRouter)
     app.use('/invitation', invitationRouter)
 
-
-
-    // const publicPath = path.join(__dirname, '..', '/build')
-    // app.use(express.static(publicPath))
-
-    // app.get('*', (req, res) => {
-    //   res.sendFile(path.join(publicPath, 'index.html'));
-    // });
-    // app.use(express.static(path.join(__dirname, '..', '/public'), {
-    //   index: false
-    // }));
-    // app.use(express.static(path.join(__dirname, '../client/build')));
-
-    // Data parsing
-    // app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
-
-    // Step 3
 
     if (process.env.NODE_ENV === 'production') {
       app.use(express.static('client/build'));
     }
-
 
     app.listen(port, () => {
       console.log('server has started!');
     })
 
   })
-
-
-
-

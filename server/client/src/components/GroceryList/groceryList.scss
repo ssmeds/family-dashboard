@@ -8,14 +8,11 @@
   }
 
   .add-item-box {
-    // background: #fbc1bb;
-    // color: #ec645b;
     margin-top: 1em;
     margin-bottom: 1em;
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgb(211, 211, 35);
-    // border-radius: 10px;
     padding: 5px;
 
     & svg {
@@ -26,13 +23,8 @@
       box-sizing: border-box;
       border: none;
       background: transparent;
-      // color: #ec645b;
       width: 100%;
       height: 30px;
-
-      &::placeholder {
-        // color: #ec645b;
-      }
 
       &:focus {
         outline: 0;
@@ -69,7 +61,6 @@
   }
 
   .item-action-buttons {
-    /* width: 30%; */
     display: flex;
     justify-content: space-between;
   }

@@ -62,8 +62,6 @@ const Remember = ({ remembers, addRemember, deleteRemember, userLoggedIn }) => {
           {options.map((item, i) => (
             <option disabled={item.disabled} key={i} value={item.value}>{item.label}</option>
           ))}
-
-
         </select>
         <button>Spara</button>
       </form>

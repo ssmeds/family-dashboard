@@ -1,26 +1,11 @@
 import './frontPage.css';
 import { useState } from 'react'
-// import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-// import LoginIcon from '@mui/icons-material/Login';
 import LogIn from '../LogIn/LogIn';
 import Register from '../Register/Register';
 import InviteRegister from '../InviteRegister/InviteRegister';
-import { makeStyles } from 'tss-react/mui'
 import HomeIcon from '@mui/icons-material/Home';
-
-// const useStyles = makeStyles()((theme) => {
-//   return {
-//     button: {
-//       width: '250px',
-//       marginBottom: '1rem',
-
-
-
-//     }
-//   }
-// })
 
 const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB, setUserLoggedIn }) => {
 
@@ -29,23 +14,21 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB, se
   const [showInviteReg, setShowInviteReg] = useState(false)
   const [showLogInAndReg, setShowLogInAndReg] = useState(true)
 
-  // const { classes } = useStyles()
-
   const handleLogIn = (e) => {
-    console.log('user wants to log in', e)
+    // console.log('user wants to log in', e)
     setShowLogIn(true)
     setShowLogInAndReg(false)
   }
 
   const handleReg = (e) => {
-    console.log('user wants to register', e)
+    // console.log('user wants to register', e)
     setShowReg(true)
     setShowLogIn(false)
     setShowLogInAndReg(false)
   }
 
   const handleInvite = (e) => {
-    console.log('user wants to register after invite', e)
+    // console.log('user wants to register after invite', e)
     setShowReg(false)
     setShowLogIn(false)
     setShowLogInAndReg(false)
@@ -53,7 +36,7 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB, se
   }
 
   const handleHomeClick = () => {
-    console.log('klick på hemikonen');
+    // console.log('klick på hemikonen');
     setShowLogInAndReg(true)
   }
 
@@ -88,8 +71,6 @@ const FrontPage = ({ regNewFamily, setUserLoggedInAfterLogIn, addInvitedToDB, se
           <Button className='logIn-btn' id='logIn-btn' variant="contained" onClick={(e) => handleLogIn(e)}>Logga in</Button>
         </>
       ) : ''}
-
-
 
     </div>
   )

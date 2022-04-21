@@ -3,20 +3,13 @@ import React, { useState } from 'react'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
 import Icon from '@mui/material/Icon'
-import RemoveIcon from '@mui/icons-material/Remove'
-import AddIcon from '@mui/icons-material/Add'
-// import InputAdornment from '@mui/material/InputAdornment';
-// import Visibility from '@mui/icons-material/Visibility';
-// import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { makeStyles } from 'tss-react/mui';
 
 const useStyles = makeStyles()((theme) => {
   return {
     root: {
       '& .MuiTextField-root': {
-        // background: 'linear-gradient(45deg, #cc6a7f 30%, #4b81e6 90%)',
         background: 'ghostwhite',
         border: 0,
         borderRadius: 3,
@@ -26,11 +19,6 @@ const useStyles = makeStyles()((theme) => {
         margin: theme.spacing(1),
         display: 'flex',
       },
-      // button: {
-      //   margin: theme.spacing(1),
-      //   background: 'linear-gradient(45deg, #e6385e 30%, #ff53c6 90%)',
-      // },
-
     },
     colorInput: {
       input: {
@@ -57,26 +45,26 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('inputFields:', inputFields[0])
+    // console.log('inputFields:', inputFields[0])
     setError('')
     const userLoggingIn = {
       email: inputFields[0].email,
       password: inputFields[0].password,
     }
 
-    console.log('user logging in', userLoggingIn);
+    // console.log('user logging in', userLoggingIn);
 
     const fetchUsers = async () => {
       await fetch(`${BACKEND_URL}/api/users`)
         .then((response) => response.json())
         .then((data) => {
-          console.log('userdata', data);
+          // console.log('userdata', data);
           let rightOGUser = data.find(user => userLoggingIn.email === user.email && userLoggingIn.password === user.password)
-          console.log('rightOGUser', rightOGUser);
+          // console.log('rightOGUser', rightOGUser);
           let rightSpouseUser;
           if (rightOGUser === undefined) {
             rightSpouseUser = data.find(user => userLoggingIn.email === user.spouseEmail && userLoggingIn.password === user.spousePassword)
-            console.log('rightSpouseUser', rightSpouseUser);
+            // console.log('rightSpouseUser', rightSpouseUser);
             let spouse = {
               spouseFirstName: rightSpouseUser.spouseFirstName,
               spouseLastName: rightSpouseUser.spouseLastName,
@@ -89,7 +77,7 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
               email: rightSpouseUser.email,
               color: rightSpouseUser.color
             }
-            console.log('spouse', spouse);
+            // console.log('spouse', spouse);
             setUserLoggedInAfterLogIn(spouse)
             setUserLoggedIn(spouse)
           }
@@ -105,8 +93,6 @@ const LogIn = ({ setUserLoggedInAfterLogIn, setUserLoggedIn }) => {
     }
 
     fetchUsers()
-
-    // regNewFamily(newFamily)
   }
 
 

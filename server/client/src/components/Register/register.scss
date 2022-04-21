@@ -8,7 +8,6 @@
 
   h1 {
     text-align: center;
-    // color: #fff;
     padding-top: 1rem;
   }
 
@@ -18,15 +17,11 @@
     max-width: 90vw;
     margin: 0 auto 2rem auto;
 
-
     button {
-      // width: 90%;
-      // margin: 0 auto;
       background: orange;
 
       &:hover {
         background: rgb(233, 107, 5);
-        // color: #333;
       }
     }
 
@@ -36,12 +31,9 @@
       align-items: center;
       justify-content: center;
 
-      // .colorInput {
-      // }
       input {
         width: 400px;
       }
-
 
       .icon-btn {
         margin-right: 20px;
@@ -69,12 +61,8 @@
       }
     }
   }
-
-
-
 }
 
 #logIn-btn {
   margin-bottom: 3rem;
-
 }

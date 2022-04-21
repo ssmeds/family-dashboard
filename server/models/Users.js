@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-// const { v4: uuidv4 } = require('uuid');
 
 const { Schema } = mongoose;
 
@@ -9,16 +8,6 @@ const familyMembersSchema = new Schema(
     childColor: String
   }
 )
-
-// const spouseSchema = new Schema(
-//   {
-//     spouseFirstName: String,
-//     spouseLastName: String,
-//     spouseEmail: String,
-//     spousePassword: String,
-//     spouseColor: String,
-//   }
-// )
 
 const userSchema = new Schema({
   firstName: String,
@@ -38,8 +27,9 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema)
 
+//Sample user to save to database
+
 // const user = new User({
-//   // userId: uuidv4(),
 //   firstName: 'Stintan',
 //   lastName: 'Smedsan',
 //   role: 'Parent',
@@ -47,5 +37,5 @@ const User = mongoose.model('User', userSchema)
 //   password: '123'
 // });
 // user.save().then(() => { console.log('One user added'); })
-// module.exports = mongoose.model('User', userSchema);
+
 module.exports = User

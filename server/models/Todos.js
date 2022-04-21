@@ -9,10 +9,13 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoSchema)
 
-const todo = new Todo({
-  task: 'Gå ut med soporna',
-  date: '2022-03-20',
-  complete: false
-});
+//Sample todo to save to database
+
+// const todo = new Todo({
+//   task: 'Gå ut med soporna',
+//   date: '2022-03-20',
+//   complete: false
+// });
 // todo.save().then(() => { console.log('One entry added'); })
+
 module.exports = mongoose.model('Todos', todoSchema)

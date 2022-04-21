@@ -5,17 +5,12 @@ import Homework from './components/Homework/Homework'
 import GroceryList from './components/GroceryList/GroceryList'
 import Menu from './components/Menu/Menu'
 import Remember from './components/Remember/Remember'
-import Chatt from './components/Chatt/Chatt'
-import Savings from './components/Savings/Savings'
+// import Chatt from './components/Chatt/Chatt'
+// import Savings from './components/Savings/Savings'
 import CalendarView from './components/Calendar/CalendarView'
 import Todo from './components/Todo/Todo'
-import Register from './components/Register/Register'
-import LogIn from './components/LogIn/LogIn'
-
 import moment from 'moment/min/moment-with-locales'
 import FrontPage from './components/FrontPage/FrontPage'
-import { set } from 'date-fns/esm'
-
 
 
 function App() {
@@ -31,14 +26,7 @@ function App() {
   const [users, setUsers] = useState('');
   const [weeklyMenu, setWeeklyMenu] = useState([]);
   const [recipes, setRecipes] = useState([]);
-
-  // const [groceryListItem, setGroceryListItem] = useState([]);
-  const [groceryListItems, setGroceryListItems] = useState([{
-    // item: '',
-    // quantity: 1,
-    // complete: false,
-  }]);
-  // const [tasks, setTasks] = useState([])
+  const [groceryListItems, setGroceryListItems] = useState([{}]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -46,123 +34,53 @@ function App() {
       setUsers(usersFromServer);
     }
     getUsers()
-
   }, [])
 
   useEffect(() => {
-
     const getHomeworks = async () => {
       const homeworksFromServer = await fetchHomeworks()
-      // console.log('homeworksFromServer', homeworksFromServer);
-      // let allHomeworksOwnedByCurrentUser = []
-      // homeworksFromServer.map(homework => {
-      //   if (homework.owner.id === userLoggedIn._id) {
-      //     allHomeworksOwnedByCurrentUser.push(homework)
-      //   }
-      // })
-
-      // console.log('allHomeworksOwnedByCurrentUser', allHomeworksOwnedByCurrentUser);
-      // // setHomework(homeworksFromServer)
-      // setHomework(allHomeworksOwnedByCurrentUser)
       setHomework(homeworksFromServer)
     }
-
     getHomeworks()
   }, [])
 
   useEffect(() => {
-
     const getRemembers = async () => {
       const remembersFromServer = await fetchRemembers()
-      // console.log('remembersFromServer', remembersFromServer);
-      // let allRemembersOwnedByCurrentUser = []
-      // remembersFromServer.map(remember => {
-      //   if (remember.owner.id === userLoggedIn._id) {
-      //     allRemembersOwnedByCurrentUser.push(remember)
-      //   }
-      // })
-
-      // console.log('allRemembersOwnedByCurrentUser', allRemembersOwnedByCurrentUser);
-      // setRemember(allRemembersOwnedByCurrentUser)
       setRemember(remembersFromServer)
     }
-
     getRemembers()
   }, [])
 
   useEffect(() => {
-
     const getTodos = async () => {
       const todosFromServer = await fetchTodos()
-      // let allTodosOwnedByCurrentUser = []
-      // todosFromServer.map(todo => {
-      //   if (todo.owner.id === userLoggedIn._id) {
-      //     allTodosOwnedByCurrentUser.push(todo)
-      //   }
-      // })
-
-      // console.log('allTodosOwnedByCurrentUser', allTodosOwnedByCurrentUser);
-      // setTodo(allTodosOwnedByCurrentUser)
       setTodo(todosFromServer)
     }
-
     getTodos()
   }, [])
 
   useEffect(() => {
-
     const getNotes = async () => {
       const notesFromServer = await fetchNotes()
-      // let allNotesOwnedByCurrentUser = []
-      // notesFromServer.map(note => {
-      //   if (note.owner.id === userLoggedIn._id) {
-      //     allNotesOwnedByCurrentUser.push(note)
-      //   }
-      // })
-
-      // console.log('allNotesOwnedByCurrentUser', allNotesOwnedByCurrentUser);
-      // setNote(allNotesOwnedByCurrentUser)
       setNote(notesFromServer)
     }
-
     getNotes()
   }, [])
 
   useEffect(() => {
-
     const getWeeklyMenu = async () => {
       const weeklyMenuFromServer = await fetchWeeklyMenu()
-      // let allWeeklyMenusOwnedByCurrentUser = []
-      // weeklyMenuFromServer.map(menu => {
-      //   if (menu.owner.id === userLoggedIn._id) {
-      //     allWeeklyMenusOwnedByCurrentUser.push(menu)
-      //   }
-      // })
-
-      // console.log('allWeeklyMenusOwnedByCurrentUser', allWeeklyMenusOwnedByCurrentUser);
-      // setWeeklyMenu(allWeeklyMenusOwnedByCurrentUser)
       setWeeklyMenu(weeklyMenuFromServer)
     }
-
     getWeeklyMenu()
   }, [])
 
   useEffect(() => {
-
     const getGroceryListItems = async () => {
       const itemsFromServer = await fetchGroceryListItems()
-      // let allItemsOwnedByCurrentUser = []
-      // itemsFromServer.map(item => {
-      //   if (item.owner.id === userLoggedIn._id) {
-      //     allItemsOwnedByCurrentUser.push(item)
-      //   }
-      // })
-
-      // console.log('allItemsOwnedByCurrentUser', allItemsOwnedByCurrentUser);
-      // setGroceryListItems(allItemsOwnedByCurrentUser)
       setGroceryListItems(itemsFromServer)
     }
-
     getGroceryListItems()
   }, [])
 
@@ -185,7 +103,7 @@ function App() {
 
   //Add Homework
   const addHomework = (newHomework) => {
-    console.log(newHomework);
+    // console.log(newHomework);
     let newColor;
     let familyMemberFromHomework = newHomework.familyMember
     let children = [];
@@ -193,7 +111,7 @@ function App() {
       children.push(familyMember)
     })
     let foundChild = children.find(person => person.childFirstName === familyMemberFromHomework)
-    console.log('foundChild', foundChild);
+    // console.log('foundChild', foundChild);
     if (userLoggedIn.firstName === familyMemberFromHomework) {
       newColor = userLoggedIn.color
     } else if (userLoggedIn.spouseFirstName === familyMemberFromHomework) {
@@ -204,14 +122,14 @@ function App() {
     if (newColor === '') {
       newColor = '#5593e4'
     }
-    console.log('color', newColor);
+    // console.log('color', newColor);
     let ownerId;
     if ('_id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
     }
-    console.log('ownerId', ownerId);
+    // console.log('ownerId', ownerId);
     const newHomeworkToPost = {
       subject: newHomework.subject,
       assignment: newHomework.assignment,
@@ -221,20 +139,22 @@ function App() {
         id: ownerId,
       }
     }
-    console.log('newHomeworkToPost', newHomeworkToPost);
+    // console.log('newHomeworkToPost', newHomeworkToPost);
     fetch(`${BACKEND_URL}/api/homeworks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newHomeworkToPost)
     })
-      .then(() => { console.log('new homework added'); })
+      .then(() => {
+        // console.log('new homework added');
+      })
     ////console.log('homework', homework);
     setHomework([...homework, newHomeworkToPost])
   }
 
   //Delete Homework
   const deleteHomework = (id) => {
-    console.log(id);
+    // console.log(id);
 
     fetch(`${BACKEND_URL}/api/homeworks/${id}`, {
       method: 'DELETE',
@@ -249,50 +169,13 @@ function App() {
         }
         return res
       })
-      .then(() => { console.log('Homework deleted'); })
+      .then(() => {
+        // console.log('Homework deleted');
+      })
     const newHomeworkList = homework.filter(item => item._id !== id);
     setHomework(newHomeworkList)
 
   }
-
-  // //Update Homework
-  // const updateHomework = (id) => {
-  //   ////console.log("id", id);
-
-  //   // ////console.log("completed", completed);
-
-  //   // const updHomework = {
-  //   //   complete: completed
-  //   // }
-  //   // ////console.log('updateHomework', updHomework);
-
-  //   const found = homework.find(item => item._id === id)
-  //   ////console.log('found', found);
-  //   let complete;
-  //   if (found.complete) {
-  //     complete = true;
-  //   } else {
-  //     complete = false;
-  //   }
-  //   ////console.log('complete', complete);
-  //   fetch(`${BACKEND_URL}/api/homeworks/${id}`, {
-  //     method: 'PATCH',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ complete: !complete })
-  //   })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         ////console.log(('Update successful!'));
-  //       }
-  //       else {
-  //         ////console.log('Update unsuccessful!');
-  //       }
-  //       return res
-  //     })
-  //     .then(() => { ////console.log('Homework updated'); })
-  //   setHomework(homework.map(homework => homework._id === id ? { ...homework, complete: !homework.complete } : homework))
-
-  // }
 
   //Toggle completed homework
   const toggleComplete = async (id) => {
@@ -331,7 +214,7 @@ function App() {
 
   //Add Remember
   const addRemember = (newRemember) => {
-    console.log(newRemember);
+    // console.log(newRemember);
     let color;
     let familyMemberFromRemember = newRemember.familyMember
     let children = [];
@@ -339,7 +222,7 @@ function App() {
       children.push(familyMember)
     })
     let foundChild = children.find(person => person.childFirstName === familyMemberFromRemember)
-    console.log('foundChild', foundChild);
+    // console.log('foundChild', foundChild);
     if (userLoggedIn.firstName === familyMemberFromRemember) {
       color = userLoggedIn.color
     } else if (userLoggedIn.spouseFirstName === familyMemberFromRemember) {
@@ -350,7 +233,7 @@ function App() {
     if (color === '') {
       color = '#5593e4'
     }
-    console.log('color', color);
+    // console.log('color', color);
     let ownerId;
 
     if ('_id' in userLoggedIn) {
@@ -358,7 +241,7 @@ function App() {
     } else {
       ownerId = userLoggedIn.OGid
     }
-    console.log('ownerId', ownerId);
+    // console.log('ownerId', ownerId);
     const newRememberToPost = {
       task: newRemember.task,
       date: newRemember.date,
@@ -374,7 +257,9 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newRememberToPost)
     })
-      .then(() => { console.log('new remember added'); })
+      .then(() => {
+        // console.log('new remember added');
+      })
     ////console.log('remember', remember);
     setRemember([...remember, newRememberToPost])
   }
@@ -396,7 +281,9 @@ function App() {
         }
         return res
       })
-      .then(() => { console.log('Remember deleted'); })
+      .then(() => {
+        // console.log('Remember deleted');
+      })
     const newRememberList = remember.filter(item => item._id !== id);
     setRemember(newRememberList)
 
@@ -427,7 +314,7 @@ function App() {
     } else {
       ownerId = userLoggedIn.OGid
     }
-    console.log('ownerId', ownerId);
+    // console.log('ownerId', ownerId);
     const newTodoToPost = {
       task: newTodo.task,
       date: newTodo.date,
@@ -473,12 +360,12 @@ function App() {
   const fetchUsers = async () => {
     const res = await fetch(`${BACKEND_URL}/api/users`)
     const data = await res.json()
-    console.log('users', data);
+    // console.log('users', data);
     return data
   }
 
   const addNewUser = (newUsersToPost) => {
-    console.log('newUsers from Register before isloggedin', newUsersToPost);
+    // console.log('newUsers from Register before isloggedin', newUsersToPost);
     newUsersToPost.isLoggedIn = true;
     fetch(`${BACKEND_URL}/api/users`, {
       method: 'POST',
@@ -487,7 +374,9 @@ function App() {
       },
       body: JSON.stringify(newUsersToPost)
     })
-      .then(() => { console.log('new users added'); })
+      .then(() => {
+        // console.log('new users added');
+      })
     setUsers([...users, newUsersToPost])
     setIsLoggedIn(true)
     setUserLoggedIn(newUsersToPost)
@@ -495,10 +384,8 @@ function App() {
 
   const setUserLoggedInAfterLogIn = (user) => {
 
-    console.log('user in setUserLoggedInAfterLogIn', user);
-    console.log('user._id', user._id);
-    // console.log('invited in setUserLoggedInAfterLogIn', invited);
-    // if (user._id) {
+    // console.log('user in setUserLoggedInAfterLogIn', user);
+    // console.log('user._id', user._id);
     if (user._id !== undefined) {
       fetch(`${BACKEND_URL}/api/users/${user._id}`, {
         method: 'PATCH',
@@ -541,7 +428,7 @@ function App() {
   }
 
   const logOutUser = (user) => {
-    console.log('App.js logga ut usern', user);
+    // console.log('App.js logga ut usern', user);
 
     if (user._id !== undefined) {
       fetch(`${BACKEND_URL}/api/users/${user._id}`, {
@@ -552,14 +439,14 @@ function App() {
         body: JSON.stringify({ isLoggedIn: false })
       })
         .then(() => {
-          console.log('user logged out');
+          // console.log('user logged out');
           setUsers([...users, user])
           setIsLoggedIn(false)
           setUserLoggedIn('')
         })
     } else {
       let OGuser = users.find(person => person._id === user.OGid)
-      console.log('OGuser:', OGuser);
+      // console.log('OGuser:', OGuser);
       fetch(`${BACKEND_URL}/api/users/${OGuser._id}`, {
         method: 'PATCH',
         headers: {
@@ -568,7 +455,7 @@ function App() {
         body: JSON.stringify({ spouseIsLoggedIn: false })
       })
         .then(() => {
-          console.log('user logged out');
+          // console.log('user logged out');
           setUsers([...users, user])
           setIsLoggedIn(false)
           setUserLoggedIn('')
@@ -577,11 +464,11 @@ function App() {
   }
 
   const addInvitedToDB = async (invited) => {
-    console.log('invited to save to db', invited);
+    // console.log('invited to save to db', invited);
 
     const usersFromServer = await fetchUsers();
     const foundOGPartner = usersFromServer.find(user => user.spouseEmail === invited.spouseEmail);
-    console.log('foundOGPartner i App', foundOGPartner);
+    // console.log('foundOGPartner i App', foundOGPartner);
     let update = {
       spouseFirstName: foundOGPartner.spouseFirstName,
       spouseLastName: foundOGPartner.spouseLastName,
@@ -606,23 +493,7 @@ function App() {
     setUserLoggedInAfterLogIn(spouseToSaveToState)
     setUserLoggedIn(spouseToSaveToState)
     setIsLoggedIn(true)
-    // data.map(user => {
-    //   console.log('user', user);
-    //   let foundSpouses = user.spouse;
-    //   if (foundSpouses !== undefined) {
-    //     foundSpouses.map(info => {
-    //       if (info.spouseEmail === findEmail) {
-    //         // console.log('found it', info);
-    //         // console.log('found user', user);
-    //         let foundUser = user
-    //         let spousePatch = {
-    //           spouseFirstName: foundUser.spouse[0].spouseFirstName,
-    //           spouseLastName: foundUser.spouse[0].spouseLastName,
-    //           spouseEmail: invited.email,
-    //           spousePassword: invited.password,
-    //           spouseColor: invited.color
-    //         }
-    //         // console.log('spousePatch', spousePatch);
+
     fetch(`${BACKEND_URL}/api/users/${foundOGPartner._id}`, {
       method: 'PATCH',
       headers: {
@@ -631,48 +502,27 @@ function App() {
       body: JSON.stringify(update)
     })
       .then(() => {
-        console.log('user added spouse info');
-        // setUsers([...users, update])
-        //   // console.log('foundFamily', foundFamily);
-        // setUsers(data)
-        // setUserLoggedIn(update)
-        // setIsLoggedIn(true)
-        // setUserLoggedInAfterLogIn(update, invited)
+        // console.log('user added spouse info');
+
       })
-    //       }
-    //     })
-    //   }
-    // })
-
-
-
-    // })
-    // }
-    // fetchUsers()
-    // setUsers([...users, update])
-    //   // console.log('foundFamily', foundFamily);
-    // setUsers(data)
-    // setUserLoggedIn(update)
-    // setIsLoggedIn(true)
-    // setUsers([...users, invited])
-    // setIsLoggedIn(true)
-    // setUserLoggedIn(invited)
   }
 
+  // I have problems with this code. I can't seem to find I way to structure the updates so that it matches the structure in the db
+  // I will sort this out in the future
   const updateUserInformation = (updates) => {
-    console.log('updates', updates);
+    // console.log('updates', updates);
 
     if (updates.color === userLoggedIn.color) {
       delete updates.color
     }
-    console.log('updates after remove same color', updates);
+    // console.log('updates after remove same color', updates);
 
     let familyMembersArray = [];
     Object.keys(updates).map(function (k) {
-      console.log("key with value: " + k + " = " + updates[k])
+      // console.log("key with value: " + k + " = " + updates[k])
       // console.log(`'childName${k}'`);
       for (let i = 0; i < 10; i++) {
-        console.log(`'childName${i}'`);
+        // console.log(`'childName${i}'`);
         switch (k) {
           case `childName${i}`:
             familyMembersArray.push({
@@ -687,92 +537,24 @@ function App() {
           default:
             break;
         }
-
-
       }
-
-      // if (k === 'childName0') {
-      //   familyMembersArray.push({
-      //     childFirstName: updates[k]
-      //   })
-      // }
     })
-    console.log('familyMembersArray', familyMembersArray);
-    let newChildObject;
+    // console.log('familyMembersArray', familyMembersArray);
+    // let newChildObject;
     Object.entries(updates).forEach(([key, value], i) => {
-      console.log(`${key}: ${value} and index: ${i}`)
+      // console.log(`${key}: ${value} and index: ${i}`)
       userLoggedIn.familyMembers.map((child, i) => {
-        // let updatesArray = Object.entries(updates)
-        // updatesArray.map((info, i) => {
-        //   console.log('info and i', info, i);
-        // })
-        // console.log('updatesArray', updatesArray);
-        // Object.entries(updates).forEach(([key, value], i) => {
-        //   console.log(`${key}: ${value} and index: ${i}`)
-
-
-
-        // if (updatesArray.includes(child._id)) {
-        //   newChildObject = {
-        //     _id: child._id,
-        //     childFirstName: updatesArray[]
-        //   }
-
-
-        //   //   // console.log('matchande id', child._id);
-        //   //   // console.log(Object.keys(updates).length)
-        //   //   // // updates.`childName${i}` = 'childFirstName'
-        //   //   // let placesInUpdates = Object.keys(updates).length - 1
-        //   //   // 
-        // }
       })
-
     })
 
-    // familyMembersArray.map((child, i) => {
-
-    //   familyMembersArray[i].childColor = familyMembersArray[i + 1].childColor
-    //   // familyMembersArray.splice(i, 1)
-
-    // })
-    console.log('familyMembersArray', familyMembersArray);
+    // console.log('familyMembersArray', familyMembersArray);
     familyMembersArray.map((info, i) => {
       if ('childFirstName' in info) {
-        console.log('childFirstName exists', info, i);
+        // console.log('childFirstName exists', info, i);
       } else {
-        console.log("childFirstName doesn't exist", info, i);
+        // console.log("childFirstName doesn't exist", info, i);
       }
     })
-    // let keys = Object.keys(updates).filter(k => updates[k] === value);
-    // console.log('keys', keys);
-    // for (let i = 0; i < 9; i++) {
-    //   console.log(updates.childName);
-    //   if (`${updates.childName}${i}` !== undefined || `${updates.childColor}${i}` !== undefined) {
-    //     familyMembersArray.push({
-    //       childFirstName: `${updates.childName}${i}`,
-    //       childColor: `${updates.childColor}${i}`
-    //     })
-    //   }
-    //   console.log('familyMembersArray', familyMembersArray);
-    // }
-
-    // for (const [key, value] of Object.entries(updates)) {
-    //   if (Object.keys(updates).some(i => { return i.endsWith('0') })) {
-    //     console.log(`${key}: ${value}`);
-    //   }
-    // }
-    // let key;
-    // for (let [key, value] in updates) {
-    //   if (key === 'childName0') {
-    //     familyMembersArray.push({ childFirstName: value })
-    //   } else if ([key].includes('Color')) {
-    //     console.log('includes color', key);
-    //     familyMembersArray.push({ childColor: value })
-    //   }
-    //   console.log('familyMembersArray', familyMembersArray);
-    // }
-    // console.log(key, updates[key]);
-    // }
 
     fetch(`${BACKEND_URL}/api/users/${userLoggedIn._id}`, {
       method: 'PATCH',
@@ -782,13 +564,7 @@ function App() {
       body: JSON.stringify(updates)
     })
       .then(() => {
-        console.log('user changed info');
-        // setUsers([...users, update])
-        //   // console.log('foundFamily', foundFamily);
-        // setUsers(data)
-        // setUserLoggedIn(update)
-        // setIsLoggedIn(true)
-        // setUserLoggedInAfterLogIn(update, invited)
+        // console.log('user changed info');
       })
   }
 
@@ -796,21 +572,21 @@ function App() {
   const fetchWeeklyMenu = async () => {
     const res = await fetch(`${BACKEND_URL}/api/weeklymenus`)
     const data = await res.json()
-    console.log('weekly menus', data);
+    // console.log('weekly menus', data);
     return data
   }
 
 
   //Add Weekly Menu
   const addWeeklyMenu = (weekMenu, weekNr) => {
-    console.log('this weeks menu and weeknr', weekMenu, weekNr);
+    // console.log('this weeks menu and weeknr', weekMenu, weekNr);
     let ownerId;
     if ('_id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
     }
-    console.log('ownerId', ownerId);
+    // console.log('ownerId', ownerId);
     const weekMenuToSaveToDB = {
       weekNr,
       weekMenu,
@@ -818,14 +594,14 @@ function App() {
         id: ownerId,
       }
     }
-    console.log('weekMenuToSaveToDB', weekMenuToSaveToDB);
+    // console.log('weekMenuToSaveToDB', weekMenuToSaveToDB);
     fetch(`${BACKEND_URL}/api/weeklymenus`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(weekMenuToSaveToDB)
     })
       .then(() => {
-        console.log('new weeks menu added');
+        // console.log('new weeks menu added');
         setWeeklyMenu([...weeklyMenu, weekMenuToSaveToDB])
       })
 
@@ -856,7 +632,7 @@ function App() {
     } else {
       ownerId = userLoggedIn.OGid
     }
-    console.log('ownerId', ownerId);
+    // console.log('ownerId', ownerId);
     const newNoteToPost = {
       task: newNote.task,
       date: newNote.date,
@@ -870,7 +646,9 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newNoteToPost)
     })
-      .then(() => { console.log('new note added'); })
+      .then(() => {
+        // console.log('new note added');
+      })
     ////console.log('todo', todo);
     setNote([...note, newNoteToPost])
 
@@ -893,7 +671,9 @@ function App() {
         }
         return res
       })
-      .then(() => { console.log('Note deleted'); })
+      .then(() => {
+        // console.log('Note deleted');
+      })
     const newNoteList = note.filter(item => item._id !== id);
     setNote(newNoteList)
 
@@ -909,14 +689,14 @@ function App() {
 
   //Add Grocerylist item
   const addGroceryListItem = (newItem) => {
-    console.log('newItem: ', newItem);
+    // console.log('newItem: ', newItem);
     let ownerId;
     if ('_id' in userLoggedIn) {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
     }
-    console.log('ownerId', ownerId);
+    // console.log('ownerId', ownerId);
     const newItemToPost = {
       item: newItem.item,
       quantity: newItem.quantity,
@@ -932,8 +712,7 @@ function App() {
       body: JSON.stringify(newItemToPost)
     })
       .then(() => {
-        console.log('new groceryList item added');
-        // setGroceryListItems([...groceryListItem, newItemToPost])
+        // console.log('new groceryList item added');
       })
     setGroceryListItems([...groceryListItems, newItemToPost])
     ////console.log('todo', todo);
@@ -954,26 +733,24 @@ function App() {
 
     const data = await res.json()
 
-    // setGroceryListItems(
-    //   groceryListItems.map((groceryListItem) =>
-    //     groceryListItem._id === id ? { ...groceryListItem, complete: data.complete } : groceryListItem))
   }
 
   //Delete GroceryListItem
   const deleteGroceryListItem = async (id) => {
 
-    console.log('id of list item to delete:', id);
+    // console.log('id of list item to delete:', id);
 
+    //The id's in db starts with 625...
     if (!id.startsWith('625')) {
-      console.log('groceryListItem', groceryListItems);
+      // console.log('groceryListItem', groceryListItems);
       fetch(`${BACKEND_URL}/api/grocerylistitems`)
         .then(response => response.json())
         .then(data => {
-          console.log('data', data);
-          console.log('id', id);
+          // console.log('data', data);
+          // console.log('id', id);
 
           let foundItem = data.find(listItem => listItem.item === id);
-          console.log('foundItemId:', foundItem);
+          // console.log('foundItemId:', foundItem);
           id = foundItem._id
           fetch(`${BACKEND_URL}/api/grocerylistitems/${id}`, {
             method: 'DELETE',
@@ -989,9 +766,7 @@ function App() {
               return res
             })
             .then(() => {
-              console.log('grocerylistitem deleted');
-              // const newGroceryList = groceryListItems.filter(item => item._id !== foundItem._id);
-              // setGroceryListItems(newGroceryList)
+              // console.log('grocerylistitem deleted');
             })
 
         })
@@ -1010,17 +785,15 @@ function App() {
           return res
         })
         .then(() => {
-          console.log('grocerylistitem deleted');
+          // console.log('grocerylistitem deleted');
 
         })
-      // const newGroceryList = groceryListItems.filter(item => item._id !== id);
-      // setGroceryListItems(newGroceryList)
     }
   }
 
   //Update GroceryListItem
   const updateQuantity = async (changedItem) => {
-    console.log('changedItem', changedItem);
+    // console.log('changedItem', changedItem);
     let id;
     if (!changedItem.hasOwnProperty('_id')) {
       let allItems = await fetchGroceryListItems()
@@ -1031,15 +804,10 @@ function App() {
     } else {
       const found = groceryListItems.find(item => item._id === changedItem._id)
       id = found._id
-      console.log('found by id', found);
+      // console.log('found by id', found);
     }
-    // const updQuantity = {
-    //   quantity: changedItem.quantity
-    // }
-    // console.log('updQuantity', updQuantity);
 
-
-    console.log('id', id);
+    // console.log('id', id);
     fetch(`${BACKEND_URL}/api/grocerylistitems/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -1048,21 +816,17 @@ function App() {
 
       .then(res => {
         if (res.ok) {
-          console.log(('Update successful!'));
+          // console.log(('Update successful!'));
         }
         else {
-          console.log('Update unsuccessful!');
+          // console.log('Update unsuccessful!');
         }
         return res
       })
       .then((data) => {
-        console.log('Quantity updated', data);
+        // console.log('Quantity updated', data);
       })
-    // setGroceryListItem(groceryListItems.map(item => item._id === id ? { ...item, complete: !item.complete } : item))
-
-    // })
   }
-
 
   return (
     <div className="App">
@@ -1083,7 +847,6 @@ function App() {
               <Menu userLoggedIn={userLoggedIn} addWeeklyMenu={addWeeklyMenu} recipes={recipes} weeklyMenu={weeklyMenu} fetchWeeklyMenu={fetchWeeklyMenu} />
               {/* <Savings userLoggedIn={userLoggedIn} /> */}
             </div>
-
             <Footer />
           </>
         )}

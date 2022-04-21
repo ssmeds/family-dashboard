@@ -1,3 +1,5 @@
+//This function checks if the color input is light. It returns true if it is light and false otherwise.
+//Useful to set right contrasting font color
 export const hex_is_light = (color) => {
   const hex = color.replace('#', '');
   const c_r = parseInt(hex.substr(0, 2), 16);
@@ -7,7 +9,7 @@ export const hex_is_light = (color) => {
   return brightness > 155;
 }
 
-
+//Similar function that I ended up not using
 export const colorIsDarkOrLight = (color) => {
   console.log('color', color);
   var hex = color.replace("#", "");

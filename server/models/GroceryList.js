@@ -9,10 +9,13 @@ const groceryListSchema = new mongoose.Schema({
 
 const GroceryListItem = mongoose.model('GroceryListItem', groceryListSchema)
 
+//Sample Item to save to database
+
 // const groceryListItem = new GroceryListItem({
 //   item: 'Havremjölk',
 //   quantity: 3,
 //   complete: false
 // });
 // groceryListItem.save().then(() => { console.log('One item added'); })
+
 module.exports = GroceryListItem

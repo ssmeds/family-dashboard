@@ -4,9 +4,6 @@ import CalendarHeader from './CalendarHeader'
 import { dayStyles } from './calendarStyles'
 import CalendarPopup from './CalendarPopup'
 import './calendar.css'
-import { format } from 'date-fns'
-
-
 
 const CalendarView = ({ value, onChange, addNote, notes, userLoggedIn }) => {
   // console.log('todos.date', todos[0].date);
@@ -58,14 +55,10 @@ const CalendarView = ({ value, onChange, addNote, notes, userLoggedIn }) => {
 
                   </div>
                   {userNotesList.map((note) => {
-                    // console.log('note i userNotesList.map', note);
-                    // console.log('note date i userNotesList.map', note.date);
-                    // console.log('day.format i userNotesList.map', day.format('L'));
                     return (
                       note.date === day.format('L') ? <li key={Math.floor(Math.random() * 10000) + 1} className='todos'>{note.task}</li> : ''
                     )
                   })}
-
                 </div>))}
             </div>))}
         </div>
