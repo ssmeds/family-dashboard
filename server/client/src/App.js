@@ -350,13 +350,19 @@ function App() {
       color = '#5593e4'
     }
     console.log('color', color);
+    let ownerId;
+    if (userLoggedIn._id in userLoggedIn) {
+      ownerId = userLoggedIn._id;
+    } else {
+      ownerId = userLoggedIn.OGid
+    }
     const newRememberToPost = {
       task: newRemember.task,
       date: newRemember.date,
       familyMember: newRemember.familyMember,
       color: color,
       owner: {
-        id: userLoggedIn._id,
+        id: ownerId,
       }
     }
 
@@ -412,12 +418,18 @@ function App() {
   //Add Todo
   const addTodo = (newTodo) => {
     ////console.log('newTodo: ', newTodo);
+    let ownerId;
+    if (userLoggedIn._id in userLoggedIn) {
+      ownerId = userLoggedIn._id;
+    } else {
+      ownerId = userLoggedIn.OGid
+    }
     const newTodoToPost = {
       task: newTodo.task,
       date: newTodo.date,
       complete: false,
       owner: {
-        id: userLoggedIn._id,
+        id: ownerId,
       }
     }
     fetch(`${BACKEND_URL}/api/todos`, {
@@ -784,17 +796,17 @@ function App() {
   //Add Weekly Menu
   const addWeeklyMenu = (weekMenu, weekNr) => {
     console.log('this weeks menu and weeknr', weekMenu, weekNr);
+    let ownerId;
+    if (userLoggedIn._id in userLoggedIn) {
+      ownerId = userLoggedIn._id;
+    } else {
+      ownerId = userLoggedIn.OGid
+    }
     const weekMenuToSaveToDB = {
       weekNr,
       weekMenu,
       owner: {
-        id: userLoggedIn._id,
-        // firstName: userLoggedIn.firstName,
-        // lastName: userLoggedIn.lastName,
-        // email: userLoggedIn.email,
-        // color: userLoggedIn.color,
-        // familyMembers: userLoggedIn.familyMembers,
-        // spouse: userLoggedIn.spouse,
+        id: ownerId,
       }
     }
     console.log('weekMenuToSaveToDB', weekMenuToSaveToDB);
@@ -829,17 +841,17 @@ function App() {
   //Add Calendar Note
   const addNote = (newNote) => {
     ////console.log('newNote: ', newNote);
+    let ownerId;
+    if (userLoggedIn._id in userLoggedIn) {
+      ownerId = userLoggedIn._id;
+    } else {
+      ownerId = userLoggedIn.OGid
+    }
     const newNoteToPost = {
       task: newNote.task,
       date: newNote.date,
       owner: {
-        id: userLoggedIn._id,
-        // firstName: userLoggedIn.firstName,
-        // lastName: userLoggedIn.lastName,
-        // email: userLoggedIn.email,
-        // color: userLoggedIn.color,
-        // familyMembers: userLoggedIn.familyMembers,
-        // spouse: userLoggedIn.spouse,
+        id: ownerId,
       }
     }
 
@@ -888,12 +900,18 @@ function App() {
   //Add Grocerylist item
   const addGroceryListItem = (newItem) => {
     console.log('newItem: ', newItem);
+    let ownerId;
+    if (userLoggedIn._id in userLoggedIn) {
+      ownerId = userLoggedIn._id;
+    } else {
+      ownerId = userLoggedIn.OGid
+    }
     const newItemToPost = {
       item: newItem.item,
       quantity: newItem.quantity,
       complete: false,
       owner: {
-        id: userLoggedIn._id,
+        id: ownerId,
       }
     }
 
