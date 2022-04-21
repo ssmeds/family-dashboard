@@ -214,7 +214,7 @@ function App() {
         id: userLoggedIn._id,
       }
     }
-
+    console.log('newHomeworkToPost', newHomeworkToPost);
     fetch(`${BACKEND_URL}/api/homeworks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -227,7 +227,7 @@ function App() {
 
   //Delete Homework
   const deleteHomework = (id) => {
-    ////console.log(id);
+    console.log(id);
 
     fetch(`${BACKEND_URL}/api/homeworks/${id}`, {
       method: 'DELETE',
@@ -474,9 +474,10 @@ function App() {
   const setUserLoggedInAfterLogIn = (user) => {
 
     console.log('user in setUserLoggedInAfterLogIn', user);
+    console.log('user._id', user._id);
     // console.log('invited in setUserLoggedInAfterLogIn', invited);
     // if (user._id) {
-    if (user._id in user) {
+    if (user._id !== undefined) {
       fetch(`${BACKEND_URL}/api/users/${user._id}`, {
         method: 'PATCH',
         headers: {
@@ -486,11 +487,12 @@ function App() {
       })
         .then(() => {
           console.log('user logged in');
-          setUsers([...users, user])
-          setIsLoggedIn(true)
-          setUserLoggedIn(user)
+
         })
-    } else
+      // setUsers([...users, user])
+      // setIsLoggedIn(true)
+      // setUserLoggedIn(user)
+    } else {
       fetch(`${BACKEND_URL}/api/users/${user.OGid}`, {
         method: 'PATCH',
         headers: {
@@ -500,10 +502,16 @@ function App() {
       })
         .then(() => {
           console.log('user logged in');
-          setUsers([...users, user])
-          setIsLoggedIn(true)
-          setUserLoggedIn(user)
+
         })
+      // setUsers([...users, user])
+      // setIsLoggedIn(true)
+      // setUserLoggedIn(user)
+    }
+    setUsers([...users, user])
+    setUserLoggedIn(user)
+    setIsLoggedIn(true)
+
   }
 
   const logOutUser = (user) => {

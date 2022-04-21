@@ -7,8 +7,10 @@ const HomeworkItem = ({ homeworks, deleteHomework, updateHomework, toggleComplet
   let userHomeworkList = []
   if (homeworks !== undefined) {
     homeworks.map(homework => {
-      if (userLoggedIn._id === homework.owner.id || userLoggedIn.OGid === homework.owner.id) {
-        userHomeworkList.push(homework);
+      if (homework.owner.id in homework || homework.owner.id !== undefined) {
+        if (userLoggedIn._id === homework.owner.id || userLoggedIn.OGid === homework.owner.id) {
+          userHomeworkList.push(homework);
+        }
       }
     })
   }
