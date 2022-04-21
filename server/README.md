@@ -14,10 +14,15 @@ It is an easy application to use and more features will be added to it it the fu
 
 You can find the live version at [Heroku Familydashboard](https://familydashboard.herokuapp.com/)
 
-## Technologiees used
+## Technologies used
 
-I have built this project in ReactJS for the front end, Express.js for the back end and MongoDB as the database.
-The styling is made with SCSS.
+I have built this project in 
+- ReactJS for the front end, 
+- Express.js and NodeJS for the back end and 
+- MongoDB as the database.
+
+The styling is made with 
+- SCSS/Sass
 
 ## How to use this repo?
 
