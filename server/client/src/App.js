@@ -509,7 +509,9 @@ function App() {
       })
         .then(() => {
           console.log('user logged in');
-
+          setUsers([...users, user])
+          setUserLoggedIn(user)
+          setIsLoggedIn(true)
         })
       // setUsers([...users, user])
       // setIsLoggedIn(true)
@@ -524,15 +526,17 @@ function App() {
       })
         .then(() => {
           console.log('user logged in');
-
+          setUsers([...users, user])
+          setUserLoggedIn(user)
+          setIsLoggedIn(true)
         })
       // setUsers([...users, user])
       // setIsLoggedIn(true)
       // setUserLoggedIn(user)
     }
-    setUsers([...users, user])
-    setUserLoggedIn(user)
-    setIsLoggedIn(true)
+    // setUsers([...users, user])
+    // setUserLoggedIn(user)
+    // setIsLoggedIn(true)
 
   }
 
