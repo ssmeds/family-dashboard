@@ -1,7 +1,6 @@
 # Family Dashboard
 
-![Mobile login page](/server/client/public/mobile-first-page.png)
-![Desktop view](/server/client/public/desktop-whole-page.png)
+![Mobile login page and desktop view](/server/client/public/mobile-desktop.png)
 
 ## What is Family Dashboard and how do you use it?
 
