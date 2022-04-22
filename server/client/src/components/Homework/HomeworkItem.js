@@ -14,12 +14,12 @@ const HomeworkItem = ({ homeworks, deleteHomework, updateHomework, toggleComplet
       }
     })
   }
-  console.log('userHomeworkList', userHomeworkList);
+  // console.log('userHomeworkList', userHomeworkList);
   let color;
   return (
     <>
       {userHomeworkList.map((homework, i) => {
-        console.log('homework.color', homework.color);
+        // console.log('homework.color', homework.color);
         if (homework.color !== undefined) { color = hex_is_light(homework.color) }
         return (
           <div

@@ -4,10 +4,10 @@ import './remember.css'
 
 
 const Remember = ({ remembers, addRemember, deleteRemember, userLoggedIn }) => {
-  console.log('remembers from App.js', remembers);
+  // console.log('remembers from App.js', remembers);
   const [task, setTask] = useState('');
   const [familyMember, setFamilyMember] = useState('');
-  console.log('userLoggedIn', userLoggedIn);
+  // console.log('userLoggedIn', userLoggedIn);
 
   const options = []
   if (userLoggedIn !== undefined) {
@@ -25,7 +25,7 @@ const Remember = ({ remembers, addRemember, deleteRemember, userLoggedIn }) => {
 
   const handleSaveClick = (e) => {
     e.preventDefault();
-    console.log('Nu har nån klickat på sparaknappen!');
+    // console.log('Nu har nån klickat på sparaknappen!');
     // console.log('Ämne', task);
     // console.log('Familjemedlem', familyMember);
     addRemember({ task, familyMember })

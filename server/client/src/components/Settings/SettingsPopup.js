@@ -1,13 +1,8 @@
 import { CgClose } from 'react-icons/cg'
-// import AddWeeklyMenu from './AddWeeklyMenu'
-import { useState, useReducer } from 'react'
-import formReducer from './formReducer'
-import { Identity } from '@mui/base'
-
-
+import { useState } from 'react'
 
 const SettingsPopup = (props) => {
-  console.log('userLoggedIn', props);
+  // console.log('userLoggedIn', props);
 
   //I know this is really ugly code but I couldn't figure out how to save the childrens updates to an array in state. I will get back to this when I have time
   const [contactInfo, setContactInfo] = useState({
@@ -38,10 +33,10 @@ const SettingsPopup = (props) => {
   })
 
   const handleChange = (event, i, id) => {
-    console.log('event.target.value', event.target.value);
-    console.log('event.target.name', event.target.name);
-    console.log('contactInfo in change', contactInfo);
-    console.log('childId', id);
+    // console.log('event.target.value', event.target.value);
+    // console.log('event.target.name', event.target.name);
+    // console.log('contactInfo in change', contactInfo);
+    // console.log('childId', id);
     setContactInfo({
       ...contactInfo,
       [event.target.name]: event.target.value, [id]: event.target.id
@@ -50,7 +45,7 @@ const SettingsPopup = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('contactinfo', contactInfo);
+    // console.log('contactinfo', contactInfo);
     setContactInfo({
       firstName: '',
       lastName: '',
@@ -61,11 +56,11 @@ const SettingsPopup = (props) => {
     let newUpdatesToSave;
     for (const [key, value] of Object.entries(contactInfo)) {
       if (value !== undefined && value !== '') {
-        console.log(`${key}: ${value}`);
+        // console.log(`${key}: ${value}`);
         newUpdatesToSave = { ...newUpdatesToSave, [key]: value }
       }
     }
-    console.log('newUpdatesToSave', newUpdatesToSave);
+    // console.log('newUpdatesToSave', newUpdatesToSave);
     props.updateUserInformation(newUpdatesToSave)
   };
   // console.log('child', child);
@@ -150,7 +145,7 @@ const SettingsPopup = (props) => {
             <h3>Barn</h3>
             {props.userLoggedIn.familyMembers.map((kid, i) => {
               // console.log('initialFormData', initialFormData);
-              console.log('kid.childFirstName', kid.childFirstName);
+              // console.log('kid.childFirstName', kid.childFirstName);
               // console.log('formState.childColor', formState.childColor);
               // console.log(initialFormData);
               return (

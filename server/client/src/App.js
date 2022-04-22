@@ -102,7 +102,7 @@ function App() {
 
 
   //Add Homework
-  const addHomework = (newHomework) => {
+  const addHomework = async (newHomework) => {
     // console.log(newHomework);
     let newColor;
     let familyMemberFromHomework = newHomework.familyMember
@@ -128,6 +128,15 @@ function App() {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
+    }
+    if (ownerId === undefined) {
+      const res = await fetch(`${BACKEND_URL}/api/users`)
+      const allUsers = await res.json()
+      // console.log('allUsers', allUsers);
+      let foundUser = allUsers.find(person => person.email === userLoggedIn.email || person.email === userLoggedIn.spouseEmail)
+      ownerId = foundUser._id
+      // console.log('foundUser', foundUser);
+      // console.log('ownerId', ownerId);
     }
     // console.log('ownerId', ownerId);
     const newHomeworkToPost = {
@@ -213,7 +222,7 @@ function App() {
   }
 
   //Add Remember
-  const addRemember = (newRemember) => {
+  const addRemember = async (newRemember) => {
     // console.log(newRemember);
     let color;
     let familyMemberFromRemember = newRemember.familyMember
@@ -240,6 +249,17 @@ function App() {
       ownerId = userLoggedIn._id;
     } else {
       ownerId = userLoggedIn.OGid
+    }
+    if (ownerId === undefined) {
+    }
+    if (ownerId === undefined) {
+      const res = await fetch(`${BACKEND_URL}/api/users`)
+      const allUsers = await res.json()
+      // console.log('allUsers', allUsers);
+      let foundUser = allUsers.find(person => person.email === userLoggedIn.email || person.email === userLoggedIn.spouseEmail)
+      ownerId = foundUser._id
+      // console.log('foundUser', foundUser);
+      // console.log('ownerId', ownerId);
     }
     // console.log('ownerId', ownerId);
     const newRememberToPost = {
@@ -306,7 +326,7 @@ function App() {
   }
 
   //Add Todo
-  const addTodo = (newTodo) => {
+  const addTodo = async (newTodo) => {
     ////console.log('newTodo: ', newTodo);
     let ownerId;
     if ('_id' in userLoggedIn) {
@@ -315,6 +335,15 @@ function App() {
       ownerId = userLoggedIn.OGid
     }
     // console.log('ownerId', ownerId);
+    if (ownerId === undefined) {
+      const res = await fetch(`${BACKEND_URL}/api/users`)
+      const allUsers = await res.json()
+      // console.log('allUsers', allUsers);
+      let foundUser = allUsers.find(person => person.email === userLoggedIn.email || person.email === userLoggedIn.spouseEmail)
+      ownerId = foundUser._id
+      // console.log('foundUser', foundUser);
+      // console.log('ownerId', ownerId);
+    }
     const newTodoToPost = {
       task: newTodo.task,
       date: newTodo.date,
@@ -578,7 +607,7 @@ function App() {
 
 
   //Add Weekly Menu
-  const addWeeklyMenu = (weekMenu, weekNr) => {
+  const addWeeklyMenu = async (weekMenu, weekNr) => {
     // console.log('this weeks menu and weeknr', weekMenu, weekNr);
     let ownerId;
     if ('_id' in userLoggedIn) {
@@ -587,6 +616,15 @@ function App() {
       ownerId = userLoggedIn.OGid
     }
     // console.log('ownerId', ownerId);
+    if (ownerId === undefined) {
+      const res = await fetch(`${BACKEND_URL}/api/users`)
+      const allUsers = await res.json()
+      // console.log('allUsers', allUsers);
+      let foundUser = allUsers.find(person => person.email === userLoggedIn.email || person.email === userLoggedIn.spouseEmail)
+      ownerId = foundUser._id
+      // console.log('foundUser', foundUser);
+      // console.log('ownerId', ownerId);
+    }
     const weekMenuToSaveToDB = {
       weekNr,
       weekMenu,
@@ -624,7 +662,7 @@ function App() {
   }
 
   //Add Calendar Note
-  const addNote = (newNote) => {
+  const addNote = async (newNote) => {
     ////console.log('newNote: ', newNote);
     let ownerId;
     if ('_id' in userLoggedIn) {
@@ -633,6 +671,15 @@ function App() {
       ownerId = userLoggedIn.OGid
     }
     // console.log('ownerId', ownerId);
+    if (ownerId === undefined) {
+      const res = await fetch(`${BACKEND_URL}/api/users`)
+      const allUsers = await res.json()
+      // console.log('allUsers', allUsers);
+      let foundUser = allUsers.find(person => person.email === userLoggedIn.email || person.email === userLoggedIn.spouseEmail)
+      ownerId = foundUser._id
+      // console.log('foundUser', foundUser);
+      // console.log('ownerId', ownerId);
+    }
     const newNoteToPost = {
       task: newNote.task,
       date: newNote.date,
@@ -688,7 +735,7 @@ function App() {
   }
 
   //Add Grocerylist item
-  const addGroceryListItem = (newItem) => {
+  const addGroceryListItem = async (newItem) => {
     // console.log('newItem: ', newItem);
     let ownerId;
     if ('_id' in userLoggedIn) {
@@ -697,6 +744,15 @@ function App() {
       ownerId = userLoggedIn.OGid
     }
     // console.log('ownerId', ownerId);
+    if (ownerId === undefined) {
+      const res = await fetch(`${BACKEND_URL}/api/users`)
+      const allUsers = await res.json()
+      // console.log('allUsers', allUsers);
+      let foundUser = allUsers.find(person => person.email === userLoggedIn.email || person.email === userLoggedIn.spouseEmail)
+      ownerId = foundUser._id
+      // console.log('foundUser', foundUser);
+      // console.log('ownerId', ownerId);
+    }
     const newItemToPost = {
       item: newItem.item,
       quantity: newItem.quantity,

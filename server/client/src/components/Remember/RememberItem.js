@@ -2,8 +2,8 @@ import { RiDeleteBin6Fill } from 'react-icons/ri'
 import { hex_is_light } from '../../helperFunctions/colorCheck'
 
 const RememberItem = ({ remembers, deleteRemember, userLoggedIn }) => {
-  console.log("remembers from Remember.js", remembers);
-  console.log("userLoggedIn", userLoggedIn);
+  // console.log("remembers from Remember.js", remembers);
+  // console.log("userLoggedIn", userLoggedIn);
 
   let usersRemembersList = []
   remembers.map(item => {
@@ -12,12 +12,12 @@ const RememberItem = ({ remembers, deleteRemember, userLoggedIn }) => {
     }
   })
   // let foundColor = remembers.find(item => )
-  console.log('usersRemembersList', usersRemembersList);
+  // console.log('usersRemembersList', usersRemembersList);
   let color;
   return (
     <>
       {usersRemembersList.map((item, i) => {
-        console.log('item.color', item.color);
+        // console.log('item.color', item.color);
         if (item.color !== undefined) { color = hex_is_light(item.color) }
         return (
           <div key={i} className="remember-item" style={color ? { backgroundColor: item.color } : { backgroundColor: item.color, color: '#fff' }}>
